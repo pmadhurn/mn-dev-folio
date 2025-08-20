@@ -86,7 +86,7 @@ const Projects = () => {
             {filteredProjects.map(project => (
               <div
                 key={project.id}
-                className="project-card cursor-pointer"
+                className="project-card group cursor-pointer"
                 onClick={() => handleProjectClick(project)}
               >
                 <div className="flex items-start justify-between mb-4">
