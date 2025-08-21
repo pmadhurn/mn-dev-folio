@@ -5,24 +5,34 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      id: 'programming',
+      id: 'languages',
       title: 'Programming Languages',
-      skills: ['Python', 'C', 'C++', 'Java', 'JavaScript', 'SQL', 'MCP']
+      skills: ['Python', 'JavaScript', 'Java', 'C', 'C++', 'SQL', 'HTML', 'CSS', 'XML']
     },
     {
-      id: 'web',
-      title: 'Web Development',
-      skills: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'HTML', 'CSS', 'REST APIs', 'Figma']
+      id: 'frontend',
+      title: 'Frontend Development',
+      skills: ['React.js', 'HTML', 'CSS', 'JavaScript', 'Figma']
+    },
+    {
+      id: 'backend',
+      title: 'Backend Development',
+      skills: ['Node.js', 'Express.js', 'REST APIs', 'Python', 'Java']
     },
     {
       id: 'databases',
-      title: 'Databases',
-      skills: ['MySQL', 'MongoDB', 'SQLite', 'PostgreSQL', 'Redis']
+      title: 'Databases & Storage',
+      skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite', 'Redis']
     },
     {
       id: 'ai-ml',
       title: 'AI/ML & Data Science',
-      skills: ['TensorFlow', 'Prediction Models', 'scikit-learn', 'Pandas', 'NumPy']
+      skills: ['TensorFlow', 'scikit-learn', 'Pandas', 'NumPy', 'Prediction Models']
+    },
+    {
+      id: 'ai-tools',
+      title: 'AI Tools & Automation',
+      skills: ['GPT-4/5', 'Gemini 2.5 Pro', 'Github Copilot', 'Cursor CLI', 'Gemini CLI', 'Ollama', 'n8n Automation']
     },
     {
       id: 'prompt-engineering',
@@ -32,22 +42,27 @@ const Skills = () => {
     {
       id: 'mobile',
       title: 'Mobile Development',
-      skills: ['Android', 'Java', 'XML', 'Android Studio']
+      skills: ['Android', 'Android Studio', 'Java', 'XML']
     },
     {
-      id: 'iot',
-      title: 'Embedded & IoT',
-      skills: ['Arduino', 'ESP32', 'Tinkercad', 'C++']
+      id: 'embedded',
+      title: 'Embedded Systems & IoT',
+      skills: ['Arduino', 'ESP32', 'C++', 'Tinkercad']
     },
     {
-      id: 'tools',
-      title: 'Tools & Platforms',
-      skills: ['Git & GitHub', 'Vercel', 'VirusTotal', 'macOS', 'Windows', 'Linux (Ubuntu)', 'Docker']
+      id: 'devops',
+      title: 'DevOps & Deployment',
+      skills: ['Git & GitHub', 'Docker', 'Vercel']
     },
     {
-      id: 'ai-tools',
-      title: 'AI Tools & Platforms',
-      skills: ['Cursor CLI', 'Gemini CLI', 'Warp', 'Kiro', 'Manus', 'Jules', 'Stitch', 'GPT-4/5', 'Gemini 2.5 Pro', 'Ollama', 'n8n Automation']
+      id: 'systems',
+      title: 'Operating Systems',
+      skills: ['Linux (Ubuntu)', 'macOS', 'Windows']
+    },
+    {
+      id: 'specialty-tools',
+      title: 'Specialized Tools',
+      skills: ['VirusTotal', 'Warp', 'Kiro', 'Manus', 'Jules', 'Stitch', 'MCP']
     }
   ];
 
@@ -55,11 +70,12 @@ const Skills = () => {
 
   const categories = [
     { id: 'all', label: 'All Skills', count: allSkills.length },
-    { id: 'programming', label: 'Programming', count: skillCategories.find(c => c.id === 'programming')?.skills.length || 0 },
-    { id: 'web', label: 'Web Dev', count: skillCategories.find(c => c.id === 'web')?.skills.length || 0 },
+    { id: 'languages', label: 'Languages', count: skillCategories.find(c => c.id === 'languages')?.skills.length || 0 },
+    { id: 'frontend', label: 'Frontend', count: skillCategories.find(c => c.id === 'frontend')?.skills.length || 0 },
+    { id: 'backend', label: 'Backend', count: skillCategories.find(c => c.id === 'backend')?.skills.length || 0 },
     { id: 'ai-ml', label: 'AI/ML', count: skillCategories.find(c => c.id === 'ai-ml')?.skills.length || 0 },
     { id: 'mobile', label: 'Mobile', count: skillCategories.find(c => c.id === 'mobile')?.skills.length || 0 },
-    { id: 'iot', label: 'IoT', count: skillCategories.find(c => c.id === 'iot')?.skills.length || 0 },
+    { id: 'embedded', label: 'IoT/Embedded', count: skillCategories.find(c => c.id === 'embedded')?.skills.length || 0 },
   ];
 
   const getDisplayedSkills = () => {
