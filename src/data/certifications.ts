@@ -15,7 +15,6 @@ export const certifications: Certification[] = [
     title: 'AWS Academy Graduate — Machine Learning Foundations',
     issuer: 'AWS Academy',
     date: 'August 2025',
-    image: '/certifications/aws-ml-foundations.jpg',
     description: 'Comprehensive foundation in machine learning concepts and AWS ML services.'
   },
   {
@@ -24,7 +23,6 @@ export const certifications: Certification[] = [
     issuer: 'AWS Academy',
     date: 'July 2025',
     credentialId: '792da9d1-37e9-466b-8c39-8a228d3920ee',
-    image: '/certifications/aws-cloud-foundations.jpg',
     description: 'Fundamental understanding of AWS cloud computing services and architecture.'
   },
   {
@@ -32,7 +30,6 @@ export const certifications: Certification[] = [
     title: 'MERN Stack Developer',
     issuer: 'Coding Cloud',
     date: 'March 2025',
-    image: '/certifications/mern-stack-developer.jpg',
     description: 'Full-stack web development using MongoDB, Express.js, React.js, and Node.js.'
   },
   {
