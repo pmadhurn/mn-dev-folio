@@ -158,3 +158,9 @@ All colors MUST be HSL.
     @apply border border-border hover:bg-accent/10 hover:text-accent transition-all duration-300;
   }
 }
+
+@layer utilities {
+  .text-shadow-rainbow {
+    text-shadow: 1px 1px 2px #ef4444, 2px 2px 2px #f59e0b, 3px 3px 2px #10b981, 4px 4px 2px #3b82f6;
+  }
+}
