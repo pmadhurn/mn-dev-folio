@@ -48,7 +48,7 @@ const Header = () => {
             <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center font-heading font-bold text-lg">
               MN
             </div>
-            <span className="font-heading font-semibold text-lg hidden sm:block text-shadow-rainbow">
+            <span className="font-heading font-semibold text-lg hidden sm:block">
               Madhur N Patel
             </span>
           </div>
