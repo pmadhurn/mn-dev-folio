@@ -109,16 +109,15 @@ const Footer = () => {
           </div>
           
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <span>Built with</span>
-            <Heart size={14} className="text-red-500 fill-current" />
-            <span>using</span>
+            <span>Made with </span>
+            <Heart size={16} className="text-red-500 fill-current" />
             <a
-              href="https://lovable.dev"
+              href="Madhur.dev"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 transition-colors font-medium"
             >
-              Lovable AI
+             by Madhur N Patel
             </a>
           </div>
         </div>
@@ -126,7 +125,7 @@ const Footer = () => {
         <div className="mt-4 text-center">
           <p className="text-xs text-muted-foreground">
             Last updated: {new Date().toLocaleDateString()} • 
-            Canonical URL: <span className="text-primary">https://madhur-n.vercel.app</span>
+            Canonical URL: <span className="text-primary">www.madhur.dev</span>
           </p>
         </div>
       </div>
