@@ -72,14 +72,14 @@ const Certifications = () => {
                   )}
                 </div>
 
-                {/* Image placeholder if available */}
+                {/* Image if available */}
                 {cert.image && (
-                  <div className="mt-4 p-2 border rounded-lg bg-muted/30">
-                    <div className="aspect-video bg-muted rounded flex items-center justify-center">
-                      <span className="text-sm text-muted-foreground">
-                        Certificate Preview
-                      </span>
-                    </div>
+                  <div className="mt-4 border rounded-lg overflow-hidden">
+                    <img
+                      src={cert.image}
+                      alt={`${cert.title} certificate`}
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
                 )}
               </div>
