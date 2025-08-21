@@ -15,6 +15,8 @@ export const certifications: Certification[] = [
     title: 'AWS Academy Graduate — Machine Learning Foundations',
     issuer: 'AWS Academy',
     date: 'August 2025',
+    image: '/certifications/ML.png',
+    credentialId:'6b602f1f-9637-4602-992e-db26b21abfb8',
     description: 'Comprehensive foundation in machine learning concepts and AWS ML services.'
   },
   {
@@ -22,6 +24,7 @@ export const certifications: Certification[] = [
     title: 'AWS Academy Graduate — Cloud Foundations',
     issuer: 'AWS Academy',
     date: 'July 2025',
+    image: '/certifications/CF.png',
     credentialId: '792da9d1-37e9-466b-8c39-8a228d3920ee',
     description: 'Fundamental understanding of AWS cloud computing services and architecture.'
   },
