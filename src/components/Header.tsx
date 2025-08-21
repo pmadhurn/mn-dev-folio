@@ -72,7 +72,7 @@ const Header = () => {
               variant="outline"
               size="sm"
               className="hidden sm:flex items-center space-x-2"
-              onClick={() => window.open('/Madhur_N_Patel_Resume.pdf', '_blank')}
+              onClick={() => window.open('Madhur_N_Patel_Resume.pdf', '_blank')}
             >
               <FileText size={16} />
               <span>Resume</span>
@@ -134,7 +134,7 @@ const Header = () => {
                   variant="outline"
                   size="sm"
                   className="flex-1 justify-center"
-                  onClick={() => window.open('/Madhur_N_Patel_Resume.pdf', '_blank')}
+                  onClick={() => window.open('Madhur_N_Patel_Resume.pdf', '_blank')}
                 >
                   <FileText size={16} className="mr-2" />
                   Resume
