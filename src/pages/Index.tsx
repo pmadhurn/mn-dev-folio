@@ -7,6 +7,7 @@ import Certifications from '@/components/Certifications';
 import Education from '@/components/Education';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import { Analytics } from '@vercel/analytics/react';
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
+      <Analytics />
     </div>
   );
 };
