@@ -31,19 +31,12 @@ export default defineConfig(({ mode }) => ({
     },
     // Generate source maps for better debugging
     sourcemap: mode === 'development',
-    // Minify for production
-    minify: mode === 'production' ? 'terser' : false,
-    terserOptions: mode === 'production' ? {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-      mangle: {
-        safari10: true,
-      },
-    } : undefined,
+    // Use esbuild for minification (faster and more reliable)
+    minify: 'esbuild',
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
+    // Target modern browsers for better optimization
+    target: 'esnext',
   },
   // Enable compression and caching
   define: {
