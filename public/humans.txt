@@ -1,0 +1,44 @@
+# Madhur Patel (Madhur N Patel) - Full-Stack Developer & AI/ML Engineer
+
+/* TEAM */
+Developer: Madhur N Patel
+Contact: pmadhurn@gmail.com
+Twitter/X: @pmadhurn
+LinkedIn: linkedin.com/in/madhur-n
+GitHub: github.com/pmadhurn
+Location: Ahmedabad, Gujarat, India
+
+/* SITE */
+Last update: 2025/01/06
+Language: English
+Doctype: HTML5
+IDE: Cursor, VS Code
+Technologies: React, TypeScript, Node.js, Python, TensorFlow, Tailwind CSS
+Hosting: Vercel
+Domain: madhur.dev
+
+/* SKILLS */
+Frontend: React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS
+Backend: Node.js, Express.js, FastAPI, Python
+Databases: MongoDB, PostgreSQL, MySQL, SQLite, Redis
+AI/ML: TensorFlow, scikit-learn, OpenAI Whisper, Transformers
+Mobile: Android (Java), React Native
+IoT: Arduino, ESP32, C++
+Cloud: AWS, Google Cloud, Docker, Vercel
+Tools: Git, GitHub, Linux, Figma
+
+/* EDUCATION */
+University: Indus University, Ahmedabad
+Degree: B.Tech Computer Science & Engineering (2022-2026)
+GPA: 8.5/10
+
+/* CERTIFICATIONS */
+- AWS Academy Graduate - Machine Learning Foundations
+- AWS Academy Graduate - Cloud Foundations  
+- MERN Stack Developer
+- Machine Learning Specialist
+- Advanced Python Developer
+
+/* THANKS */
+Built with passion for technology and innovation.
+Dedicated to creating efficient, scalable solutions.
