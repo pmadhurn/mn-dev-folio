@@ -25,20 +25,25 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['lucide-react', '@radix-ui/react-accordion'],
+          ui: ['lucide-react'],
         },
       },
     },
     // Generate source maps for better debugging
     sourcemap: mode === 'development',
     // Minify for production
-    minify: 'terser',
-    terserOptions: {
+    minify: mode === 'production' ? 'terser' : false,
+    terserOptions: mode === 'production' ? {
       compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
+        drop_console: true,
+        drop_debugger: true,
       },
-    },
+      mangle: {
+        safari10: true,
+      },
+    } : undefined,
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
   },
   // Enable compression and caching
   define: {
