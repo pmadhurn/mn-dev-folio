@@ -1,0 +1,120 @@
+MADHUR N PATEL
+Software Engineer | Full-Stack Developer | AI/ML Enthusiast
+
+Email: pmadhurn@gmail.com | Phone: +91 9016273812
+Website: madhur.dev | LinkedIn: linkedin.com/in/madhur-n | GitHub: github.com/pmadhurn
+
+================================================================================
+
+PROFESSIONAL SUMMARY
+
+Results-driven Computer Science student with 3+ years of hands-on experience in full-stack development, AI/ML, and IoT systems. Proven track record of building enterprise-grade applications with 95% accuracy in ML models and supporting 100+ concurrent users. Passionate about leveraging cutting-edge technologies to solve real-world problems and optimize business processes.
+
+================================================================================
+
+EDUCATION
+
+Bachelor of Technology in Computer Science & Engineering
+Indus University, Ahmedabad | 2022 - 2026
+GPA: 8.5/10 | Relevant Coursework: Machine Learning, Data Structures, Software Engineering, Database Systems
+
+================================================================================
+
+TECHNICAL EXPERTISE
+
+Programming Languages: Python, JavaScript, Java, C/C++, SQL, HTML/CSS
+Frontend Development: React.js, TypeScript, Tailwind CSS, HTML5, CSS3, Figma
+Backend Development: Node.js, Express.js, FastAPI, REST APIs, Microservices
+Databases: MongoDB, PostgreSQL, MySQL, SQLite, Redis
+AI/ML Technologies: TensorFlow, scikit-learn, OpenAI Whisper, Transformers, Pandas, NumPy
+Mobile Development: Android (Java, XML), Android Studio
+IoT & Embedded: Arduino, ESP32, C++, Hardware Integration
+DevOps & Cloud: Docker, Git/GitHub, Vercel, AWS, Google Cloud Console, Cloudflare
+AI Tools: GPT-4/5, Gemini 2.5 Pro, Cursor CLI, n8n Automation, Ollama, MCP Protocol
+
+================================================================================
+
+KEY PROJECTS
+
+SpeakInsights — Enterprise Meeting Intelligence Platform | Python, FastAPI, React
+• Engineered microservices-based AI platform processing audio recordings into intelligent meeting insights
+• Achieved 95% transcription accuracy with sub-2-minute processing for 1-hour meetings using Whisper & Transformers
+• Designed scalable architecture with Docker, PostgreSQL, Redis supporting 100+ concurrent users
+• Implemented zero-downtime deployments and RESTful APIs with MCP protocol integration
+
+ESP32 WiFi Drone with Android Controller | ESP32, Python, Android | In Development
+• Building custom drone system with ESP32-based flight controller and Python-powered Android app
+• Developing real-time wireless communication protocols for remote telemetry and control
+• Implementing flight stabilization algorithms and hardware assembly for autonomous operation
+
+Heart Attack Prediction Model | Python, TensorFlow, scikit-learn
+• Developed ML model achieving 87.85% accuracy for cardiovascular risk assessment
+• Performed comprehensive feature engineering and model validation using medical datasets
+• Deployed on Kaggle/Google Colab with interactive prediction interface
+
+Line of Sight Checker Web App | JavaScript, Google Earth API, Google Maps API
+• Built geospatial analysis tool determining line-of-sight between geographical locations
+• Integrated Google Earth & Maps APIs for real-time elevation profile analysis and 3D visualization
+• Implemented complex mathematical algorithms for terrain-based visibility calculations
+
+IoT Smart Plant Monitoring System | ESP32, Arduino, C++
+• Designed intelligent plant care system with soil moisture sensing and LED level indicators
+• Implemented gesture-based controls for reminder snoozing and automated alert systems
+• Integrated buzzer notifications with hand-gesture recognition for user interaction
+
+Personal Portfolio Website | React, TypeScript, Tailwind CSS
+• Developed modern, responsive portfolio showcasing projects and skills with seamless UX
+• Implemented interactive project filtering, modals, and optimized performance
+• Deployed on Vercel with CI/CD pipeline and professional UI/UX design
+
+Docker Server with Cloudflare Tunneling | Docker, Cloudflare, Linux
+• Configured containerized application hosting with global accessibility through Cloudflare tunnels
+• Implemented server infrastructure management and network security protocols
+• Established cross-platform deployment strategy for worldwide project access
+
+Online Shoe Shopping Website | MongoDB, Express.js, React, Node.js
+• Built full-stack e-commerce application with product catalog, user authentication, and order management
+• Implemented shopping cart functionality, payment integration, and responsive design
+• Developed RESTful API architecture with secure user data handling
+
+Android Applications Suite | Java, Android Studio, SQLite
+• Created calculator, notes & reminders, and expense tracker apps with persistent storage
+• Implemented Material Design UI principles and SQLite database integration
+• Developed cross-platform compatibility with advanced operations and category management
+
+================================================================================
+
+PROFESSIONAL EXPERIENCE
+
+Full-Stack Developer | Freelance Projects | 2023 - Present
+• Developed 10+ web applications using MERN stack with responsive design and API integrations
+• Implemented Docker containerization and Cloudflare tunneling for global project deployment
+• Built Android applications with SQLite integration and Material Design principles
+
+================================================================================
+
+CERTIFICATIONS
+
+AWS Academy Graduate — Machine Learning Foundations | Amazon Web Services | Aug 2025
+AWS Academy Graduate — Cloud Foundations | Amazon Web Services | Jul 2025
+MERN Stack Developer | Coding Cloud | Mar 2025
+Machine Learning Specialist | Indus University | Dec 2023
+Advanced Python Developer | C-TAG Coding | 2023
+
+================================================================================
+
+ACHIEVEMENTS & IMPACT
+
+• 95% ML Model Accuracy - Heart attack prediction system with real-world medical applications
+• 100+ Concurrent Users - Scalable enterprise platform architecture supporting high-traffic loads
+• Sub-2 Minute Processing - Optimized AI pipeline for real-time meeting intelligence extraction
+• Global Deployment - Successfully implemented worldwide accessibility using cloud infrastructure
+• Open Source Contributor - Active GitHub profile with multiple public repositories
+
+================================================================================
+
+ADDITIONAL SKILLS & INTERESTS
+
+Prompt Engineering: Optimizing AI interactions, Contextual Prompting, Role-based Prompts, Chain-of-Thought (CoT) Prompting, Few-Shot & Zero-Shot Learning
+Leadership: Team collaboration, process improvement, problem-solving, and positive impact initiatives
+Continuous Learning: Staying updated with latest technologies, attending workshops, and contributing to open-source projects

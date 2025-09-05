@@ -1,0 +1,8 @@
+Contact: mailto:pmadhurn@gmail.com
+Expires: 2025-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://madhur.dev/.well-known/security.txt
+
+# Madhur Patel (Madhur N Patel) - Security Contact
+# Full-Stack Developer & AI/ML Engineer
+# Website: https://madhur.dev

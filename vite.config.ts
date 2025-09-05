@@ -19,4 +19,29 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Optimize bundle size
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['lucide-react', '@radix-ui/react-accordion'],
+        },
+      },
+    },
+    // Generate source maps for better debugging
+    sourcemap: mode === 'development',
+    // Minify for production
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: mode === 'production',
+      },
+    },
+  },
+  // Enable compression and caching
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
 }));

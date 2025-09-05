@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Madhur Patel - Full-Stack Developer & AI/ML Engineer</title>
+    <description>Latest projects and updates from Madhur Patel (Madhur N Patel), Expert Full-Stack Developer and AI/ML Engineer from Ahmedabad, India</description>
+    <link>https://madhur.dev</link>
+    <atom:link href="https://madhur.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Jan 2025 00:00:00 GMT</lastBuildDate>
+    <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+    <ttl>1440</ttl>
+    <managingEditor>pmadhurn@gmail.com (Madhur N Patel)</managingEditor>
+    <webMaster>pmadhurn@gmail.com (Madhur N Patel)</webMaster>
+    <copyright>Copyright 2025 Madhur N Patel</copyright>
+    <category>Technology</category>
+    <category>Software Development</category>
+    <category>AI/ML</category>
+    
+    <item>
+      <title>SpeakInsights - Enterprise Meeting Intelligence Platform</title>
+      <description>Engineered microservices-based AI platform processing audio recordings into intelligent meeting insights with 95% transcription accuracy</description>
+      <link>https://madhur.dev/#projects</link>
+      <guid>https://madhur.dev/projects/speakinsights</guid>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+      <category>AI/ML</category>
+      <category>Python</category>
+      <category>FastAPI</category>
+    </item>
+    
+    <item>
+      <title>ESP32 WiFi Drone with Android Controller</title>
+      <description>Building custom drone system with ESP32-based flight controller and Python-powered Android app with real-time wireless communication</description>
+      <link>https://madhur.dev/#projects</link>
+      <guid>https://madhur.dev/projects/esp32-drone</guid>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+      <category>IoT</category>
+      <category>ESP32</category>
+      <category>Android</category>
+    </item>
+    
+    <item>
+      <title>Heart Attack Prediction Model</title>
+      <description>Developed ML model achieving 87.85% accuracy for cardiovascular risk assessment using TensorFlow and scikit-learn</description>
+      <link>https://madhur.dev/#projects</link>
+      <guid>https://madhur.dev/projects/heart-attack-prediction</guid>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+      <category>Machine Learning</category>
+      <category>TensorFlow</category>
+      <category>Python</category>
+    </item>
+  </channel>
+</rss>

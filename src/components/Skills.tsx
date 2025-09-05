@@ -52,7 +52,7 @@ const Skills = () => {
     {
       id: 'devops',
       title: 'DevOps & Deployment',
-      skills: ['Git & GitHub', 'Docker', 'Vercel']
+      skills: ['Git & GitHub', 'Docker', 'Vercel', 'Google Cloud Console', 'AWS']
     },
     {
       id: 'systems',
