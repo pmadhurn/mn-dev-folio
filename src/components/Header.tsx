@@ -48,7 +48,7 @@ const Header = () => {
             : [...clipPath].reverse(),
         },
         {
-          duration: 500,
+          duration: 1500,
           easing: 'ease-in-out',
           pseudoElement: newTheme
             ? '::view-transition-new(root)'
@@ -154,8 +154,8 @@ const Header = () => {
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
             >
               <div className="relative h-5 w-5">
-                <Sun size={18} className="absolute transition-all duration-500 transform dark:rotate-90 dark:scale-0" />
-                <Moon size={18} className="absolute transition-all duration-500 transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
+                <Sun size={18} className="absolute transition-all duration-[1500ms] transform dark:rotate-90 dark:scale-0" />
+                <Moon size={18} className="absolute transition-all duration-[1500ms] transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
               </div>
             </Button>
 
