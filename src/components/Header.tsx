@@ -15,11 +15,47 @@ const Header = () => {
     document.documentElement.classList.toggle('dark', shouldBeDark);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = (event: React.MouseEvent) => {
     const newTheme = !isDark;
-    setIsDark(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+
+    if (!document.startViewTransition) {
+      setIsDark(newTheme);
+      document.documentElement.classList.toggle('dark', newTheme);
+      localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+      return;
+    }
+
+    const x = event.clientX;
+    const y = event.clientY;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    document.startViewTransition(() => {
+      setIsDark(newTheme);
+      document.documentElement.classList.toggle('dark', newTheme);
+      localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+    }).ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ];
+      document.documentElement.animate(
+        {
+          clipPath: newTheme
+            ? clipPath
+            : [...clipPath].reverse(),
+        },
+        {
+          duration: 500,
+          easing: 'ease-in-out',
+          pseudoElement: newTheme
+            ? '::view-transition-new(root)'
+            : '::view-transition-old(root)',
+        }
+      );
+    });
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -113,11 +149,14 @@ const Header = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={toggleTheme}
-              className="p-2"
+              onClick={(e) => toggleTheme(e)}
+              className="p-2 theme-toggle-button"
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
             >
-              {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+              <div className="relative h-5 w-5">
+                <Sun size={18} className="absolute transition-all duration-500 transform dark:rotate-90 dark:scale-0" />
+                <Moon size={18} className="absolute transition-all duration-500 transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
+              </div>
             </Button>
 
             {/* Mobile Menu Button */}
