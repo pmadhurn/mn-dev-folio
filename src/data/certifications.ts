@@ -27,13 +27,21 @@ export const certifications: Certification[] = [
     image: '/certifications/CF.png',
     credentialId: '792da9d1-37e9-466b-8c39-8a228d3920ee',
     description: 'Fundamental understanding of AWS cloud computing services and architecture.'
-  },
-  {
+  },{
     id: 'mern-stack-developer',
     title: 'MERN Stack Developer',
     issuer: 'Coding Cloud',
     date: 'March 2025',
     description: 'Full-stack web development using MongoDB, Express.js, React.js, and Node.js.'
+  },
+  
+  {
+    id: 'advanced-python',
+    title: 'Advanced Python',
+    issuer: 'C-TAG Coding',
+    date: 'September 2024',
+    image: '/certifications/advanced-python.jpg',
+    description: 'Advanced Python programming concepts and frameworks.'
   },
   {
     id: 'machine-learning-indus',
@@ -43,12 +51,13 @@ export const certifications: Certification[] = [
     image: '/certifications/indus-ml-certificate.jpg',
     description: 'Advanced machine learning algorithms and practical implementation.'
   },
+  
   {
-    id: 'advanced-python',
-    title: 'Advanced Python',
-    issuer: 'C-TAG Coding',
-    date: 'October 2024',
-    image: '/certifications/advanced-python.jpg',
-    description: 'Advanced Python programming concepts and frameworks.'
+    id: 'C-Programming-Bootcamp',
+    title: 'C-Programming-Bootcamp',
+    issuer: 'Royal Technosoft PVT LTD',
+    date: 'October 2022',
+    credentialId: '89d5a661c07041508fc482305a17bdd7',
+    description: 'C PROGRAMMING BOOTCAMP with in depth understanding of oocp and c++'
   }
 ];
