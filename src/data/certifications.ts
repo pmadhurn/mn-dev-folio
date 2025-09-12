@@ -47,7 +47,7 @@ export const certifications: Certification[] = [
     id: 'advanced-python',
     title: 'Advanced Python',
     issuer: 'C-TAG Coding',
-    date: 'Completed',
+    date: 'October 2024',
     image: '/certifications/advanced-python.jpg',
     description: 'Advanced Python programming concepts and frameworks.'
   }
