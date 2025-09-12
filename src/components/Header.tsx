@@ -52,14 +52,12 @@ const Header = () => {
       ];
       document.documentElement.animate(
         {
-          clipPath: newTheme ? clipPath : [...clipPath].reverse(),
+          clipPath: clipPath,
         },
         {
           duration: 1000,
           easing: 'ease-in-out',
-          pseudoElement: newTheme
-            ? '::view-transition-new(root)'
-            : '::view-transition-old(root)',
+          pseudoElement: '::view-transition-new(root)',
         }
       );
     });
