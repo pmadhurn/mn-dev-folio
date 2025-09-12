@@ -18,10 +18,17 @@ const Header = () => {
   const toggleTheme = (event: React.MouseEvent) => {
     const newTheme = !isDark;
 
+    // Dispatch start event
+    window.dispatchEvent(new CustomEvent('theme-transition-start'));
+
     if (!document.startViewTransition) {
       setIsDark(newTheme);
       document.documentElement.classList.toggle('dark', newTheme);
       localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+      // Dispatch end event after a short delay
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('theme-transition-end'));
+      }, 100);
       return;
     }
 
@@ -32,29 +39,34 @@ const Header = () => {
       Math.max(y, window.innerHeight - y)
     );
 
-    document.startViewTransition(() => {
+    const transition = document.startViewTransition(() => {
       setIsDark(newTheme);
       document.documentElement.classList.toggle('dark', newTheme);
       localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-    }).ready.then(() => {
+    });
+
+    transition.ready.then(() => {
       const clipPath = [
         `circle(0px at ${x}px ${y}px)`,
         `circle(${endRadius}px at ${x}px ${y}px)`,
       ];
       document.documentElement.animate(
         {
-          clipPath: newTheme
-            ? clipPath
-            : [...clipPath].reverse(),
+          clipPath: newTheme ? clipPath : [...clipPath].reverse(),
         },
         {
-          duration: 1500,
+          duration: 1000,
           easing: 'ease-in-out',
           pseudoElement: newTheme
             ? '::view-transition-new(root)'
             : '::view-transition-old(root)',
         }
       );
+    });
+
+    // Dispatch end event when the transition is finished
+    transition.finished.then(() => {
+      window.dispatchEvent(new CustomEvent('theme-transition-end'));
     });
   };
 
@@ -154,8 +166,8 @@ const Header = () => {
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
             >
               <div className="relative h-5 w-5">
-                <Sun size={18} className="absolute transition-all duration-[1500ms] transform dark:rotate-90 dark:scale-0" />
-                <Moon size={18} className="absolute transition-all duration-[1500ms] transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
+                <Sun size={18} className="absolute transition-all duration-1000 transform dark:rotate-90 dark:scale-0" />
+                <Moon size={18} className="absolute transition-all duration-1000 transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
               </div>
             </Button>
 
