@@ -164,26 +164,3 @@ All colors MUST be HSL.
     text-shadow: 1px 1px 2px #ef4444, 2px 2px 2px #f59e0b, 3px 3px 2px #10b981, 4px 4px 2px #3b82f6;
   }
 }
-
-/* View Transition API styles */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-new(root) {
-  z-index: 1;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}

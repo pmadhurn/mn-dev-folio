@@ -6,14 +6,26 @@ import { Button } from '@/components/ui/button';
 import heroPortrait from '@/assets/hero-portrait.jpg';
 
 const Hero = () => {
-  const [ init, setInit ] = useState(false);
+  const [init, setInit] = useState(false);
+  const [showParticles, setShowParticles] = useState(true);
 
   useEffect(() => {
-      initParticlesEngine(async (engine) => {
-          await loadSlim(engine);
-      }).then(() => {
-          setInit(true);
-      });
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
+
+    const handleTransitionStart = () => setShowParticles(false);
+    const handleTransitionEnd = () => setShowParticles(true);
+
+    window.addEventListener('theme-transition-start', handleTransitionStart);
+    window.addEventListener('theme-transition-end', handleTransitionEnd);
+
+    return () => {
+      window.removeEventListener('theme-transition-start', handleTransitionStart);
+      window.removeEventListener('theme-transition-end', handleTransitionEnd);
+    };
   }, []);
 
   const particlesLoaded = useCallback(async (container?: any) => {
@@ -103,7 +115,7 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 pb-16 overflow-hidden" aria-label="Hero section">
-      {init && <Particles
+      {init && showParticles && <Particles
         id="tsparticles"
         particlesLoaded={particlesLoaded}
         options={options}
