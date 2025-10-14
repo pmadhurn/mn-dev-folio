@@ -19,6 +19,44 @@ export interface Project {
 export const projects: Project[] = [
   // Top Tier - Most Advanced & Impressive
   {
+    id: 'gps-guided-tracking-system',
+    title: 'GPS-Guided Dual-Device Tracking System',
+    summary: 'Autonomous tracking system using GPS, IMU, and computer vision to maintain line-of-sight between two moving platforms with precision gimbal control.',
+    description: 'Advanced IoT tracking system that coordinates two Raspberry Pi-controlled gimbals to automatically point toward each other using GPS navigation, then switches to computer vision for precision LED tracking. Features real-time WiFi communication, sensor fusion (GPS/IMU/Magnetometer), and dual-mode tracking (coarse GPS + fine camera-based).',
+    highlights: [
+      'Dual-device GPS coordinate exchange via WiFi',
+      'Autonomous GPS-based pointing with bearing calculation',
+      'Real-time IMU650 sensor fusion (9-axis)',
+      'Computer vision LED tracking with OpenCV',
+      'SP2050 gimbal control with PID regulation',
+      'Automatic mode switching (GPS → Camera tracking)',
+      'Sub-pixel precision tracking in camera mode',
+      'Haversine distance and elevation angle calculations',
+      'Multi-threaded serial and network communication',
+      'Raspberry Pi 4/5 embedded system integration'
+    ],
+    tech: [
+      'Python',
+      'OpenCV',
+      'PySerial',
+      'Socket Programming',
+      'Raspberry Pi : 5,4',
+      'IMU650 GPS Module',
+      'SP2050 Gimbal Controller',
+      'Computer Vision',
+      'PID Control Systems',
+      'Sensor Fusion',
+      'Real-time Systems',
+      'Network Communication'
+    ],
+    category: 'iot',
+    status: 'public',
+    links: {
+      github: 'https://github.com/pmadhurn/gps-guided-tracking-system'
+    },
+    featured: true
+  },
+  {
     id: 'speakinsights',
     title: 'SpeakInsights — Enterprise Meeting Intelligence Platform',
     summary: 'Microservices AI platform for meeting transcription, summarization, action items, and sentiment analysis.',
