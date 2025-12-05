@@ -164,5 +164,3 @@ npm run build
 This project is open source and available under the [MIT License](LICENSE).
 
 ---
-
-Built with ❤️ using [Lovable AI](https://lovable.dev)
