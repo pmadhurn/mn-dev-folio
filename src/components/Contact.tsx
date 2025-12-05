@@ -24,7 +24,7 @@ const Contact = () => {
   };
 
   // REPLACE THIS WITH YOUR GOOGLE SCRIPT URL from the setup guide
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe6B9xoyVBpCEs5d90Oshx-51pb9ow0O8aU-oPJzg0fDVl3GvWoKbeCfzxFX1wY5I/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk8SpivFAYSHPqtEG3b0MPS3poIllk_TYzl_vHAI6A0CYKnApJf6faxylYB4L5uUU/exec";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
