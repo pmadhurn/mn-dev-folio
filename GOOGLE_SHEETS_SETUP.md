@@ -51,6 +51,16 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
       .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (e) {
+    // ERROR LOGGING: Try to write the error to the sheet so you can see it
+    try {
+       var doc = SpreadsheetApp.getActiveSpreadsheet();
+       var sheet = doc.getSheets()[0];
+       // Append error to the last column or a new row
+       sheet.appendRow(["ERROR", e.toString(), new Date().toString()]);
+    } catch(e2) {}
+
   } catch (e) {
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
