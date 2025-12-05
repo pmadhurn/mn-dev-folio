@@ -4,7 +4,7 @@ A modern, responsive developer portfolio showcasing full-stack development, AI/M
 
 ## 🚀 Live Demo
 
-**Portfolio URL**: [https://madhur-n.vercel.app](https://madhur-n.vercel.app)
+**Portfolio URL**: [www.madhur.dev](www.madhur.dev)
 
 ## 👨‍💻 About
 
