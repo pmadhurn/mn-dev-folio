@@ -1,49 +1,67 @@
 # Google Sheets Integration Guide
 
-This guide will help you connect your website's contact form to a Google Sheet so you can automatically collect responses for free.
-
 ## 1. Setup Google Sheet & Apps Script
 
 1.  Go to [Google Sheets](https://sheets.google.com) and create a new sheet.
 2.  Name the sheet (e.g., "Website Contact Form Responses").
-3.  In the first row, add headers for the data you want to collect:
+3.  **Important:** Rename the tab at the bottom to `Sheet1` (it usually is by default, but check it).
+4.  In the first row, add these exact headers:
     *   Column A: `Timestamp`
     *   Column B: `Name`
     *   Column C: `Email`
     *   Column D: `Message`
-4.  Click on **Extensions** > **Apps Script**.
+    *   Column E: `Debug` (Optional, useful for troubleshooting)
+5.  Click on **Extensions** > **Apps Script**.
 
-## 2. Add the Script Code
+## 2. Add the Robust Script Code
 
-1.  Delete any code in the `Code.gs` file and paste the following code:
+1.  Delete any code in the `Code.gs` file and paste the following **updated** code. This version is more robust and helps with debugging.
 
 ```javascript
-const SHEET_NAME = "Sheet1"; // Make sure this matches your sheet tab name
+// This script handles both FormData and JSON
+// It also tries to log errors to the sheet if something goes wrong.
 
 function doPost(e) {
-  const lock = LockService.getScriptLock();
-  lock.tryLock(10000);
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000); // Wait up to 10 seconds for other requests to finish
 
   try {
-    const doc = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = doc.getSheetByName(SHEET_NAME);
+    var doc = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = doc.getSheetByName("Sheet1");
 
-    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    const nextRow = sheet.getLastRow() + 1;
-
-    // Parse the request body
-    // If sent as JSON
-    let data;
-    if (e.postData.type.includes("application/json")) {
-        data = JSON.parse(e.postData.contents);
-    } else {
-        // If sent as FormData
-        data = e.parameter;
+    // Fallback: If "Sheet1" isn't found, use the first sheet
+    if (!sheet) {
+      sheet = doc.getSheets()[0];
     }
 
-    const newRow = headers.map(function(header) {
-      if (header === 'Timestamp') return new Date();
-      return data[header.toLowerCase()] || data[header] || '';
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var nextRow = sheet.getLastRow() + 1;
+
+    var newRow = headers.map(function(header) {
+      if (header === 'Timestamp') {
+        // Format the date to include time (YYYY-MM-DD HH:mm:ss)
+        return Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
+      }
+
+      var key = header.toLowerCase(); // 'Name' -> 'name'
+      var val = '';
+
+      // 1. Try to get from URL parameters (Standard form submission)
+      if (e.parameter && e.parameter[key]) {
+        val = e.parameter[key];
+      }
+
+      // 2. Try to get from JSON body (if sending JSON)
+      if (!val && e.postData && e.postData.contents) {
+        try {
+          var json = JSON.parse(e.postData.contents);
+          if (json[key]) val = json[key];
+        } catch (e) {
+          // not json
+        }
+      }
+
+      return val;
     });
 
     sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
@@ -61,7 +79,6 @@ function doPost(e) {
        sheet.appendRow(["ERROR", e.toString(), new Date().toString()]);
     } catch(e2) {}
 
-  } catch (e) {
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
       .setMimeType(ContentService.MimeType.JSON);
@@ -73,29 +90,28 @@ function doPost(e) {
 
 2.  Save the project (File > Save).
 
-## 3. Deploy the Script
+## 3. Deploy (CRITICAL STEP)
 
-1.  Click on the **Deploy** button (top right) > **New deployment**.
-2.  Click the gear icon (Select type) > **Web app**.
-3.  Fill in the details:
-    *   **Description**: "Contact Form API"
-    *   **Execute as**: Me (your email)
-    *   **Who has access**: **Anyone** (This is crucial for the form to work without login)
-4.  Click **Deploy**.
-5.  Authorize the script when prompted. (You might see a "Google hasn't verified this app" warning. Click "Advanced" > "Go to [Project Name] (unsafe)" to proceed).
-6.  **Copy the Web App URL**. It will look something like `https://script.google.com/macros/s/.../exec`.
+**If you have deployed before, you MUST create a NEW version.**
+
+1.  Click **Deploy** > **Manage deployments**.
+2.  Click the **Edit** (pencil) icon next to your existing "Web app" deployment.
+3.  **Version**: Select **New version** from the dropdown. (Do not leave it as "Version 1" or the old version).
+4.  **Execute as**: Me (your email).
+5.  **Who has access**: **Anyone** (Must be "Anyone", or it won't work).
+6.  Click **Deploy**.
+
+**Alternatively (if starting fresh):**
+1.  Click **Deploy** > **New deployment**.
+2.  Select **Web app**.
+3.  Execute as: **Me**.
+4.  Who has access: **Anyone**.
+5.  Click **Deploy**.
+
+**Copy the Web App URL** (ends in `/exec`).
 
 ## 4. Update Your Website Code
 
 1.  Open `src/components/Contact.tsx`.
-2.  Find the `GOOGLE_SCRIPT_URL` constant (I have added a placeholder).
-3.  Replace the placeholder string with your copied Web App URL.
-
-```javascript
-// Example:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx.../exec";
-```
-
-4.  Save the file and deploy your website.
-
-Your contact form should now be fully functional!
+2.  Paste your **new** Web App URL into the `GOOGLE_SCRIPT_URL` variable.
+3.  Save and deploy your website.

@@ -41,35 +41,9 @@ const Contact = () => {
   };
 
   // REPLACE THIS WITH YOUR GOOGLE SCRIPT URL from the setup guide
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk8SpivFAYSHPqtEG3b0MPS3poIllk_TYzl_vHAI6A0CYKnApJf6faxylYB4L5uUU/exec";
+  const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
 
-  // Email validation helper
-  const isValidEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  // Form validation
-  const validateForm = (): string | null => {
-    if (!formData.name.trim()) {
-      return "Please enter your name";
-    }
-    if (!formData.email.trim()) {
-      return "Please enter your email";
-    }
-    if (!isValidEmail(formData.email)) {
-      return "Please enter a valid email address";
-    }
-    if (!formData.message.trim()) {
-      return "Please enter a message";
-    }
-    if (formData.message.trim().length < 10) {
-      return "Message must be at least 10 characters long";
-    }
-    return null;
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validate form
@@ -86,34 +60,35 @@ const Contact = () => {
     setIsSubmitting(true);
 
     if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-      console.warn("Please configure the Google Script URL in src/components/Contact.tsx");
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast({
-        title: "Configuration Required",
-        description: "Please set up the Google Sheet integration as described in GOOGLE_SHEETS_SETUP.md",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-      return;
+        console.warn("Please configure the Google Script URL in src/components/Contact.tsx");
+        // Fallback for demo if not configured
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        toast({
+            title: "Configuration Required",
+            description: "Please set up the Google Sheet integration as described in GOOGLE_SHEETS_SETUP.md",
+            variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
     }
 
     try {
       // Create URLSearchParams to send to Google Apps Script
+      // This sends data as application/x-www-form-urlencoded which is reliably parsed by e.parameter
       const params = new URLSearchParams();
-      params.append('name', formData.name.trim());
-      params.append('email', formData.email.trim());
-      params.append('message', formData.message.trim());
+      params.append('name', formData.name);
+      params.append('email', formData.email);
+      params.append('message', formData.message);
 
-      // Option 1: Using no-cors (can't verify response)
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         body: params,
+        // mode: 'no-cors' is often needed for Google Apps Script simple triggers to avoid CORS errors on the client side,
+        // though it means we can't read the response status directly.
+        // However, if the script is deployed correctly as 'Anyone', it usually accepts the request.
         mode: 'no-cors'
       });
 
-      // Note: With no-cors, response.ok and response.status are not reliable
-      // The request is "opaque" - we assume success if no network error occurred
-      
       toast({
         title: "Message sent!",
         description: "Thank you! I'll get back to you as soon as possible.",
