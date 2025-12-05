@@ -24,7 +24,7 @@ const Contact = () => {
   };
 
   // REPLACE THIS WITH YOUR GOOGLE SCRIPT URL from the setup guide
-  const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/library/d/1qewvDwbNMAN_HBFuer6yXElEyPa-OeePP9D_-9TMRaB-yOsLtxGGVqMl/1";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,16 +44,15 @@ const Contact = () => {
     }
 
     try {
-      // Create URLSearchParams to send to Google Apps Script
-      // This sends data as application/x-www-form-urlencoded which is reliably parsed by e.parameter
-      const params = new URLSearchParams();
-      params.append('name', formData.name);
-      params.append('email', formData.email);
-      params.append('message', formData.message);
+      // Create FormData to send to Google Apps Script
+      const formBody = new FormData();
+      formBody.append('name', formData.name);
+      formBody.append('email', formData.email);
+      formBody.append('message', formData.message);
 
       await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        body: params,
+        body: formBody,
         // mode: 'no-cors' is often needed for Google Apps Script simple triggers to avoid CORS errors on the client side,
         // though it means we can't read the response status directly.
         // However, if the script is deployed correctly as 'Anyone', it usually accepts the request.
