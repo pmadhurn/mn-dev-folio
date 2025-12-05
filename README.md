@@ -4,7 +4,7 @@ A modern, responsive developer portfolio showcasing full-stack development, AI/M
 
 ## 🚀 Live Demo
 
-**Portfolio URL**: [https://madhur-n.vercel.app](https://madhur-n.vercel.app)
+**Portfolio URL**: [www.madhur.dev](www.madhur.dev)
 
 ## 👨‍💻 About
 
@@ -164,5 +164,3 @@ npm run build
 This project is open source and available under the [MIT License](LICENSE).
 
 ---
-
-Built with ❤️ using [Lovable AI](https://lovable.dev)
