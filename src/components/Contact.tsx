@@ -24,7 +24,7 @@ const Contact = () => {
   };
 
   // REPLACE THIS WITH YOUR GOOGLE SCRIPT URL from the setup guide
-  const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe6B9xoyVBpCEs5d90Oshx-51pb9ow0O8aU-oPJzg0fDVl3GvWoKbeCfzxFX1wY5I/exec";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ const Contact = () => {
         // mode: 'no-cors' is often needed for Google Apps Script simple triggers to avoid CORS errors on the client side,
         // though it means we can't read the response status directly.
         // However, if the script is deployed correctly as 'Anyone', it usually accepts the request.
-        mode: 'no-cors'
+        mode: 'no-cors' 
       });
 
       toast({
