@@ -68,15 +68,38 @@ const Skills = () => {
 
   const allSkills = skillCategories.flatMap(category => category.skills);
 
+  // Dynamically generate categories from the data to ensure all sections are filterable
   const categories = [
     { id: 'all', label: 'All Skills', count: allSkills.length },
-    { id: 'languages', label: 'Languages', count: skillCategories.find(c => c.id === 'languages')?.skills.length || 0 },
-    { id: 'frontend', label: 'Frontend', count: skillCategories.find(c => c.id === 'frontend')?.skills.length || 0 },
-    { id: 'backend', label: 'Backend', count: skillCategories.find(c => c.id === 'backend')?.skills.length || 0 },
-    { id: 'ai-ml', label: 'AI/ML', count: skillCategories.find(c => c.id === 'ai-ml')?.skills.length || 0 },
-    { id: 'mobile', label: 'Mobile', count: skillCategories.find(c => c.id === 'mobile')?.skills.length || 0 },
-    { id: 'embedded', label: 'IoT/Embedded', count: skillCategories.find(c => c.id === 'embedded')?.skills.length || 0 },
+    ...skillCategories.map(cat => ({
+      id: cat.id,
+      label: cat.title, // Default to full title
+      count: cat.skills.length
+    }))
   ];
+
+  // Custom label overrides for better display/compactness
+  const labelOverrides: Record<string, string> = {
+    'ai-ml': 'AI/ML',
+    'ai-tools': 'AI Tools',
+    'prompt-engineering': 'Prompt Eng.',
+    'mobile': 'Mobile',
+    'embedded': 'IoT/Embedded',
+    'devops': 'DevOps',
+    'systems': 'OS',
+    'specialty-tools': 'Tools',
+    'languages': 'Languages',
+    'frontend': 'Frontend',
+    'backend': 'Backend',
+    'databases': 'Databases'
+  };
+
+  // Update labels with overrides
+  categories.forEach(cat => {
+    if (labelOverrides[cat.id]) {
+      cat.label = labelOverrides[cat.id];
+    }
+  });
 
   const getDisplayedSkills = () => {
     if (selectedCategory === 'all') {
