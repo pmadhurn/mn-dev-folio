@@ -1,21 +1,38 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { Mail, Phone, MapPin, Send, Copy, Check, Github, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
+// Type definitions
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface ContactInfo {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  label: string;
+  value: string;
+  href: string | null;
+  copyValue: string;
+}
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [copiedField, setCopiedField] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [copiedField, setCopiedField] = useState<string>('');
   const { toast } = useToast();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -26,46 +43,84 @@ const Contact = () => {
   // REPLACE THIS WITH YOUR GOOGLE SCRIPT URL from the setup guide
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk8SpivFAYSHPqtEG3b0MPS3poIllk_TYzl_vHAI6A0CYKnApJf6faxylYB4L5uUU/exec";
 
-  const handleSubmit = async (e) => {
+  // Email validation helper
+  const isValidEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Form validation
+  const validateForm = (): string | null => {
+    if (!formData.name.trim()) {
+      return "Please enter your name";
+    }
+    if (!formData.email.trim()) {
+      return "Please enter your email";
+    }
+    if (!isValidEmail(formData.email)) {
+      return "Please enter a valid email address";
+    }
+    if (!formData.message.trim()) {
+      return "Please enter a message";
+    }
+    if (formData.message.trim().length < 10) {
+      return "Message must be at least 10 characters long";
+    }
+    return null;
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Validate form
+    const validationError = validateForm();
+    if (validationError) {
+      toast({
+        title: "Validation Error",
+        description: validationError,
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-        console.warn("Please configure the Google Script URL in src/components/Contact.tsx");
-        // Fallback for demo if not configured
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        toast({
-            title: "Configuration Required",
-            description: "Please set up the Google Sheet integration as described in GOOGLE_SHEETS_SETUP.md",
-            variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
+      console.warn("Please configure the Google Script URL in src/components/Contact.tsx");
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      toast({
+        title: "Configuration Required",
+        description: "Please set up the Google Sheet integration as described in GOOGLE_SHEETS_SETUP.md",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
     }
 
     try {
       // Create URLSearchParams to send to Google Apps Script
-      // This sends data as application/x-www-form-urlencoded which is reliably parsed by e.parameter
       const params = new URLSearchParams();
-      params.append('name', formData.name);
-      params.append('email', formData.email);
-      params.append('message', formData.message);
+      params.append('name', formData.name.trim());
+      params.append('email', formData.email.trim());
+      params.append('message', formData.message.trim());
 
-      await fetch(GOOGLE_SCRIPT_URL, {
+      // Option 1: Using no-cors (can't verify response)
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         body: params,
-        // mode: 'no-cors' is often needed for Google Apps Script simple triggers to avoid CORS errors on the client side,
-        // though it means we can't read the response status directly.
-        // However, if the script is deployed correctly as 'Anyone', it usually accepts the request.
-        mode: 'no-cors' 
+        mode: 'no-cors'
       });
 
+      // Note: With no-cors, response.ok and response.status are not reliable
+      // The request is "opaque" - we assume success if no network error occurred
+      
       toast({
-        title: "Message sent successfully!",
-        description: "I'll get back to you as soon as possible.",
+        title: "Message sent!",
+        description: "Thank you! I'll get back to you as soon as possible.",
       });
       
       setFormData({ name: '', email: '', message: '' });
+
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -78,7 +133,7 @@ const Contact = () => {
     }
   };
 
-  const copyToClipboard = async (text, field) => {
+  const copyToClipboard = async (text: string, field: string) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedField(field);
@@ -96,7 +151,7 @@ const Contact = () => {
     }
   };
 
-  const contactInfo = [
+  const contactInfo: ContactInfo[] = [
     {
       icon: Mail,
       label: 'Email',
@@ -148,40 +203,47 @@ const Contact = () => {
 
               {/* Contact Details */}
               <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-center gap-4 p-4 bg-card border rounded-lg group hover:border-primary/50 transition-colors">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <info.icon size={20} className="text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground">{info.label}</p>
-                      {info.href ? (
-                        <a 
-                          href={info.href}
-                          className="text-muted-foreground hover:text-primary transition-colors"
+                {contactInfo.map((info, index) => {
+                  const IconComponent = info.icon;
+                  return (
+                    <div 
+                      key={index} 
+                      className="flex items-center gap-4 p-4 bg-card border rounded-lg group hover:border-primary/50 transition-colors"
+                    >
+                      <div className="p-3 bg-primary/10 rounded-lg">
+                        <IconComponent size={20} className="text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-foreground">{info.label}</p>
+                        {info.href ? (
+                          <a 
+                            href={info.href}
+                            className="text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            {info.value}
+                          </a>
+                        ) : (
+                          <p className="text-muted-foreground">{info.value}</p>
+                        )}
+                      </div>
+                      {info.copyValue && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => copyToClipboard(info.copyValue, info.label)}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          aria-label={`Copy ${info.label}`}
                         >
-                          {info.value}
-                        </a>
-                      ) : (
-                        <p className="text-muted-foreground">{info.value}</p>
+                          {copiedField === info.label ? (
+                            <Check size={16} className="text-green-500" />
+                          ) : (
+                            <Copy size={16} />
+                          )}
+                        </Button>
                       )}
                     </div>
-                    {info.copyValue && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => copyToClipboard(info.copyValue, info.label)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        {copiedField === info.label ? (
-                          <Check size={16} className="text-green-500" />
-                        ) : (
-                          <Copy size={16} />
-                        )}
-                      </Button>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Social Links */}
@@ -190,7 +252,7 @@ const Contact = () => {
                 <div className="flex gap-4">
                   <Button
                     variant="outline"
-                    onClick={() => window.open('https://github.com/pmadhurn', '_blank')}
+                    onClick={() => window.open('https://github.com/pmadhurn', '_blank', 'noopener,noreferrer')}
                     className="flex items-center gap-2"
                   >
                     <Github size={18} />
@@ -198,7 +260,7 @@ const Contact = () => {
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank')}
+                    onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank', 'noopener,noreferrer')}
                     className="flex items-center gap-2"
                   >
                     <Linkedin size={18} />
@@ -231,7 +293,7 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Your Name
+                      Your Name <span className="text-red-500">*</span>
                     </label>
                     <Input
                       id="name"
@@ -240,11 +302,13 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="John Doe"
                       required
+                      disabled={isSubmitting}
+                      maxLength={100}
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email Address
+                      Email Address <span className="text-red-500">*</span>
                     </label>
                     <Input
                       id="email"
@@ -254,12 +318,14 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="john@example.com"
                       required
+                      disabled={isSubmitting}
+                      maxLength={254}
                     />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message
+                    Message <span className="text-red-500">*</span>
                   </label>
                   <Textarea
                     id="message"
@@ -269,7 +335,12 @@ const Contact = () => {
                     placeholder="Tell me about your project or opportunity..."
                     rows={5}
                     required
+                    disabled={isSubmitting}
+                    maxLength={5000}
                   />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {formData.message.length}/5000 characters
+                  </p>
                 </div>
                 <Button
                   type="submit"
@@ -278,7 +349,7 @@ const Contact = () => {
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                      <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
                       Sending...
                     </>
                   ) : (
