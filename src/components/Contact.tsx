@@ -23,15 +23,42 @@ const Contact = () => {
     }));
   };
 
+  // REPLACE THIS WITH YOUR GOOGLE SCRIPT URL from the setup guide
+  const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
+        console.warn("Please configure the Google Script URL in src/components/Contact.tsx");
+        // Fallback for demo if not configured
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        toast({
+            title: "Configuration Required",
+            description: "Please set up the Google Sheet integration as described in GOOGLE_SHEETS_SETUP.md",
+            variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+    }
+
     try {
-      // For demo purposes, we'll just show a success message
-      // In a real implementation, you'd send this to Formspree or your API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Create FormData to send to Google Apps Script
+      const formBody = new FormData();
+      formBody.append('name', formData.name);
+      formBody.append('email', formData.email);
+      formBody.append('message', formData.message);
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formBody,
+        // mode: 'no-cors' is often needed for Google Apps Script simple triggers to avoid CORS errors on the client side,
+        // though it means we can't read the response status directly.
+        // However, if the script is deployed correctly as 'Anyone', it usually accepts the request.
+        mode: 'no-cors'
+      });
+
       toast({
         title: "Message sent successfully!",
         description: "I'll get back to you as soon as possible.",
@@ -39,6 +66,7 @@ const Contact = () => {
       
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
+      console.error("Error submitting form:", error);
       toast({
         title: "Error sending message",
         description: "Please try again or contact me directly via email.",
