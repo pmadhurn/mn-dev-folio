@@ -57,6 +57,32 @@ export const projects: Project[] = [
     featured: true
   },
   {
+    id: 'speakinsights-v3',
+    title: 'SpeakInsights v3 — Real-Time Meeting Intelligence Platform',
+    summary: 'Docker-deployable meeting platform with real-time video conferencing (20 participants), AI-powered transcription, live captions, sentiment analysis, and RAG-based chat.',
+    description: 'A comprehensive Docker-deployable meeting intelligence platform featuring LiveKit-powered video conferencing for up to 20 participants, real-time captions via Web Speech API, WhisperX transcription with speaker attribution, Ollama-powered AI summarization and task extraction, dual sentiment analysis (VADER in-meeting + Ollama post-meeting), RAG chat with meeting context, and a modern Glassmorphism "Frosted Aurora" UI. Supports both Mac (Apple Silicon) and Windows (NVIDIA GPU).',
+    highlights: [
+      'LiveKit-powered WebRTC video conferencing (up to 20 participants)',
+      'Real-time live captions via Web Speech API',
+      'WhisperX transcription with speaker attribution',
+      'AI summarization & task extraction via Ollama (llama3.2:3b)',
+      'Dual sentiment analysis: VADER (real-time) + Ollama (post-meeting)',
+      'RAG chat with meeting context using nomic-embed-text embeddings',
+      'PostgreSQL 16 + pgvector for vector storage',
+      'Meeting recording with playback support',
+      'Google Calendar .ics export integration',
+      'Glassmorphism "Frosted Aurora" UI design',
+      'Cross-platform Docker deployment (Mac M-series & Windows NVIDIA)'
+    ],
+    tech: ['React 18', 'TypeScript', 'Vite', 'TailwindCSS', 'FastAPI', 'Python 3.11', 'SQLAlchemy', 'LiveKit', 'WebRTC', 'WhisperX', 'Ollama', 'PostgreSQL', 'pgvector', 'Redis', 'Zustand', 'Docker'],
+    category: 'ai-ml',
+    status: 'private',
+    links: {
+      github: 'https://github.com/pmadhurn'
+    },
+    featured: true
+  },
+  {
     id: 'speakinsights',
     title: 'SpeakInsights — Enterprise Meeting Intelligence Platform',
     summary: 'Microservices AI platform for meeting transcription, summarization, action items, and sentiment analysis.',
