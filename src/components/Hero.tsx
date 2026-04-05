@@ -8,8 +8,19 @@ import heroPortrait from '@/assets/hero-portrait.jpg';
 const Hero = () => {
   const [init, setInit] = useState(false);
   const [showParticles, setShowParticles] = useState(true);
+  const [videoExists, setVideoExists] = useState(false);
+  const videoPath = '/animations/hero-portrait.mp4';
 
   useEffect(() => {
+    // Check if the animated video exists
+    fetch(videoPath, { method: 'HEAD' })
+      .then(res => {
+        if (res.ok && res.headers.get('content-type')?.includes('video')) {
+          setVideoExists(true);
+        }
+      })
+      .catch(() => setVideoExists(false));
+
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     }).then(() => {
@@ -200,20 +211,34 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Image */}
+          {/* Image/Video */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
               <div className="absolute inset-0 hero-gradient rounded-2xl blur-3xl opacity-20 transform scale-110" aria-hidden="true"></div>
               <figure className="relative overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl">
-                <img 
-                  src={heroPortrait} 
-                  alt="Professional portrait of Madhur N Patel, Full-Stack and AI/ML Developer"
-                  className="w-full h-auto max-w-md object-cover"
-                  loading="eager"
-                  width="400"
-                  height="500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" aria-hidden="true"></div>
+                {videoExists ? (
+                  <video
+                    src={videoPath}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto max-w-md object-cover"
+                    width="400"
+                    height="500"
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                ) : (
+                  <img
+                    src={heroPortrait}
+                    alt="Professional portrait of Madhur N Patel, Full-Stack and AI/ML Developer"
+                    className="w-full h-auto max-w-md object-cover"
+                    loading="eager"
+                    width="400"
+                    height="500"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" aria-hidden="true"></div>
               </figure>
             </div>
           </div>
