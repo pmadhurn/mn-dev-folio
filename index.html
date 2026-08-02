@@ -103,6 +103,8 @@
     <!-- Additional Resources -->
     <link rel="author" href="/humans.txt" />
     <link rel="alternate" type="application/rss+xml" title="Madhur Patel - Latest Projects" href="/rss.xml" />
+    <!-- Plain-text summary of this site for LLM agents (generated at build time) -->
+    <link rel="alternate" type="text/plain" title="Madhur Patel - llms.txt" href="/llms.txt" />
     <link rel="me" href="https://github.com/pmadhurn" />
     <link rel="me" href="https://linkedin.com/in/madhur-n" />
     <link rel="me" href="https://x.com/pmadhurn" />
@@ -115,7 +117,6 @@
     <meta name="msapplication-config" content="/browserconfig.xml" />
     
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="/madhur-patel-profile.jpg" as="image" type="image/jpeg" />
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link rel="dns-prefetch" href="//vercel.com" />
@@ -126,6 +127,18 @@
   </head>
 
   <body>
+    <!-- Apply the saved theme before React mounts to avoid a light-mode flash -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) { /* localStorage unavailable */ }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

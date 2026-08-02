@@ -30,10 +30,11 @@ All colors MUST be HSL.
     --muted: 210 20% 95%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent: Teal #06B6D4 */
-    --accent: 188 100% 42%;
+    /* Accent: Teal — darkened from the original #06B6D4 so accent-colored
+       text meets WCAG AA (4.5:1) contrast on the white background. */
+    --accent: 188 95% 30%;
     --accent-foreground: 0 0% 100%;
-    --accent-glow: 188 100% 50%;
+    --accent-glow: 188 100% 42%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
@@ -114,6 +115,11 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-body;
   }
 
+  /* Keep in-page scroll targets clear of the ~72px fixed header. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
   /* Typography System */
   .font-heading {
     font-family: 'Space Grotesk', 'Poppins', system-ui, sans-serif;
@@ -157,11 +163,65 @@ All colors MUST be HSL.
   .btn-ghost {
     @apply border border-border hover:bg-accent/10 hover:text-accent transition-all duration-300;
   }
+
+  /* Markdown rendered inside chat bubbles (react-markdown output) */
+  .chat-markdown > * + * {
+    @apply mt-2;
+  }
+  .chat-markdown ul {
+    @apply list-disc pl-5 space-y-1;
+  }
+  .chat-markdown ol {
+    @apply list-decimal pl-5 space-y-1;
+  }
+  .chat-markdown strong {
+    @apply font-semibold;
+  }
+  .chat-markdown h1,
+  .chat-markdown h2,
+  .chat-markdown h3,
+  .chat-markdown h4 {
+    @apply font-heading font-semibold text-base;
+  }
+  .chat-markdown a {
+    @apply text-primary underline underline-offset-2 hover:text-primary/80;
+  }
+  .chat-markdown code {
+    @apply font-mono text-sm bg-muted px-1.5 py-0.5 rounded;
+  }
+  .chat-markdown pre {
+    @apply bg-muted rounded-lg p-3 overflow-x-auto;
+  }
+  .chat-markdown pre code {
+    @apply bg-transparent p-0;
+  }
+  .chat-markdown blockquote {
+    @apply border-l-2 border-border pl-3 text-muted-foreground;
+  }
+  .chat-markdown table {
+    /* block + overflow keeps wide tables scrollable inside the bubble */
+    @apply block max-w-full overflow-x-auto border-collapse text-sm;
+  }
+  .chat-markdown th,
+  .chat-markdown td {
+    @apply border border-border px-3 py-1.5 text-left align-top;
+  }
+  .chat-markdown th {
+    @apply bg-muted/70 font-semibold whitespace-nowrap;
+  }
 }
 
 @layer utilities {
   .text-shadow-rainbow {
     text-shadow: 1px 1px 2px #ef4444, 2px 2px 2px #f59e0b, 3px 3px 2px #10b981, 4px 4px 2px #3b82f6;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 

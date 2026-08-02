@@ -32,7 +32,7 @@ export const certifications: Certification[] = [
     title: 'MERN Stack Developer',
     issuer: 'Coding Cloud',
     date: 'April 2025',
-    image: 'certifications/MERN.jpeg',
+    image: '/certifications/MERN.jpeg',
     description: 'Full-stack web development using MongoDB, Express.js, React.js, and Node.js.'
   },
   

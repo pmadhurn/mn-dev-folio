@@ -16,8 +16,8 @@ const SEO = ({
   title = "Madhur N Patel - Full Stack Developer Portfolio",
   description = "Experienced Full Stack Developer specializing in React, Node.js, Python, and modern web technologies. View my projects, skills, certifications, and professional experience.",
   keywords = "full stack developer, react developer, node.js, python, web development, portfolio, javascript, typescript, machine learning, software engineer",
-  image = "https://madhurnpatel.dev/og-image.jpg",
-  url = "https://madhurnpatel.dev",
+  image = "https://madhur.dev/madhur-patel-og-image.jpg",
+  url = "https://madhur.dev",
   type = "website",
   author = "Madhur N Patel",
   publishedTime,
@@ -51,7 +51,7 @@ const SEO = ({
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image} />
-      <meta property="twitter:creator" content="@yourtwitterhandle" />
+      <meta property="twitter:creator" content="@pmadhurn" />
 
       {/* Additional Meta Tags */}
       <meta name="language" content="English" />

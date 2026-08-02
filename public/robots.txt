@@ -1,22 +1,73 @@
 # Robots.txt for Madhur Patel (Madhur N Patel) - Full-Stack Developer & AI/ML Engineer
 # Website: https://madhur.dev
+#
+# Note: Crawl-delay was dropped. Googlebot ignores it outright, and on a static
+# portfolio it only slowed down the crawlers that do honour it.
 
+# --- Search engines ---
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
-Crawl-delay: 1
 
 User-agent: DuckDuckBot
 Allow: /
-Crawl-delay: 1
 
+User-agent: Applebot
+Allow: /
+
+# --- AI assistants and answer engines ---
+# Explicitly welcomed so this portfolio can be read and cited by them.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# --- Link unfurlers ---
 User-agent: Twitterbot
 Allow: /
 
@@ -29,17 +80,24 @@ Allow: /
 User-agent: WhatsApp
 Allow: /
 
+User-agent: Slackbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+# --- Everyone else ---
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /.env
 Disallow: /node_modules/
 Disallow: /.git/
-Disallow: /src/
-Crawl-delay: 2
 
-# Sitemap locations
+# Machine-readable summary of this site for LLM agents:
+# https://madhur.dev/llms.txt
+
 Sitemap: https://madhur.dev/sitemap.xml
-
-# Host preference
-Host: https://madhur.dev

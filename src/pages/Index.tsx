@@ -30,8 +30,9 @@ const Index = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href={siteUrl} />
 
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
+        {/* Open Graph / Facebook — "profile" matches the profile:* tags below
+            and the static tags in index.html that non-JS crawlers read. */}
+        <meta property="og:type" content="profile" />
         <meta property="og:url" content={siteUrl} />
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} />

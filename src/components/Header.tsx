@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X, Github, Linkedin, FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Moon, Sun, Menu, X, Github, Linkedin, FileText, MessageCircle } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
@@ -76,13 +78,22 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = [
+  type NavItem = {
+    label: string;
+    id: string;
+    /** When set, the item is a route link instead of an in-page scroll target. */
+    href?: string;
+    icon?: LucideIcon;
+  };
+
+  const navItems: NavItem[] = [
     { label: 'About', id: 'about' },
     { label: 'Skills', id: 'skills' },
     { label: 'Projects', id: 'projects' },
     { label: 'Experience', id: 'experience' },
     { label: 'Certifications', id: 'certifications' },
     { label: 'Education', id: 'education' },
+    { label: 'Chat', id: 'chat', href: '/chat', icon: MessageCircle },
     { label: 'Contact', id: 'contact' },
   ];
 
@@ -112,14 +123,26 @@ const Header = () => {
           <ul className="hidden md:flex items-center space-x-8" role="menubar">
             {navItems.map((item) => (
               <li key={item.id} role="none">
-                <button
-                  onClick={() => scrollToSection(item.id)}
-                  className="nav-link font-medium"
-                  role="menuitem"
-                  aria-label={`Navigate to ${item.label} section`}
-                >
-                  {item.label}
-                </button>
+                {item.href ? (
+                  <Link
+                    to={item.href}
+                    className="nav-link font-medium flex items-center gap-1.5"
+                    role="menuitem"
+                    aria-label={`Go to ${item.label} page`}
+                  >
+                    {item.icon && <item.icon size={16} aria-hidden="true" />}
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className="nav-link font-medium"
+                    role="menuitem"
+                    aria-label={`Navigate to ${item.label} section`}
+                  >
+                    {item.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -130,7 +153,7 @@ const Header = () => {
               variant="outline"
               size="sm"
               className="hidden sm:flex items-center space-x-2"
-              onClick={() => window.open('Madhur_N_Patel_Resume.pdf', '_blank')}
+              onClick={() => window.open('/Madhur_N_Patel_Resume.pdf', '_blank', 'noopener,noreferrer')}
               aria-label="Download Madhur N Patel's resume"
             >
               <FileText size={16} aria-hidden="true" />
@@ -141,7 +164,7 @@ const Header = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => window.open('https://github.com/pmadhurn', '_blank')}
+                onClick={() => window.open('https://github.com/pmadhurn', '_blank', 'noopener,noreferrer')}
                 aria-label="Visit Madhur's GitHub profile"
               >
                 <Github size={18} aria-hidden="true" />
@@ -149,7 +172,7 @@ const Header = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank')}
+                onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank', 'noopener,noreferrer')}
                 aria-label="Visit Madhur's LinkedIn profile"
               >
                 <Linkedin size={18} aria-hidden="true" />
@@ -187,23 +210,37 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 py-4 border-t" role="menu" aria-label="Mobile navigation menu">
             <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-left py-2 text-muted-foreground hover:text-foreground transition-colors"
-                  role="menuitem"
-                  aria-label={`Navigate to ${item.label} section`}
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) =>
+                item.href ? (
+                  <Link
+                    key={item.id}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-2 py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    role="menuitem"
+                    aria-label={`Go to ${item.label} page`}
+                  >
+                    {item.icon && <item.icon size={16} aria-hidden="true" />}
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-left py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    role="menuitem"
+                    aria-label={`Navigate to ${item.label} section`}
+                  >
+                    {item.label}
+                  </button>
+                )
+              )}
               <div className="flex items-center space-x-4 pt-4 border-t">
                 <Button
                   variant="outline"
                   size="sm"
                   className="flex-1 justify-center"
-                  onClick={() => window.open('Madhur_N_Patel_Resume.pdf', '_blank')}
+                  onClick={() => window.open('/Madhur_N_Patel_Resume.pdf', '_blank', 'noopener,noreferrer')}
                   aria-label="Download Madhur N Patel's resume"
                 >
                   <FileText size={16} className="mr-2" aria-hidden="true" />
@@ -212,7 +249,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => window.open('https://github.com/pmadhurn', '_blank')}
+                  onClick={() => window.open('https://github.com/pmadhurn', '_blank', 'noopener,noreferrer')}
                   aria-label="Visit Madhur's GitHub profile"
                 >
                   <Github size={18} aria-hidden="true" />
@@ -220,7 +257,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank')}
+                  onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank', 'noopener,noreferrer')}
                   aria-label="Visit Madhur's LinkedIn profile"
                 >
                   <Linkedin size={18} aria-hidden="true" />
