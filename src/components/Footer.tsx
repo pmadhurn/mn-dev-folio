@@ -8,6 +8,7 @@ const Footer = () => {
     { label: 'About', href: '#about' },
     { label: 'Skills', href: '#skills' },
     { label: 'Projects', href: '#projects' },
+    { label: 'Experience', href: '#experience' },
     { label: 'Certifications', href: '#certifications' },
     { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
@@ -47,21 +48,21 @@ const Footer = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => window.open('https://github.com/pmadhurn', '_blank')}
+                onClick={() => window.open('https://github.com/pmadhurn', '_blank', 'noopener,noreferrer')}
               >
                 <Github size={18} />
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank')}
+                onClick={() => window.open('https://linkedin.com/in/madhur-n', '_blank', 'noopener,noreferrer')}
               >
                 <Linkedin size={18} />
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => window.open('mailto:pmadhurn@gmail.com', '_blank')}
+                onClick={() => window.open('mailto:pmadhurn@gmail.com', '_blank', 'noopener,noreferrer')}
               >
                 <Mail size={18} />
               </Button>
@@ -112,7 +113,7 @@ const Footer = () => {
             <span>Made with </span>
             <Heart size={16} className="text-red-500 fill-current" />
             <a
-              href="Madhur.dev"
+              href="https://madhur.dev"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 transition-colors font-medium"
@@ -124,7 +125,6 @@ const Footer = () => {
 
         <div className="mt-4 text-center">
           <p className="text-xs text-muted-foreground">
-            Last updated: {new Date().toLocaleDateString()} • 
             Canonical URL: <span className="text-primary">www.madhur.dev</span>
           </p>
         </div>

@@ -33,7 +33,7 @@ const Certifications = () => {
                       variant="ghost"
                       size="sm"
                       onClick={() => window.open(cert.credentialUrl, '_blank')}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
                     >
                       <ExternalLink size={16} />
                     </Button>

@@ -9,6 +9,7 @@ const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredProjects = projects.filter(project => {
     const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
@@ -20,6 +21,7 @@ const Projects = () => {
 
   const handleProjectClick = (project) => {
     setSelectedProject(project);
+    setIsModalOpen(true);
   };
 
   const getStatusBadge = (status) => {
@@ -86,8 +88,17 @@ const Projects = () => {
             {filteredProjects.map(project => (
               <div
                 key={project.id}
-                className="project-card group cursor-pointer"
+                className="project-card group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 onClick={() => handleProjectClick(project)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleProjectClick(project);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${project.title}`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
@@ -168,12 +179,13 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Project Modal */}
+      {/* Project Modal — stays mounted while closing so the Radix exit
+          animation and focus/scroll-lock teardown can run. */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
-          isOpen={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </section>

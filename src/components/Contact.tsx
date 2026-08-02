@@ -1,5 +1,6 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, useRef, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Mail, Phone, MapPin, Send, Copy, Check, Github, Linkedin } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,7 +14,7 @@ interface FormData {
 }
 
 interface ContactInfo {
-  icon: React.ComponentType<{ size?: number; className?: string }>;
+  icon: LucideIcon;
   label: string;
   value: string;
   href: string | null;
@@ -28,7 +29,10 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [copiedField, setCopiedField] = useState<string>('');
+  const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const { toast } = useToast();
+
+  useEffect(() => () => clearTimeout(copiedTimeoutRef.current), []);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -85,7 +89,7 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
+    if (!GOOGLE_SCRIPT_URL || (GOOGLE_SCRIPT_URL as string).startsWith("YOUR_")) {
       console.warn("Please configure the Google Script URL in src/components/Contact.tsx");
       await new Promise(resolve => setTimeout(resolve, 1000));
       toast({
@@ -104,19 +108,17 @@ const Contact = () => {
       params.append('email', formData.email.trim());
       params.append('message', formData.message.trim());
 
-      // Option 1: Using no-cors (can't verify response)
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      // no-cors: the response is opaque, so delivery can't be verified —
+      // only network-level failures reach the catch block.
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         body: params,
         mode: 'no-cors'
       });
 
-      // Note: With no-cors, response.ok and response.status are not reliable
-      // The request is "opaque" - we assume success if no network error occurred
-      
       toast({
         title: "Message sent!",
-        description: "Thank you! I'll get back to you as soon as possible.",
+        description: "Thank you! I'll get back to you as soon as possible. If you don't hear back, email me directly at pmadhurn@gmail.com.",
       });
       
       setFormData({ name: '', email: '', message: '' });
@@ -141,7 +143,8 @@ const Contact = () => {
         title: "Copied to clipboard!",
         description: `${field} has been copied to your clipboard.`,
       });
-      setTimeout(() => setCopiedField(''), 2000);
+      clearTimeout(copiedTimeoutRef.current);
+      copiedTimeoutRef.current = setTimeout(() => setCopiedField(''), 2000);
     } catch (error) {
       toast({
         title: "Copy failed",
@@ -231,7 +234,7 @@ const Contact = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => copyToClipboard(info.copyValue, info.label)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
                           aria-label={`Copy ${info.label}`}
                         >
                           {copiedField === info.label ? (
