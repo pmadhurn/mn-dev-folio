@@ -90,10 +90,10 @@ const Education = () => {
                     {/* Status indicator */}
                     <div className="lg:text-right">
                       <span className="inline-flex px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
-                        Currently Enrolled
+                        Graduated
                       </span>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Expected Graduation: 2026
+                        Class of 2026
                       </p>
                     </div>
                   </div>
@@ -132,7 +132,7 @@ const Education = () => {
               </h4>
               <div className="text-muted-foreground space-y-2">
                 <p className="text-sm">
-                  Currently in my final years of Computer Science Engineering at Indus University, 
+                  Graduated in Computer Science and Engineering from Indus University,
                   one of Ahmedabad's premier technical institutions.
                 </p>
                 <p className="text-sm">

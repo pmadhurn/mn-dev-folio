@@ -2,7 +2,7 @@ import { GraduationCap, MapPin, Calendar, Award } from 'lucide-react';
 
 const About = () => {
   const stats = [
-    { icon: GraduationCap, label: 'B.Tech CSE', value: '2022-2026' },
+    { icon: GraduationCap, label: 'B.Tech CSE', value: 'Graduate' },
     { icon: Award, label: 'GPA', value: '8.5/10' },
     { icon: MapPin, label: 'Location', value: 'Ahmedabad, India' },
     { icon: Calendar, label: 'Experience', value: '3+ Years Coding' },
@@ -30,10 +30,10 @@ const About = () => {
                   wherever I go.
                 </p>
                 <p>
-                  Currently pursuing <strong>B.Tech in Computer Science and Engineering</strong> at 
-                  Indus University, I specialize in <strong>full-stack development</strong>, <strong>AI/ML 
-                  solutions</strong>, and <strong>IoT systems</strong>. My passion lies in creating efficient, 
-                  scalable solutions that bridge the gap between complex technology 
+                  A <strong>B.Tech graduate in Computer Science and Engineering</strong> from
+                  Indus University, I specialize in <strong>full-stack development</strong>, <strong>AI/ML
+                  solutions</strong>, and <strong>IoT systems</strong>. My passion lies in creating efficient,
+                  scalable solutions that bridge the gap between complex technology
                   and user-friendly experiences.
                 </p>
               </div>
