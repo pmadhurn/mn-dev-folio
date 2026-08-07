@@ -13,7 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 const Index = () => {
   const siteTitle = "Madhur Patel | Madhur N Patel - Expert Full-Stack Developer & AI/ML Engineer";
-  const siteDescription = "Madhur Patel (Madhur N Patel) - Expert Full-Stack Developer & AI/ML Engineer from Ahmedabad, India. 3+ years experience building enterprise-grade applications with 95% ML accuracy. Specializes in React, Node.js, Python, TensorFlow, AWS. Computer Science student at Indus University with proven track record in MERN stack, Android development, and IoT systems.";
+  const siteDescription = "Madhur Patel (Madhur N Patel) - Expert Full-Stack Developer & AI/ML Engineer from Ahmedabad, India. 3+ years experience building enterprise-grade applications with 95% ML accuracy. Specializes in React, Node.js, Python, TensorFlow, AWS. Computer Science graduate of Indus University with proven track record in MERN stack, Android development, and IoT systems.";
   const siteUrl = "https://madhur.dev";
   const keywords = "Madhur Patel, Madhur N Patel, Madhur, Full Stack Developer, AI ML Engineer, React Developer, Node.js Developer, Python Developer, TensorFlow, Machine Learning, Software Engineer, Computer Science, Ahmedabad India, Indus University, MERN Stack, JavaScript, TypeScript, AWS, Android Developer, IoT, ESP32, Docker, MongoDB, PostgreSQL, Enterprise Applications, Web Development, Portfolio";
 

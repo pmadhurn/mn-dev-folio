@@ -18,10 +18,10 @@ export const profile = {
     'Full-Stack Developer and AI/ML Engineer based in Ahmedabad, India, with 3+ years of experience building web, mobile, and IoT applications. Specializes in React, Node.js, Python, and TensorFlow.',
   bio: [
     'I am a dedicated professional who loves finding better ways to work. I have a strong record of improving processes, meeting goals, and working well in teams. I enjoy solving problems and making a positive impact wherever I go.',
-    'Currently pursuing a B.Tech in Computer Science and Engineering at Indus University, I specialize in full-stack development, AI/ML solutions, and IoT systems. My passion lies in creating efficient, scalable solutions that bridge the gap between complex technology and user-friendly experiences.',
+    'A B.Tech graduate in Computer Science and Engineering from Indus University, I specialize in full-stack development, AI/ML solutions, and IoT systems. My passion lies in creating efficient, scalable solutions that bridge the gap between complex technology and user-friendly experiences.',
   ],
   currentFocus:
-    'Open to internships and collaborative projects in software development, full-stack engineering, and machine learning.',
+    'Open to full-time roles and collaborative projects in software development, full-stack engineering, and machine learning.',
   education: {
     degree: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
     institution: 'Indus University, Ahmedabad',
