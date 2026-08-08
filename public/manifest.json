@@ -4,14 +4,14 @@
   "description": "Madhur Patel (Madhur N Patel) - Expert Full-Stack Developer & AI/ML Engineer from Ahmedabad, India. Specializing in React, Node.js, Python, TensorFlow, and enterprise applications.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#120f0d",
   "theme_color": "#f9a91f",
   "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/favicon.ico",
-      "sizes": "32x32",
-      "type": "image/png"
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
     },
     {
       "src": "/android-chrome-192x192.png",
