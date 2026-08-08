@@ -7,9 +7,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 
   const getStatusBadge = (status) => {
     const badges = {
-      public: { label: 'Public Repository', className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' },
-      private: { label: 'Available on Request', className: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' },
-      'coming-soon': { label: 'Coming Soon', className: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' }
+      public: { label: 'Public Repository', className: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' },
+      private: { label: 'Available on Request', className: 'bg-accent/10 text-accent' },
+      'coming-soon': { label: 'Coming Soon', className: 'bg-muted text-muted-foreground' }
     };
     const badge = badges[status] || badges.public;
     return (

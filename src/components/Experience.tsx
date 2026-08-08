@@ -1,17 +1,21 @@
 import { Briefcase, CheckCircle } from 'lucide-react';
 import { experiences } from '@/data/experience';
+import Reveal from '@/components/Reveal';
 
 const Experience = () => {
   return (
     <section id="experience" className="py-16 lg:py-24 bg-muted/20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Professional Experience
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-          </div>
+          <Reveal>
+            <div className="text-center mb-12">
+              <span className="section-eyebrow mb-4">Where I've Worked</span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                Professional Experience
+              </h2>
+              <div className="h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent"></div>
+            </div>
+          </Reveal>
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (

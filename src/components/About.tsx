@@ -1,4 +1,5 @@
 import { GraduationCap, MapPin, Calendar, Award } from 'lucide-react';
+import Reveal from '@/components/Reveal';
 
 const About = () => {
   const stats = [
@@ -12,12 +13,15 @@ const About = () => {
     <section id="about" className="py-16 lg:py-24" aria-label="About Madhur N Patel">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <header className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              About Me
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full" aria-hidden="true"></div>
-          </header>
+          <Reveal>
+            <header className="text-center mb-12">
+              <span className="section-eyebrow mb-4">Who I Am</span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                About Me
+              </h2>
+              <div className="h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent" aria-hidden="true"></div>
+            </header>
+          </Reveal>
 
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             {/* Bio */}

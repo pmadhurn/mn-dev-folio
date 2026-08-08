@@ -8,42 +8,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Portfolio Color System - Professional Developer Theme */
-    --background: 0 0% 100%;
-    --foreground: 222 84% 5%;
+    /* Portfolio Color System — Amber & Deep Teal.
+       Warm paper ground rather than pure white, so the amber reads as intentional
+       rather than as a warning colour sitting on a clinical background. */
+    --background: 40 40% 99%;
+    --foreground: 25 25% 9%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 84% 5%;
+    --card: 40 40% 100%;
+    --card-foreground: 25 25% 9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 5%;
+    --popover: 40 40% 100%;
+    --popover-foreground: 25 25% 9%;
 
-    /* Primary: Indigo #4F46E5 */
-    --primary: 244 77% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 244 77% 70%;
+    /* Primary: amber. `--primary` doubles as a text colour (skill badges, links,
+       nav underline), and vivid gold on paper is ~1.9:1 — nowhere near legible.
+       So the token is a deep bronze-amber that clears WCAG AA (4.7:1), and the
+       vivid gold lives in `--primary-glow` for gradients, glows and borders,
+       where contrast rules don't apply. Same split the teal accent already used. */
+    --primary: 32 95% 35%;
+    --primary-foreground: 40 40% 99%;
+    --primary-glow: 38 96% 56%;
 
-    /* Secondary: Neutral tones */
-    --secondary: 210 20% 95%;
-    --secondary-foreground: 222 47% 11%;
+    /* Secondary: warm neutrals, tinted to match the paper ground */
+    --secondary: 36 30% 94%;
+    --secondary-foreground: 25 30% 14%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 36 25% 94%;
+    --muted-foreground: 28 12% 40%;
 
-    /* Accent: Teal — darkened from the original #06B6D4 so accent-colored
-       text meets WCAG AA (4.5:1) contrast on the white background. */
-    --accent: 188 95% 30%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 188 100% 42%;
+    /* Accent: deep teal — the cool counterweight to the amber, held dark
+       enough that accent-coloured text also clears AA (5.5:1). */
+    --accent: 187 85% 27%;
+    --accent-foreground: 40 40% 99%;
+    --accent-glow: 186 72% 45%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 244 77% 60%;
+    --border: 36 20% 88%;
+    --input: 36 20% 88%;
+    --ring: 32 95% 35%;
 
     --radius: 0.5rem;
+
+    /* Headline gradient stops, kept separate from the brand tokens because a
+       gradient that ends in `--primary-glow` washes out to near-invisible on
+       the light ground. Here every stop stays dark enough to read as text. */
+    --gradient-from: 32 95% 35%;
+    --gradient-mid: 20 88% 44%;
+    --gradient-to: 187 85% 27%;
+
+    /* Motion tokens. The stock CSS easings are too weak to read as intentional;
+       these are the stronger variants used across the site's transitions. */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -63,38 +81,46 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark theme colors */
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
+    /* Dark theme: warm near-black rather than the usual blue-black, so the
+       ground shares a temperature with the amber instead of fighting it. */
+    --background: 24 18% 6%;
+    --foreground: 40 25% 96%;
 
-    --card: 222 80% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 24 16% 9%;
+    --card-foreground: 40 25% 96%;
 
-    --popover: 222 80% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 24 16% 9%;
+    --popover-foreground: 40 25% 96%;
 
-    /* Primary stays consistent */
-    --primary: 244 77% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 244 77% 70%;
+    /* On a near-black ground the vivid gold is legible (9.8:1), so dark mode
+       gets the full-strength colour the light theme has to hold back on.
+       This is where the palette is meant to look its best. */
+    --primary: 38 95% 55%;
+    --primary-foreground: 24 30% 8%;
+    --primary-glow: 42 100% 66%;
 
-    --secondary: 222 47% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 24 14% 15%;
+    --secondary-foreground: 40 25% 96%;
 
-    --muted: 222 47% 15%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 24 14% 15%;
+    --muted-foreground: 36 12% 66%;
 
-    /* Accent: Brighter teal for dark mode */
-    --accent: 188 100% 50%;
-    --accent-foreground: 222 84% 5%;
-    --accent-glow: 188 100% 60%;
+    /* Accent: bright teal (9.4:1 on the dark ground) */
+    --accent: 186 78% 48%;
+    --accent-foreground: 24 30% 8%;
+    --accent-glow: 184 85% 62%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    /* On the dark ground the gradient can run at full brightness. */
+    --gradient-from: 38 95% 55%;
+    --gradient-mid: 42 100% 66%;
+    --gradient-to: 184 85% 62%;
 
-    --border: 222 47% 15%;
-    --input: 222 47% 15%;
-    --ring: 244 77% 60%;
+    --destructive: 0 63% 46%;
+    --destructive-foreground: 40 25% 96%;
+
+    --border: 24 12% 17%;
+    --input: 24 12% 17%;
+    --ring: 38 95% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -137,31 +163,69 @@ All colors MUST be HSL.
 @layer components {
   /* Portfolio-specific components */
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary-glow)) 0%,
+      hsl(var(--primary)) 45%,
+      hsl(var(--accent)) 100%
+    );
   }
 
   .glass-card {
     @apply backdrop-blur-sm bg-card/90 border border-border/50;
   }
 
-  .skill-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors;
+  /* Small uppercase label that sits above a section heading, giving each
+     section a consistent entry point instead of a bare <h2>. */
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-primary/25
+           bg-primary/10 px-3 py-1 font-mono text-xs uppercase tracking-[0.16em]
+           text-primary;
   }
 
+  .skill-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+           bg-primary/10 text-primary border border-primary/20 hover:bg-primary/15
+           hover:border-primary/40 transition-[background-color,border-color,transform]
+           duration-200 ease-out;
+  }
+
+  /* Hover lift is gated behind a real pointer: on touch, :hover sticks after a
+     tap and the card stays raised until something else is tapped. */
   .project-card {
-    @apply relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-[box-shadow,border-color] duration-300 hover:border-primary/50;
+    @apply relative overflow-hidden rounded-xl border bg-card p-6
+           transition-[box-shadow,border-color,transform] duration-300;
+    transition-timing-function: var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-card:hover {
+      @apply border-primary/50 shadow-xl;
+      transform: translateY(-4px);
+    }
   }
 
   .nav-link {
     @apply relative text-muted-foreground hover:text-foreground transition-colors duration-200 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
 
+  /* The lift is a shadow change only. The previous hover:scale-105 resized the
+     text inside the button along with it, which reads as a wobble at this size —
+     scale is reserved for the press state, where it's the point. */
   .btn-hero {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-[background-color,box-shadow,transform] duration-300 transform hover:scale-105;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90
+           shadow-lg transition-[background-color,box-shadow] duration-200 ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-hero:hover {
+      box-shadow: 0 12px 32px -10px hsl(var(--primary) / 0.55);
+    }
   }
 
   .btn-ghost {
-    @apply border border-border hover:bg-accent/10 hover:text-accent transition-[background-color,color] duration-300;
+    @apply border border-border hover:bg-accent/10 hover:text-accent hover:border-accent/40
+           transition-[background-color,color,border-color] duration-200 ease-out;
   }
 
   /* Markdown rendered inside chat bubbles (react-markdown output) */
@@ -212,8 +276,35 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  .text-shadow-rainbow {
-    text-shadow: 1px 1px 2px #ef4444, 2px 2px 2px #f59e0b, 3px 3px 2px #10b981, 4px 4px 2px #3b82f6;
+  /* Brand gradient applied to text. The fallback colour matters: if the clip
+     fails (or the gradient can't paint) the text stays readable rather than
+     rendering as a transparent hole. */
+  .text-gradient-brand {
+    color: hsl(var(--primary));
+    background-image: linear-gradient(
+      115deg,
+      hsl(var(--gradient-from)) 0%,
+      hsl(var(--gradient-mid)) 45%,
+      hsl(var(--gradient-to)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Soft off-axis colour wash behind the hero. Two wide radial gradients read
+     as depth without the banding a single linear gradient shows on large areas. */
+  .aurora {
+    background-image:
+      radial-gradient(58% 48% at 12% 18%, hsl(var(--primary-glow) / 0.20), transparent 72%),
+      radial-gradient(48% 42% at 88% 28%, hsl(var(--accent-glow) / 0.16), transparent 72%),
+      radial-gradient(46% 46% at 62% 88%, hsl(var(--primary) / 0.10), transparent 72%);
+  }
+
+  .glow-primary {
+    box-shadow:
+      0 0 0 1px hsl(var(--primary) / 0.22),
+      0 24px 60px -18px hsl(var(--primary) / 0.42);
   }
 
   .scrollbar-hide {

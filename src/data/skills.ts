@@ -26,7 +26,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'languages',
     title: 'Programming Languages',
     icon: 'Code2',
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-amber-500 to-orange-600',
     skills: [
       { name: 'Python', level: 'expert', highlighted: true },
       { name: 'JavaScript', level: 'expert', highlighted: true },
@@ -41,7 +41,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'frontend',
     title: 'Frontend Development',
     icon: 'Layout',
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-teal-500 to-cyan-600',
     skills: [
       { name: 'React.js', level: 'expert', highlighted: true },
       { name: 'Next.js', level: 'advanced' },
@@ -55,7 +55,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'backend',
     title: 'Backend Development',
     icon: 'Server',
-    color: 'from-green-500 to-emerald-500',
+    color: 'from-orange-500 to-amber-600',
     skills: [
       { name: 'Node.js', level: 'expert', highlighted: true },
       { name: 'Express.js', level: 'advanced' },
@@ -68,7 +68,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'databases',
     title: 'Databases & Storage',
     icon: 'Database',
-    color: 'from-orange-500 to-amber-500',
+    color: 'from-cyan-600 to-teal-700',
     skills: [
       { name: 'MongoDB', level: 'expert', highlighted: true },
       { name: 'PostgreSQL', level: 'advanced' },
@@ -81,7 +81,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'ai-ml',
     title: 'AI/ML & Data Science',
     icon: 'Brain',
-    color: 'from-violet-500 to-purple-500',
+    color: 'from-yellow-400 to-amber-500',
     skills: [
       { name: 'TensorFlow', level: 'advanced', highlighted: true },
       { name: 'PyTorch', level: 'intermediate' },
@@ -95,7 +95,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'ai-tools',
     title: 'AI Tools & Models',
     icon: 'Bot',
-    color: 'from-rose-500 to-red-500',
+    color: 'from-emerald-500 to-teal-600',
     skills: [
       { name: 'GPT-4/ChatGPT', level: 'expert', highlighted: true },
       { name: 'Claude', level: 'expert', highlighted: true },
@@ -109,7 +109,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'prompt',
     title: 'Prompt Engineering',
     icon: 'Sparkles',
-    color: 'from-teal-500 to-cyan-500',
+    color: 'from-amber-400 to-yellow-500',
     skills: [
       { name: 'Chain-of-Thought', level: 'expert', highlighted: true },
       { name: 'Few-Shot Learning', level: 'expert' },
@@ -122,7 +122,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'mobile',
     title: 'Mobile Development',
     icon: 'Smartphone',
-    color: 'from-lime-500 to-green-500',
+    color: 'from-teal-400 to-emerald-500',
     skills: [
       { name: 'React Native', level: 'intermediate' },
       { name: 'Android/Kotlin', level: 'advanced' },
@@ -133,7 +133,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'embedded',
     title: 'Embedded & IoT',
     icon: 'Cpu',
-    color: 'from-sky-500 to-blue-500',
+    color: 'from-orange-600 to-amber-700',
     skills: [
       { name: 'Arduino', level: 'advanced', highlighted: true },
       { name: 'ESP32', level: 'advanced' },
@@ -145,7 +145,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'devops',
     title: 'DevOps & Cloud',
     icon: 'Cloud',
-    color: 'from-indigo-500 to-blue-500',
+    color: 'from-cyan-500 to-teal-500',
     skills: [
       { name: 'Git/GitHub', level: 'expert', highlighted: true },
       { name: 'Docker', level: 'advanced' },
@@ -159,7 +159,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'systems',
     title: 'Operating Systems',
     icon: 'Monitor',
-    color: 'from-slate-500 to-gray-500',
+    color: 'from-stone-500 to-stone-600',
     skills: [
       { name: 'Linux/Ubuntu', level: 'advanced' },
       { name: 'macOS', level: 'expert' },
@@ -170,7 +170,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'tools',
     title: 'Developer Tools',
     icon: 'Wrench',
-    color: 'from-fuchsia-500 to-pink-500',
+    color: 'from-amber-600 to-orange-700',
     skills: [
       { name: 'VS Code', level: 'expert' },
       { name: 'Cursor', level: 'advanced', highlighted: true },

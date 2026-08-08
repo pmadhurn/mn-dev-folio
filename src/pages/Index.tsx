@@ -56,7 +56,7 @@ const Index = () => {
         <meta property="twitter:creator" content="@pmadhurn" />
 
         {/* Enhanced SEO Meta Tags */}
-        <meta name="theme-color" content="#6366f1" />
+        <meta name="theme-color" content="#f9a91f" />
         <meta name="language" content="en" />
         <meta name="revisit-after" content="3 days" />
         <meta name="distribution" content="global" />
@@ -68,7 +68,7 @@ const Index = () => {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Madhur Patel" />
-        <meta name="msapplication-TileColor" content="#6366f1" />
+        <meta name="msapplication-TileColor" content="#f9a91f" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

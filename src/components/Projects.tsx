@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { projects, categories } from '@/data/projects';
 import ProjectModal from './ProjectModal';
+import Reveal from '@/components/Reveal';
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -26,9 +27,9 @@ const Projects = () => {
 
   const getStatusBadge = (status) => {
     const badges = {
-      public: { label: 'Public', className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' },
-      private: { label: 'Available on Request', className: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' },
-      'coming-soon': { label: 'Coming Soon', className: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' }
+      public: { label: 'Public', className: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' },
+      private: { label: 'Available on Request', className: 'bg-accent/10 text-accent' },
+      'coming-soon': { label: 'Coming Soon', className: 'bg-muted text-muted-foreground' }
     };
     const badge = badges[status] || badges.public;
     return (
@@ -42,15 +43,18 @@ const Projects = () => {
     <section id="projects" className="py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Featured Projects
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A showcase of my work spanning web development, AI/ML, mobile apps, and IoT solutions
-            </p>
-          </div>
+          <Reveal>
+            <div className="text-center mb-12">
+              <span className="section-eyebrow mb-4">Selected Work</span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                Featured Projects
+              </h2>
+              <div className="h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent mb-6"></div>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                A showcase of my work spanning web development, AI/ML, mobile apps, and IoT solutions
+              </p>
+            </div>
+          </Reveal>
 
           {/* Filters and Search */}
           <div className="flex flex-col lg:flex-row gap-4 mb-8">

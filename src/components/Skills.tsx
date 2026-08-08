@@ -14,11 +14,13 @@ const iconMap: Record<string, React.ElementType> = {
 const iconFor = (key: string): React.ElementType => iconMap[key] ?? Code2;
 
 // Proficiency level config
+// The ramp runs neutral -> accent -> primary -> both, so proficiency reads as
+// "how far along the brand gradient" rather than as four unrelated hues.
 const levelConfig = {
-  beginner: { scale: 0.25, color: 'bg-slate-400', label: 'Beginner' },
-  intermediate: { scale: 0.5, color: 'bg-blue-500', label: 'Intermediate' },
-  advanced: { scale: 0.75, color: 'bg-purple-500', label: 'Advanced' },
-  expert: { scale: 1, color: 'bg-gradient-to-r from-primary to-purple-500', label: 'Expert' }
+  beginner: { scale: 0.25, color: 'bg-muted-foreground/40', label: 'Beginner' },
+  intermediate: { scale: 0.5, color: 'bg-accent', label: 'Intermediate' },
+  advanced: { scale: 0.75, color: 'bg-primary', label: 'Advanced' },
+  expert: { scale: 1, color: 'bg-gradient-to-r from-primary to-accent', label: 'Expert' }
 };
 
 // Animation variants
@@ -87,7 +89,7 @@ const Skills = () => {
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
@@ -99,17 +101,17 @@ const Skills = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+            <span className="section-eyebrow mb-4">
               Technical Expertise
             </span>
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
               Skills & Technologies
             </h2>
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <div className="w-12 h-1 bg-primary rounded-full" />
-              <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-              <div className="w-12 h-1 bg-primary rounded-full" />
-            </div>
+            {/* Matches the divider every other section uses. The previous
+                version had a permanently pulsing dot — an animation with no
+                state to report, running forever in the corner of the eye. */}
+            <div className="h-1 w-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent" />
+
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A comprehensive toolkit spanning{' '}
               <span className="text-primary font-medium">{totalSkills}+ technologies</span>{' '}
@@ -132,7 +134,7 @@ const Skills = () => {
                 placeholder="Search skills..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-12 py-3 bg-card border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                className="w-full pl-12 pr-12 py-3 bg-card border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-[border-color,box-shadow] duration-200 ease-out"
               />
               {searchQuery && (
                 <button
