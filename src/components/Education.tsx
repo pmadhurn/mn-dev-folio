@@ -1,16 +1,20 @@
 import { GraduationCap, Calendar, MapPin, Trophy } from 'lucide-react';
+import Reveal from '@/components/Reveal';
 
 const Education = () => {
   return (
     <section id="education" className="py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Education
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-          </div>
+          <Reveal>
+            <div className="text-center mb-12">
+              <span className="section-eyebrow mb-4">Academics</span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                Education
+              </h2>
+              <div className="h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent"></div>
+            </div>
+          </Reveal>
 
           <div className="relative">
             {/* Timeline line */}

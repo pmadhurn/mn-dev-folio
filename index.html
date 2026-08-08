@@ -94,8 +94,8 @@
     <meta name="distribution" content="global" />
     <meta name="rating" content="general" />
     <meta name="revisit-after" content="3 days" />
-    <meta name="theme-color" content="#6366f1" />
-    <meta name="msapplication-TileColor" content="#6366f1" />
+    <meta name="theme-color" content="#f9a91f" />
+    <meta name="msapplication-TileColor" content="#f9a91f" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Madhur Patel" />
@@ -124,6 +124,17 @@
     <!-- Verification Tags (Add when you have accounts) -->
     <!-- <meta name="google-site-verification" content="your-google-verification-code" /> -->
     <!-- <meta name="msvalidate.01" content="your-bing-verification-code" /> -->
+
+    <!--
+      The build injects a plain-HTML snapshot of the site inside #root for crawlers and
+      no-JS clients (see scripts/prerender.ts). React clears it on mount, but on a cold
+      load the browser painted that raw markup as unstyled text first. Flag JS support
+      during head parse — before the body paints — and hide the snapshot. Clients that
+      don't run JS never get `.js`, so they still receive the readable content, and the
+      node stays inside #root so React's replaceChildren() still owns its removal.
+    -->
+    <script>document.documentElement.classList.add('js');</script>
+    <style>html.js #static-content{display:none !important}</style>
   </head>
 
   <body>

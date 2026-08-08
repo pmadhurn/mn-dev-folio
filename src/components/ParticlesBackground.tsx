@@ -4,7 +4,13 @@ import { loadSlim } from '@tsparticles/slim';
 
 // Shared animated network background used across pages (Hero, Chat) so the
 // whole site has the same interactive feel.
-const options = {
+//
+// The palette is built per theme: vivid gold reads well on the near-black dark
+// ground but washes out to nothing on the light paper one, so the light theme
+// gets a deeper bronze instead. Both variants are built once at module level —
+// the component's own comment below explains why a fresh object identity per
+// render is a problem here.
+const makeOptions = (color: string) => ({
   background: {
     color: {
       value: 'transparent',
@@ -39,10 +45,10 @@ const options = {
   },
   particles: {
     color: {
-      value: '#6662afff',
+      value: color,
     },
     links: {
-      color: '#6662afff',
+      color,
       distance: 150,
       enable: true,
       opacity: 0.3,
@@ -76,7 +82,10 @@ const options = {
     },
   },
   detectRetina: true,
-};
+});
+
+const OPTIONS_DARK = makeOptions('#f9a91f');
+const OPTIONS_LIGHT = makeOptions('#a8690c');
 
 // Stable style object: an inline literal would be a new identity every render
 // and can make the Particles component rebuild its canvas.
@@ -93,6 +102,9 @@ const canvasStyle = {
 const ParticlesBackground = ({ id = 'tsparticles' }: { id?: string }) => {
   const [init, setInit] = useState(false);
   const [showParticles, setShowParticles] = useState(true);
+  const [isDark, setIsDark] = useState(() =>
+    document.documentElement.classList.contains('dark')
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -103,8 +115,13 @@ const ParticlesBackground = ({ id = 'tsparticles' }: { id?: string }) => {
     });
 
     // Hidden during the theme-toggle view transition to avoid canvas artifacts.
+    // The canvas is unmounted for the duration anyway, so re-reading the theme
+    // on the way back in is free — no need to observe the class directly.
     const handleTransitionStart = () => setShowParticles(false);
-    const handleTransitionEnd = () => setShowParticles(true);
+    const handleTransitionEnd = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+      setShowParticles(true);
+    };
 
     window.addEventListener('theme-transition-start', handleTransitionStart);
     window.addEventListener('theme-transition-end', handleTransitionEnd);
@@ -118,7 +135,13 @@ const ParticlesBackground = ({ id = 'tsparticles' }: { id?: string }) => {
 
   if (!init || !showParticles) return null;
 
-  return <Particles id={id} options={options} style={canvasStyle} />;
+  return (
+    <Particles
+      id={id}
+      options={isDark ? OPTIONS_DARK : OPTIONS_LIGHT}
+      style={canvasStyle}
+    />
+  );
 };
 
 // memo: the chat page re-renders on every keystroke and every streamed token;

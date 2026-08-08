@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import Reveal from '@/components/Reveal';
 
 // Type definitions
 interface FormData {
@@ -182,15 +183,18 @@ const Contact = () => {
     <section id="contact" className="py-16 lg:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Let's Work Together
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities, innovative projects, and exciting collaborations.
-            </p>
-          </div>
+          <Reveal>
+            <div className="text-center mb-12">
+              <span className="section-eyebrow mb-4">Get In Touch</span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                Let's Work Together
+              </h2>
+              <div className="h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent mb-6"></div>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                I'm always open to discussing new opportunities, innovative projects, and exciting collaborations.
+              </p>
+            </div>
+          </Reveal>
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
