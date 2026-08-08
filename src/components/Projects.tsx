@@ -70,7 +70,7 @@ const Projects = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-[background-color,color,border-color,box-shadow] duration-300 flex items-center gap-2 ${
                     selectedCategory === category.id
                       ? 'bg-primary text-primary-foreground shadow-lg'
                       : 'bg-card text-muted-foreground hover:bg-primary/10 hover:text-primary border'
