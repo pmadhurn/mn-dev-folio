@@ -47,7 +47,13 @@ const Header = () => {
       localStorage.setItem('theme', newTheme ? 'dark' : 'light');
     });
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     transition.ready.then(() => {
+      // Reduced motion: skip the circular wipe and let the view transition's
+      // default short opacity cross-fade play instead.
+      if (prefersReducedMotion) return;
+
       const clipPath = [
         `circle(0px at ${x}px ${y}px)`,
         `circle(${endRadius}px at ${x}px ${y}px)`,
@@ -187,8 +193,8 @@ const Header = () => {
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
             >
               <div className="relative h-5 w-5">
-                <Sun size={18} className="absolute transition-all duration-1000 transform dark:rotate-90 dark:scale-0" />
-                <Moon size={18} className="absolute transition-all duration-1000 transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
+                <Sun size={18} className="absolute transition-transform duration-300 transform dark:rotate-90 dark:scale-0" />
+                <Moon size={18} className="absolute transition-transform duration-300 transform rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
               </div>
             </Button>
 

@@ -21,7 +21,7 @@ const Certifications = () => {
             {certifications.map((cert, index) => (
               <div
                 key={cert.id}
-                className="group bg-card border rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+                className="group bg-card border rounded-lg p-6 hover:shadow-lg transition-[box-shadow,border-color] duration-300 hover:border-primary/50"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">

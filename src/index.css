@@ -149,7 +149,7 @@ All colors MUST be HSL.
   }
 
   .project-card {
-    @apply relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:border-primary/50;
+    @apply relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-[box-shadow,border-color] duration-300 hover:border-primary/50;
   }
 
   .nav-link {
@@ -157,11 +157,11 @@ All colors MUST be HSL.
   }
 
   .btn-hero {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-[background-color,box-shadow,transform] duration-300 transform hover:scale-105;
   }
 
   .btn-ghost {
-    @apply border border-border hover:bg-accent/10 hover:text-accent transition-all duration-300;
+    @apply border border-border hover:bg-accent/10 hover:text-accent transition-[background-color,color] duration-300;
   }
 
   /* Markdown rendered inside chat bubbles (react-markdown output) */
@@ -222,6 +222,18 @@ All colors MUST be HSL.
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* Reduced motion: drop movement (transform/position), keep the color and
+   opacity feedback that aids comprehension — never animate to nothing. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-property: color, background-color, border-color, box-shadow, opacity !important;
+    transition-duration: 150ms !important;
   }
 }
 

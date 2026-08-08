@@ -15,10 +15,10 @@ const iconFor = (key: string): React.ElementType => iconMap[key] ?? Code2;
 
 // Proficiency level config
 const levelConfig = {
-  beginner: { width: '25%', color: 'bg-slate-400', label: 'Beginner' },
-  intermediate: { width: '50%', color: 'bg-blue-500', label: 'Intermediate' },
-  advanced: { width: '75%', color: 'bg-purple-500', label: 'Advanced' },
-  expert: { width: '100%', color: 'bg-gradient-to-r from-primary to-purple-500', label: 'Expert' }
+  beginner: { scale: 0.25, color: 'bg-slate-400', label: 'Beginner' },
+  intermediate: { scale: 0.5, color: 'bg-blue-500', label: 'Intermediate' },
+  advanced: { scale: 0.75, color: 'bg-purple-500', label: 'Advanced' },
+  expert: { scale: 1, color: 'bg-gradient-to-r from-primary to-purple-500', label: 'Expert' }
 };
 
 // Animation variants
@@ -26,7 +26,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.06 }
   }
 };
 
@@ -164,7 +164,7 @@ const Skills = () => {
                     onClick={() => handleCategoryChange(category.id)}
                     className={`
                       flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium
-                      transition-all duration-300 whitespace-nowrap
+                      transition-[background-color,color,border-color,box-shadow,transform] duration-300 whitespace-nowrap
                       ${isActive
                         ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105'
                         : 'bg-card text-muted-foreground hover:bg-primary/10 hover:text-primary border border-border hover:border-primary/50'
@@ -188,7 +188,7 @@ const Skills = () => {
           {/* Skills Grid */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={selectedCategory + searchQuery}
+              key={selectedCategory}
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -202,7 +202,7 @@ const Skills = () => {
                   <motion.div
                     key={category.id}
                     variants={itemVariants}
-                    className="group relative bg-card rounded-2xl border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
+                    className="group relative bg-card rounded-2xl border border-border p-6 hover:border-primary/50 transition-[border-color,box-shadow] duration-300 hover:shadow-xl hover:shadow-primary/5"
                   >
                     {/* Category Header */}
                     <div className="flex items-center gap-3 mb-5">
@@ -231,7 +231,7 @@ const Skills = () => {
                           <span
                             className={`
                               inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm
-                              transition-all duration-300 cursor-default
+                              transition-[background-color,color] duration-300 cursor-default
                               ${skill.highlighted
                                 ? 'bg-primary/15 text-primary border border-primary/30 font-medium'
                                 : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent'
@@ -261,10 +261,11 @@ const Skills = () => {
                                   <div className="flex items-center gap-2">
                                     <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                                       <motion.div
-                                        initial={{ width: 0 }}
-                                        animate={{ width: levelConfig[skill.level].width }}
+                                        initial={{ scaleX: 0 }}
+                                        animate={{ scaleX: levelConfig[skill.level].scale }}
                                         transition={{ duration: 0.5, ease: "easeOut" }}
-                                        className={`h-full ${levelConfig[skill.level].color} rounded-full`}
+                                        style={{ transformOrigin: 'left' }}
+                                        className={`h-full w-full ${levelConfig[skill.level].color} rounded-full`}
                                       />
                                     </div>
                                     <span className="text-[10px] text-muted-foreground font-medium">

@@ -364,7 +364,7 @@ const Chat = () => {
                 type="submit"
                 disabled={!input.trim() || isLoading}
                 aria-label="Send message"
-                className="flex-shrink-0 w-12 h-12 rounded-xl hero-gradient text-primary-foreground flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-lg"
+                className="flex-shrink-0 w-12 h-12 rounded-xl hero-gradient text-primary-foreground flex items-center justify-center shadow-lg transition-[opacity,box-shadow,transform] duration-300 hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-lg"
               >
                 <Send className="w-5 h-5" aria-hidden="true" />
               </button>
