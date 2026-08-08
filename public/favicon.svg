@@ -1,6 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Madhur N Patel">
-  <rect width="64" height="64" rx="14" fill="#f9a91f"/>
-  <text x="32" y="42"
-        font-family="'Space Grotesk', 'Segoe UI', system-ui, sans-serif"
-        font-size="26" font-weight="700" text-anchor="middle" fill="#120f0d">MN</text>
+  <!--
+    The mark is drawn as a stroked path rather than a <text> element on purpose:
+    a favicon renders outside the page, where the site's webfont is unavailable,
+    so text would silently fall back to whatever the OS provides and shift shape
+    between platforms. A path renders identically everywhere.
+
+    One letter, not two. At 16px a second glyph gets ~7px of width and the pair
+    collapses into a smudge — the wordmark keeps "MN", the favicon carries "M".
+  -->
+  <defs>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbbf3f"/>
+      <stop offset="1" stop-color="#e8890a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#amber)"/>
+  <path d="M16 44 V20 L32 35 L48 20 V44"
+        fill="none"
+        stroke="#140f08"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
 </svg>
