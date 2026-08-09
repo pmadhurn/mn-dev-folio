@@ -1,12 +1,13 @@
-import { GraduationCap, MapPin, Calendar, Award } from 'lucide-react';
+import { GraduationCap, MapPin, Server, Award } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import { profile } from '@/data/profile';
 
 const About = () => {
   const stats = [
     { icon: GraduationCap, label: 'B.Tech CSE', value: 'Graduate' },
     { icon: Award, label: 'GPA', value: '8.5/10' },
     { icon: MapPin, label: 'Location', value: 'Ahmedabad, India' },
-    { icon: Calendar, label: 'Experience', value: '3+ Years Coding' },
+    { icon: Server, label: 'Focus', value: 'Infrastructure & Embedded' },
   ];
 
   return (
@@ -26,28 +27,18 @@ const About = () => {
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             {/* Bio */}
             <article className="lg:col-span-2 space-y-6">
-              <div className="text-lg leading-relaxed text-muted-foreground">
-                <p className="mb-4">
-                  I am a dedicated professional who loves finding better ways to work. 
-                  I have a strong record of improving processes, meeting goals, and working 
-                  well in teams. I enjoy solving problems and making a positive impact 
-                  wherever I go.
-                </p>
-                <p>
-                  A <strong>B.Tech graduate in Computer Science and Engineering</strong> from
-                  Indus University, I specialize in <strong>full-stack development</strong>, <strong>AI/ML
-                  solutions</strong>, and <strong>IoT systems</strong>. My passion lies in creating efficient,
-                  scalable solutions that bridge the gap between complex technology
-                  and user-friendly experiences.
-                </p>
+              {/* Prose lives in src/data/profile.ts so this section, the static
+                  prerender snapshot and llms.txt cannot drift apart. */}
+              <div className="text-lg leading-relaxed text-muted-foreground space-y-4">
+                {profile.bio.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
               </div>
 
               <aside className="border-l-4 border-primary pl-6 bg-primary/5 py-4 rounded-r-lg" role="complementary">
                 <h3 className="text-primary font-medium mb-2">Current Focus</h3>
                 <p className="text-muted-foreground">
-                  I'm looking forward to connecting with others and growing together 
-                  through internships and collaborative projects in software development, 
-                  full-stack engineering, and machine learning.
+                  {profile.currentFocus}
                 </p>
               </aside>
             </article>

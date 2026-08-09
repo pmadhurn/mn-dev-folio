@@ -9,19 +9,20 @@
 export const profile = {
   name: 'Madhur N Patel',
   alternateNames: ['Madhur Patel', 'Madhur'],
-  headline: 'Full-Stack Developer & AI/ML Engineer',
+  headline: 'Infrastructure & Embedded Systems Engineer',
   location: 'Ahmedabad, Gujarat, India',
   email: 'pmadhurn@gmail.com',
   phone: '+91 9016273812',
   siteUrl: 'https://madhur.dev',
   summary:
-    'Full-Stack Developer and AI/ML Engineer based in Ahmedabad, India, with 3+ years of experience building web, mobile, and IoT applications. Specializes in React, Node.js, Python, and TensorFlow.',
+    'Infrastructure and embedded systems engineer in Ahmedabad, India. Builds and operates self-managed Linux infrastructure, containerized services, and sensor-fusion systems on Raspberry Pi and ESP32.',
   bio: [
-    'I am a dedicated professional who loves finding better ways to work. I have a strong record of improving processes, meeting goals, and working well in teams. I enjoy solving problems and making a positive impact wherever I go.',
-    'A B.Tech graduate in Computer Science and Engineering from Indus University, I specialize in full-stack development, AI/ML solutions, and IoT systems. My passion lies in creating efficient, scalable solutions that bridge the gap between complex technology and user-friendly experiences.',
+    'I build and operate the layer where software meets hardware.',
+    'That means a production environment I run myself — six containerized services on an ARM64 cloud instance, reachable only through a zero-trust tunnel, with no inbound ports open. It also means systems that talk to physical devices: a pair of Raspberry Pi gimbals that find each other by GPS bearing, then hand off to computer vision for fine tracking, fusing IMU and magnetometer data along the way.',
+    'B.Tech in Computer Science and Engineering from Indus University, Ahmedabad. I\'m looking for infrastructure, embedded, or platform engineering work — ideally somewhere that ships physical products.',
   ],
   currentFocus:
-    'Open to full-time roles and collaborative projects in software development, full-stack engineering, and machine learning.',
+    'Looking for infrastructure, embedded, or platform engineering work — ideally somewhere that ships physical products.',
   education: {
     degree: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
     institution: 'Indus University, Ahmedabad',

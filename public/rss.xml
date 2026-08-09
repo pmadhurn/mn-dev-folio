@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Madhur Patel - Full-Stack Developer & AI/ML Engineer</title>
-    <description>Latest projects and updates from Madhur Patel (Madhur N Patel), Expert Full-Stack Developer and AI/ML Engineer from Ahmedabad, India</description>
+    <title>Madhur N Patel - Infrastructure &amp; Embedded Systems Engineer</title>
+    <description>Latest projects and updates from Madhur N Patel, Infrastructure and Embedded Systems Engineer from Ahmedabad, India</description>
     <link>https://madhur.dev</link>
     <atom:link href="https://madhur.dev/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jan 2025 00:00:00 GMT</lastBuildDate>
-    <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+    <lastBuildDate>Sun, 09 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <pubDate>Sun, 09 Aug 2026 00:00:00 GMT</pubDate>
     <ttl>1440</ttl>
     <managingEditor>pmadhurn@gmail.com (Madhur N Patel)</managingEditor>
     <webMaster>pmadhurn@gmail.com (Madhur N Patel)</webMaster>
-    <copyright>Copyright 2025 Madhur N Patel</copyright>
+    <copyright>Copyright 2026 Madhur N Patel</copyright>
     <category>Technology</category>
-    <category>Software Development</category>
-    <category>AI/ML</category>
+    <category>Infrastructure</category>
+    <category>Embedded Systems</category>
     
     <item>
-      <title>SpeakInsights - Enterprise Meeting Intelligence Platform</title>
-      <description>Engineered microservices-based AI platform processing audio recordings into intelligent meeting insights with 95% transcription accuracy</description>
+      <title>Self-Hosted Infrastructure - OCI ARM64 + Cloudflare Tunnel</title>
+      <description>Self-managed production environment running six containerized services on an ARM64 Oracle Cloud instance, reachable only through a zero-trust Cloudflare Tunnel with no inbound ports exposed</description>
       <link>https://madhur.dev/#projects</link>
-      <guid>https://madhur.dev/projects/speakinsights</guid>
+      <guid>https://madhur.dev/projects/self-hosted-infrastructure</guid>
       <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
-      <category>AI/ML</category>
-      <category>Python</category>
-      <category>FastAPI</category>
+      <category>Infrastructure</category>
+      <category>Docker</category>
+      <category>Cloudflare Tunnel</category>
     </item>
     
     <item>

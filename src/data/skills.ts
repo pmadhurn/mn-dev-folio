@@ -3,6 +3,10 @@
  *
  * Kept free of React/lucide imports so it can also be consumed by the
  * build-time prerenderer (see scripts/prerender.ts), which runs in Node.
+ *
+ * Proficiency policy: at most five skills carry `expert`. Everything else tops
+ * out at `advanced`. A page where a third of the entries claim expertise tells
+ * a reader nothing except that the ratings are unweighted.
  */
 export type SkillLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
 
@@ -23,32 +27,62 @@ export interface SkillCategory {
 
 export const skillCategories: SkillCategory[] = [
   {
+    id: 'devops',
+    title: 'Infrastructure & Cloud',
+    icon: 'Cloud',
+    color: 'from-cyan-500 to-teal-500',
+    skills: [
+      { name: 'Docker', level: 'advanced', highlighted: true },
+      { name: 'Docker Compose', level: 'advanced', highlighted: true },
+      { name: 'Cloudflare Tunnel', level: 'advanced', highlighted: true },
+      { name: 'Nginx', level: 'advanced' },
+      { name: 'Oracle Cloud', level: 'advanced' },
+      { name: 'Git/GitHub', level: 'expert' },
+      { name: 'CI/CD', level: 'intermediate' },
+      { name: 'Vercel', level: 'advanced' },
+      { name: 'AWS', level: 'intermediate' },
+      { name: 'GCP', level: 'intermediate' },
+    ]
+  },
+  {
+    id: 'embedded',
+    title: 'Embedded & IoT',
+    icon: 'Cpu',
+    color: 'from-orange-600 to-amber-700',
+    skills: [
+      { name: 'Raspberry Pi', level: 'advanced', highlighted: true },
+      { name: 'ESP32', level: 'advanced', highlighted: true },
+      { name: 'Arduino', level: 'advanced' },
+      { name: 'Sensor Fusion (IMU/GPS)', level: 'intermediate' },
+      { name: 'Serial / I2C', level: 'intermediate' },
+      { name: 'Tinkercad', level: 'intermediate' },
+    ]
+  },
+  {
+    id: 'systems',
+    title: 'Operating Systems',
+    icon: 'Monitor',
+    color: 'from-stone-500 to-stone-600',
+    skills: [
+      { name: 'Linux/Ubuntu', level: 'advanced', highlighted: true },
+      { name: 'macOS', level: 'advanced' },
+      { name: 'Windows', level: 'advanced' },
+    ]
+  },
+  {
     id: 'languages',
     title: 'Programming Languages',
     icon: 'Code2',
     color: 'from-amber-500 to-orange-600',
     skills: [
       { name: 'Python', level: 'expert', highlighted: true },
-      { name: 'JavaScript', level: 'expert', highlighted: true },
+      { name: 'JavaScript', level: 'expert' },
       { name: 'TypeScript', level: 'advanced' },
-      { name: 'Java', level: 'advanced' },
       { name: 'C++', level: 'intermediate' },
       { name: 'C', level: 'intermediate' },
+      { name: 'Java', level: 'intermediate' },
       { name: 'SQL', level: 'advanced' },
-    ]
-  },
-  {
-    id: 'frontend',
-    title: 'Frontend Development',
-    icon: 'Layout',
-    color: 'from-teal-500 to-cyan-600',
-    skills: [
-      { name: 'React.js', level: 'expert', highlighted: true },
-      { name: 'Next.js', level: 'advanced' },
-      { name: 'Tailwind CSS', level: 'expert', highlighted: true },
-      { name: 'HTML5/CSS3', level: 'expert' },
-      { name: 'Figma', level: 'intermediate' },
-      { name: 'Framer Motion', level: 'advanced' },
+      { name: 'Bash', level: 'intermediate' },
     ]
   },
   {
@@ -57,11 +91,11 @@ export const skillCategories: SkillCategory[] = [
     icon: 'Server',
     color: 'from-orange-500 to-amber-600',
     skills: [
-      { name: 'Node.js', level: 'expert', highlighted: true },
+      { name: 'Node.js', level: 'expert' },
+      { name: 'Python/FastAPI', level: 'advanced', highlighted: true },
       { name: 'Express.js', level: 'advanced' },
-      { name: 'REST APIs', level: 'expert' },
+      { name: 'REST APIs', level: 'advanced' },
       { name: 'GraphQL', level: 'intermediate' },
-      { name: 'Python/FastAPI', level: 'advanced' },
     ]
   },
   {
@@ -70,8 +104,8 @@ export const skillCategories: SkillCategory[] = [
     icon: 'Database',
     color: 'from-cyan-600 to-teal-700',
     skills: [
-      { name: 'MongoDB', level: 'expert', highlighted: true },
-      { name: 'PostgreSQL', level: 'advanced' },
+      { name: 'PostgreSQL', level: 'advanced', highlighted: true },
+      { name: 'MongoDB', level: 'advanced' },
       { name: 'MySQL', level: 'advanced' },
       { name: 'Redis', level: 'intermediate' },
       { name: 'SQLite', level: 'advanced' },
@@ -83,39 +117,27 @@ export const skillCategories: SkillCategory[] = [
     icon: 'Brain',
     color: 'from-yellow-400 to-amber-500',
     skills: [
-      { name: 'TensorFlow', level: 'advanced', highlighted: true },
+      { name: 'OpenCV', level: 'intermediate', highlighted: true },
+      { name: 'Pandas', level: 'advanced' },
+      { name: 'NumPy', level: 'advanced' },
+      { name: 'TensorFlow', level: 'intermediate' },
+      { name: 'scikit-learn', level: 'intermediate' },
       { name: 'PyTorch', level: 'intermediate' },
-      { name: 'scikit-learn', level: 'advanced' },
-      { name: 'Pandas', level: 'expert' },
-      { name: 'NumPy', level: 'expert' },
-      { name: 'OpenCV', level: 'intermediate' },
+      { name: 'Ollama (local inference)', level: 'intermediate' },
     ]
   },
   {
-    id: 'ai-tools',
-    title: 'AI Tools & Models',
-    icon: 'Bot',
-    color: 'from-emerald-500 to-teal-600',
+    id: 'frontend',
+    title: 'Frontend Development',
+    icon: 'Layout',
+    color: 'from-teal-500 to-cyan-600',
     skills: [
-      { name: 'GPT-4/ChatGPT', level: 'expert', highlighted: true },
-      { name: 'Claude', level: 'expert', highlighted: true },
-      { name: 'GitHub Copilot', level: 'expert' },
-      { name: 'Gemini', level: 'advanced' },
-      { name: 'Cursor AI', level: 'advanced' },
-      { name: 'Midjourney', level: 'intermediate' },
-    ]
-  },
-  {
-    id: 'prompt',
-    title: 'Prompt Engineering',
-    icon: 'Sparkles',
-    color: 'from-amber-400 to-yellow-500',
-    skills: [
-      { name: 'Chain-of-Thought', level: 'expert', highlighted: true },
-      { name: 'Few-Shot Learning', level: 'expert' },
-      { name: 'Role-based Prompts', level: 'advanced' },
-      { name: 'Context Optimization', level: 'advanced' },
-      { name: 'System Prompts', level: 'expert' },
+      { name: 'React.js', level: 'expert' },
+      { name: 'Tailwind CSS', level: 'advanced' },
+      { name: 'HTML5/CSS3', level: 'advanced' },
+      { name: 'Next.js', level: 'intermediate' },
+      { name: 'Framer Motion', level: 'intermediate' },
+      { name: 'Figma', level: 'intermediate' },
     ]
   },
   {
@@ -124,46 +146,9 @@ export const skillCategories: SkillCategory[] = [
     icon: 'Smartphone',
     color: 'from-teal-400 to-emerald-500',
     skills: [
+      { name: 'Android/Kotlin', level: 'intermediate' },
+      { name: 'Android Studio', level: 'intermediate' },
       { name: 'React Native', level: 'intermediate' },
-      { name: 'Android/Kotlin', level: 'advanced' },
-      { name: 'Android Studio', level: 'advanced' },
-    ]
-  },
-  {
-    id: 'embedded',
-    title: 'Embedded & IoT',
-    icon: 'Cpu',
-    color: 'from-orange-600 to-amber-700',
-    skills: [
-      { name: 'Arduino', level: 'advanced', highlighted: true },
-      { name: 'ESP32', level: 'advanced' },
-      { name: 'Raspberry Pi', level: 'intermediate' },
-      { name: 'Tinkercad', level: 'advanced' },
-    ]
-  },
-  {
-    id: 'devops',
-    title: 'DevOps & Cloud',
-    icon: 'Cloud',
-    color: 'from-cyan-500 to-teal-500',
-    skills: [
-      { name: 'Git/GitHub', level: 'expert', highlighted: true },
-      { name: 'Docker', level: 'advanced' },
-      { name: 'AWS', level: 'intermediate' },
-      { name: 'Vercel', level: 'advanced' },
-      { name: 'GCP', level: 'intermediate' },
-      { name: 'CI/CD', level: 'intermediate' },
-    ]
-  },
-  {
-    id: 'systems',
-    title: 'Operating Systems',
-    icon: 'Monitor',
-    color: 'from-stone-500 to-stone-600',
-    skills: [
-      { name: 'Linux/Ubuntu', level: 'advanced' },
-      { name: 'macOS', level: 'expert' },
-      { name: 'Windows', level: 'advanced' },
     ]
   },
   {
@@ -172,11 +157,11 @@ export const skillCategories: SkillCategory[] = [
     icon: 'Wrench',
     color: 'from-amber-600 to-orange-700',
     skills: [
-      { name: 'VS Code', level: 'expert' },
-      { name: 'Cursor', level: 'advanced', highlighted: true },
+      { name: 'VS Code', level: 'advanced' },
+      { name: 'AI-assisted development (Claude, Copilot, Cursor)', level: 'advanced' },
       { name: 'Postman', level: 'advanced' },
-      { name: 'n8n', level: 'intermediate' },
       { name: 'Warp Terminal', level: 'advanced' },
+      { name: 'n8n', level: 'intermediate' },
     ]
   }
 ];

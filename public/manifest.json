@@ -1,7 +1,7 @@
 {
-  "name": "Madhur Patel | Madhur N Patel - Full-Stack Developer & AI/ML Engineer",
+  "name": "Madhur N Patel | Infrastructure & Embedded Systems Engineer",
   "short_name": "Madhur Patel",
-  "description": "Madhur Patel (Madhur N Patel) - Expert Full-Stack Developer & AI/ML Engineer from Ahmedabad, India. Specializing in React, Node.js, Python, TensorFlow, and enterprise applications.",
+  "description": "Madhur N Patel — Infrastructure and embedded systems engineer in Ahmedabad, India. Builds and operates self-managed Linux infrastructure, containerized services, and sensor-fusion systems on Raspberry Pi and ESP32.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#120f0d",
@@ -26,7 +26,7 @@
       "purpose": "any"
     }
   ],
-  "categories": ["portfolio", "technology", "developer", "full-stack", "ai-ml", "software-engineer"],
+  "categories": ["portfolio", "technology", "developer", "infrastructure", "embedded-systems", "software-engineer"],
   "lang": "en",
   "scope": "/"
 }

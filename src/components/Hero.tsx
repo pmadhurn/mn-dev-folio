@@ -69,7 +69,7 @@ const Hero = () => {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
                 </span>
-                Open to SDE / ML internships
+                Open to infrastructure & embedded roles
               </p>
             </motion.div>
 
@@ -77,12 +77,13 @@ const Hero = () => {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.08] tracking-tight">
                 Madhur N Patel
                 <span className="block text-gradient-brand mt-2 pb-1">
-                  Full-Stack &amp; AI/ML Developer
+                  Infrastructure &amp; Embedded Systems Engineer
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
-                I build efficient software and data-driven solutions across web,
-                mobile, and IoT platforms.
+                I build and operate the layer where software meets hardware —
+                self-managed Linux infrastructure, containerized services, and
+                sensor-fusion systems on Raspberry Pi and ESP32.
               </p>
             </motion.header>
 
@@ -164,7 +165,7 @@ const Hero = () => {
               <figure className="relative overflow-hidden rounded-2xl border border-primary/25 glow-primary">
                 <img
                   src={heroPortrait}
-                  alt="Professional portrait of Madhur N Patel, Full-Stack and AI/ML Developer"
+                  alt="Professional portrait of Madhur N Patel, Infrastructure and Embedded Systems Engineer"
                   className="w-full h-auto max-w-md object-cover"
                   loading="eager"
                   width="600"

@@ -113,9 +113,9 @@ const Skills = () => {
             <div className="h-1 w-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-primary via-primary-glow to-accent" />
 
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A comprehensive toolkit spanning{' '}
+              A toolkit spanning{' '}
               <span className="text-primary font-medium">{totalSkills}+ technologies</span>{' '}
-              across full-stack development, AI/ML, mobile apps, and IoT systems
+              across infrastructure, embedded systems, backend, and application development
             </p>
           </motion.div>
 
@@ -321,13 +321,11 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4"
+            className="mt-16 grid grid-cols-2 gap-4 max-w-md mx-auto"
           >
             {[
               { label: 'Technologies', value: totalSkills + '+', icon: Code2 },
               { label: 'Categories', value: skillCategories.length, icon: Layout },
-              { label: 'Years Coding', value: '3+', icon: Brain },
-              { label: 'Projects Built', value: '50+', icon: Wrench },
             ].map((stat, index) => (
               <div
                 key={stat.label}

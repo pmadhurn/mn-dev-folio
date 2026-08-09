@@ -1,18 +1,18 @@
 export const experiences = [
   {
-    role: 'Cloud and DevOps Engineer',
-    company: 'Freelance',
+    role: 'Self-Directed Infrastructure Engineering',
+    company: '',
     duration: '2022 - Present',
     description: [
-      'Implemented robust CI/CD pipelines using GitHub Actions, automating the build, test, and deployment of applications, which reduced deployment time by 40%.',
+      'Implemented robust CI/CD pipelines using GitHub Actions, automating the build, test, and deployment of applications.',
       'Engineered a secure and scalable network infrastructure using Cloudflare Tunnel, enabling secure access to internal applications and services without exposing them to the public internet.',
       'Managed Vercel deployments with a non-proxied Cloudflare setup, optimizing for performance and security by leveraging Cloudflare\'s DNS and security features while directly serving content from Vercel.',
-      'Containerized applications using Docker and orchestrated them with Kubernetes, improving scalability and simplifying environment management.',
+      'Containerized services with Docker and Docker Compose, managing service dependencies, health checks, and persistent volumes across a six-service deployment.',
     ],
-    technologies: ['Cloudflare', 'Vercel', 'AWS', 'Docker', 'Kubernetes', 'GitHub Actions', 'Terraform'],
+    technologies: ['Cloudflare', 'Cloudflare Tunnel', 'Vercel', 'AWS', 'Docker', 'Docker Compose', 'Nginx', 'Linux', 'GitHub Actions'],
   },
   {
-    role: 'Full Stack Developer',
+    role: 'Application Development',
     company: 'Personal Projects',
     duration: '2021 - Present',
     description: [
