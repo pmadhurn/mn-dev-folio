@@ -12,10 +12,10 @@ import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/react';
 
 const Index = () => {
-  const siteTitle = "Madhur Patel | Madhur N Patel - Expert Full-Stack Developer & AI/ML Engineer";
-  const siteDescription = "Madhur Patel (Madhur N Patel) - Expert Full-Stack Developer & AI/ML Engineer from Ahmedabad, India. 3+ years experience building enterprise-grade applications with 95% ML accuracy. Specializes in React, Node.js, Python, TensorFlow, AWS. Computer Science graduate of Indus University with proven track record in MERN stack, Android development, and IoT systems.";
+  const siteTitle = "Madhur N Patel | Infrastructure & Embedded Systems Engineer";
+  const siteDescription = "Madhur N Patel — Infrastructure and embedded systems engineer in Ahmedabad, India. Builds and operates self-managed Linux infrastructure, containerized services, and sensor-fusion systems on Raspberry Pi and ESP32.";
   const siteUrl = "https://madhur.dev";
-  const keywords = "Madhur Patel, Madhur N Patel, Madhur, Full Stack Developer, AI ML Engineer, React Developer, Node.js Developer, Python Developer, TensorFlow, Machine Learning, Software Engineer, Computer Science, Ahmedabad India, Indus University, MERN Stack, JavaScript, TypeScript, AWS, Android Developer, IoT, ESP32, Docker, MongoDB, PostgreSQL, Enterprise Applications, Web Development, Portfolio";
+  const keywords = "Madhur Patel, Madhur N Patel, Madhur, Infrastructure Engineer, Embedded Systems, Linux, Docker, Docker Compose, Cloudflare Tunnel, Nginx, Raspberry Pi, ESP32, Sensor Fusion, Computer Vision, Python, FastAPI, PostgreSQL, Oracle Cloud, IoT, Software Engineer, Ahmedabad India, Indus University, Portfolio";
 
   return (
     <>
@@ -39,7 +39,7 @@ const Index = () => {
         <meta property="og:image" content={`${siteUrl}/madhur-patel-og-image.jpg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Madhur Patel - Expert Full-Stack Developer & AI/ML Engineer" />
+        <meta property="og:image:alt" content="Madhur N Patel - Infrastructure & Embedded Systems Engineer" />
         <meta property="og:site_name" content="Madhur Patel Portfolio" />
         <meta property="og:locale" content="en_US" />
         <meta property="profile:first_name" content="Madhur" />
@@ -52,7 +52,7 @@ const Index = () => {
         <meta property="twitter:title" content={siteTitle} />
         <meta property="twitter:description" content={siteDescription} />
         <meta property="twitter:image" content={`${siteUrl}/madhur-patel-twitter-image.jpg`} />
-        <meta property="twitter:image:alt" content="Madhur Patel - Expert Full-Stack Developer & AI/ML Engineer" />
+        <meta property="twitter:image:alt" content="Madhur N Patel - Infrastructure & Embedded Systems Engineer" />
         <meta property="twitter:creator" content="@pmadhurn" />
 
         {/* Enhanced SEO Meta Tags */}
@@ -83,7 +83,7 @@ const Index = () => {
             "alternateName": ["Madhur Patel", "Madhur"],
             "givenName": "Madhur",
             "familyName": "Patel",
-            "jobTitle": ["Full-Stack Developer", "AI/ML Engineer", "Software Engineer"],
+            "jobTitle": ["Infrastructure Engineer", "Embedded Systems Engineer", "Software Engineer"],
             "url": siteUrl,
             "email": "pmadhurn@gmail.com",
             "telephone": "+91-9016273812",
@@ -111,10 +111,10 @@ const Index = () => {
               "https://madhur.dev"
             ],
             "knowsAbout": [
-              "Full-Stack Development", "React.js", "Node.js", "Python", "JavaScript", "TypeScript",
-              "Machine Learning", "TensorFlow", "AI Engineering", "MongoDB", "PostgreSQL", "MySQL",
-              "Docker", "AWS", "Google Cloud", "Android Development", "IoT", "ESP32", "Arduino",
-              "MERN Stack", "FastAPI", "Express.js", "Microservices", "REST APIs", "Git", "Linux"
+              "Infrastructure Engineering", "Embedded Systems", "Linux", "Docker", "Docker Compose",
+              "Cloudflare Tunnel", "Nginx", "Oracle Cloud", "Raspberry Pi", "ESP32", "Arduino",
+              "Sensor Fusion", "Computer Vision", "Python", "FastAPI", "PostgreSQL", "Redis",
+              "IoT", "REST APIs", "Git", "CI/CD", "Self-Hosting"
             ],
             "description": siteDescription,
             "hasCredential": [
@@ -142,10 +142,6 @@ const Index = () => {
                 "credentialCategory": "certification"
               }
             ],
-            "worksFor": {
-              "@type": "Organization",
-              "name": "Freelance"
-            },
             "nationality": "Indian",
             "birthPlace": "India",
             "gender": "Male"
@@ -157,7 +153,7 @@ const Index = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "Madhur Patel Portfolio - Full-Stack Developer & AI/ML Engineer",
+            "name": "Madhur N Patel Portfolio - Infrastructure & Embedded Systems Engineer",
             "alternateName": ["Madhur N Patel Portfolio", "Madhur Portfolio"],
             "url": siteUrl,
             "description": siteDescription,
@@ -188,15 +184,15 @@ const Index = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ProfessionalService",
-            "name": "Madhur Patel - Full-Stack Development Services",
-            "description": "Expert full-stack development and AI/ML engineering services by Madhur Patel. Specializing in React, Node.js, Python, and enterprise application development.",
+            "name": "Madhur N Patel - Infrastructure & Embedded Systems Engineering",
+            "description": "Infrastructure and embedded systems engineering by Madhur N Patel. Self-managed Linux infrastructure, containerized services, and sensor-fusion systems on Raspberry Pi and ESP32.",
             "provider": {
               "@type": "Person",
               "name": "Madhur N Patel",
               "alternateName": ["Madhur Patel", "Madhur"]
             },
             "areaServed": "Worldwide",
-            "serviceType": ["Full-Stack Development", "AI/ML Engineering", "Web Development", "Mobile App Development", "IoT Solutions"],
+            "serviceType": ["Infrastructure Engineering", "Embedded Systems", "Platform Engineering", "IoT Solutions", "Backend Development"],
             "url": siteUrl,
             "address": {
               "@type": "PostalAddress",

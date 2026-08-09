@@ -29,7 +29,7 @@ const Experience = () => {
                   <div className="flex flex-col sm:flex-row justify-between items-start mb-2">
                     <div>
                       <h3 className="text-xl font-heading font-semibold">{exp.role}</h3>
-                      <p className="text-md text-primary font-medium">{exp.company}</p>
+                      {exp.company && <p className="text-md text-primary font-medium">{exp.company}</p>}
                     </div>
                     <p className="text-sm text-muted-foreground mt-2 sm:mt-0">{exp.duration}</p>
                   </div>

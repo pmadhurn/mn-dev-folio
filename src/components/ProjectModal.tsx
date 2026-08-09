@@ -27,7 +27,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
             <div className="flex-1">
               <DialogTitle className="text-2xl font-heading font-bold pr-8 flex items-center gap-2">
                 {project.title}
-                {project.featured && (
+                {project.tier === 'flagship' && (
                   <Star size={20} className="text-yellow-500 fill-current" />
                 )}
               </DialogTitle>

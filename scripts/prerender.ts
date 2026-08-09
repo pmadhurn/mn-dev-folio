@@ -99,7 +99,7 @@ export function renderStaticContent(): string {
         .map(
           (job) => `
         <article>
-          <h3>${escapeHtml(job.role)} — ${escapeHtml(job.company)}</h3>
+          <h3>${escapeHtml(job.role)}${job.company ? ` — ${escapeHtml(job.company)}` : ''}</h3>
           <p>${escapeHtml(job.duration)}</p>
           ${list(job.description)}
           <p><strong>Technologies:</strong> ${escapeHtml(job.technologies.join(', '))}</p>

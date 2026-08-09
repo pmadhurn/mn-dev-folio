@@ -13,9 +13,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Madhur N Patel - Full Stack Developer Portfolio",
-  description = "Experienced Full Stack Developer specializing in React, Node.js, Python, and modern web technologies. View my projects, skills, certifications, and professional experience.",
-  keywords = "full stack developer, react developer, node.js, python, web development, portfolio, javascript, typescript, machine learning, software engineer",
+  title = "Madhur N Patel | Infrastructure & Embedded Systems Engineer",
+  description = "Madhur N Patel — Infrastructure and embedded systems engineer in Ahmedabad, India. Builds and operates self-managed Linux infrastructure, containerized services, and sensor-fusion systems on Raspberry Pi and ESP32.",
+  keywords = "infrastructure engineer, embedded systems, linux, docker, raspberry pi, esp32, sensor fusion, cloudflare tunnel, python, software engineer, portfolio",
   image = "https://madhur.dev/madhur-patel-og-image.jpg",
   url = "https://madhur.dev",
   type = "website",
