@@ -43,6 +43,23 @@ catch-all fallback.
 Tech: Oracle Cloud (ARM64), Docker, Docker Compose, Cloudflare Tunnel, Nginx, Linux (Ubuntu),
 Ollama, n8n, Portainer, PostgreSQL.
 
+### NavDashboard — Asset & Operations Tracking Platform
+Live at: https://nav.madhur.dev (login required). Repository: available on request.
+
+A production operations dashboard for tracking devices, assets, inventory, and personnel.
+Modular async FastAPI backend (each feature is its own module with router/service/repository
+layers) over PostgreSQL with PostGIS and pgvector, Redis, and MinIO object storage. Access
+control is a per-section permission engine — every account carries a section-to-level map
+(view / edit / manage) enforced on each route. Physical stock movement is modeled end-to-end:
+QR label printing, camera scanning, and outward → gate pass → scan-to-tick inward flows.
+Includes attendance, exports, notifications, a full audit trail, and an AI assistant that
+answers questions over live operational data via local Ollama inference. Deployed with
+Docker Compose behind nginx as the single published port, reached through Cloudflare Tunnel.
+
+Tech: React 18, TypeScript, Vite, Ant Design, TanStack Query, Zustand, FastAPI,
+SQLAlchemy 2 (async), Alembic, PostgreSQL, PostGIS, pgvector, Redis, MinIO, Nginx,
+Docker Compose, Ollama.
+
 ### SpeakInsights — Meeting Intelligence Platform
 Repository: https://github.com/pmadhurn/SpeakinsightsV6
 
