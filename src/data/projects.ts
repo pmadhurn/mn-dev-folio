@@ -73,8 +73,8 @@ export const projects: Project[] = [
     }
   },
   {
-    // TODO(diagram): add an architecture diagram for this project — tunnel
-    // ingress → containers → volumes. Highest-value visual addition to the site.
+    // Architecture diagram: src/components/diagrams/InfraArchitectureDiagram.tsx,
+    // rendered in the project modal via the projectDiagrams registry.
     id: 'self-hosted-infrastructure',
     title: 'Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel',
     summary: 'A self-managed production environment running six containerized services on an ARM64 Oracle Cloud instance, reachable only through a zero-trust tunnel.',

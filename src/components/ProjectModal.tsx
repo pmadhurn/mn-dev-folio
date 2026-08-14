@@ -1,9 +1,12 @@
 import { X, ExternalLink, Github, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { projectDiagrams } from '@/components/diagrams/InfraArchitectureDiagram';
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
   if (!project) return null;
+
+  const Diagram = projectDiagrams[project.id];
 
   const getStatusBadge = (status) => {
     const badges = {
@@ -70,6 +73,14 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
               {project.description}
             </p>
           </div>
+
+          {/* Architecture */}
+          {Diagram && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-heading font-semibold">Architecture</h3>
+              <Diagram />
+            </div>
+          )}
 
           {/* Highlights */}
           {project.highlights && project.highlights.length > 0 && (
