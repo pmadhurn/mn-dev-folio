@@ -6,8 +6,8 @@
 %
 % Content is mirrored from the site's data files:
 %   src/data/profile.ts       header, summary
-%   src/data/projects.ts      the three flagship projects + repo URLs
-%   src/data/experience.ts    experience bullets (verbatim)
+%   src/data/projects.ts      the four flagship projects
+%   src/data/experience.ts    experience bullets
 %   src/data/skills.ts        skills
 %   src/data/certifications.ts
 %
@@ -19,24 +19,35 @@
 % from the site for cause (unverifiable or inaccurate) and must not come back
 % through the résumé.
 %
-% Keep this to ONE PAGE. If it overflows, cut the "Additional Projects" line
-% and then the older certifications — never shrink below 10pt or margins
-% below 0.5in.
+% Only VERIFIED links belong here: a URL is a claim a recruiter will click.
+% (2026-08-15: gps repo 404'd and pmadhurn/OCI was an unrelated codebase —
+% both had to be pulled from a shipped PDF.)
+%
+% Keep this to ONE PAGE — build.sh enforces it. If it overflows, cut in this
+% order: 4th bullet of any project, oldest certification, the Systems skills
+% line. Never shrink below 10pt or margins below 0.5in.
 % =====================================================================
 \documentclass[10pt,a4paper]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[margin=0.5in]{geometry}
+\usepackage{charter}          % Bitstream Charter — clean, modern, ships with TeX Live
+\usepackage[margin=0.55in]{geometry}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage[dvipsnames]{xcolor}
+\usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
+
+% Brand accent — the deep bronze-amber the site uses as its light-mode
+% primary (vivid gold fails contrast on white; this passes 4.5:1).
+\definecolor{accent}{HTML}{9A6A0B}
+\definecolor{rulegray}{HTML}{B8B2A7}
+\definecolor{subtle}{HTML}{5A564E}
 
 \hypersetup{
   colorlinks=true,
-  urlcolor=[HTML]{1A5FB4},
-  linkcolor=[HTML]{1A5FB4},
+  urlcolor=accent,
+  linkcolor=accent,
   pdftitle={Madhur N Patel — Infrastructure \& Embedded Systems Engineer},
   pdfauthor={Madhur N Patel},
   pdfsubject={Resume},
@@ -49,33 +60,37 @@
 \setlength{\tabcolsep}{0pt}
 
 \titleformat{\section}
-  {\large\bfseries\scshape}
-  {}{0pt}{}[\vspace{-0.7em}\rule{\linewidth}{0.6pt}]
-\titlespacing*{\section}{0pt}{0.55em}{0.35em}
+  {\normalsize\bfseries\scshape\color{black}}
+  {}{0pt}{}[\vspace{-0.65em}{\color{rulegray}\rule{\linewidth}{0.5pt}}]
+\titlespacing*{\section}{0pt}{0.75em}{0.45em}
 
+% \entry{Title}{right-hand side (a verified link, or empty)}
 \newcommand{\entry}[2]{%
-  \textbf{#1}\hfill{\small #2}\par\vspace{0.15em}}
+  \textbf{#1}\hfill{\small #2}\par\vspace{0.12em}}
 
 \newlist{tight}{itemize}{1}
-\setlist[tight]{leftmargin=1.1em, itemsep=0.05em, topsep=0.1em, parsep=0pt, label=\textbullet}
+\setlist[tight]{leftmargin=1.05em, itemsep=0.06em, topsep=0.12em, parsep=0pt,
+  label=\textcolor{rulegray}{\textbullet}}
+
+\newcommand{\stack}[1]{{\small\color{subtle}#1}}
 
 \begin{document}
 
 % --- Header -----------------------------------------------------------
 \begin{center}
-  {\huge\bfseries Madhur N Patel}\\[0.35em]
-  {\large Infrastructure \& Embedded Systems Engineer}\\[0.5em]
+  {\Huge\bfseries Madhur N Patel}\\[0.3em]
+  {\large\color{subtle} Infrastructure \& Embedded Systems Engineer}\\[0.45em]
   {\small
-    Ahmedabad, Gujarat, India \quad\textbar\quad
-    \href{mailto:pmadhurn@gmail.com}{pmadhurn@gmail.com} \quad\textbar\quad
-    +91 9016273812\\
-    \href{https://madhur.dev}{madhur.dev} \quad\textbar\quad
-    \href{https://github.com/pmadhurn}{github.com/pmadhurn} \quad\textbar\quad
+    Ahmedabad, India \,·\,
+    \href{mailto:pmadhurn@gmail.com}{pmadhurn@gmail.com} \,·\,
+    +91 9016273812\\[0.15em]
+    \href{https://madhur.dev}{madhur.dev} \,·\,
+    \href{https://github.com/pmadhurn}{github.com/pmadhurn} \,·\,
     \href{https://linkedin.com/in/madhur-n}{linkedin.com/in/madhur-n}
   }
 \end{center}
 
-\vspace{-0.4em}
+\vspace{-0.3em}
 
 % --- Summary ----------------------------------------------------------
 \section{Summary}
@@ -86,43 +101,49 @@ or platform engineering work — ideally somewhere that ships physical products.
 % --- Projects (above education: these are the strongest evidence) ------
 \section{Projects}
 
-% Repo URL removed 2026-08-15 — github.com/pmadhurn/gps-guided-tracking-system 404s.
-\entry{GPS-Guided Dual-Device Tracking System}{Python · OpenCV · Raspberry Pi}
+\entry{NavDashboard — Asset \& Operations Tracking Platform}{\href{https://nav.madhur.dev}{live: nav.madhur.dev}}
 \begin{tight}
-  \item Two Raspberry Pi--controlled gimbals point toward each other by GPS bearing, then
-        hand off to computer vision for fine LED tracking; automatic mode switching between
-        coarse GPS and camera tracking.
-  \item Real-time 9-axis IMU650 sensor fusion (GPS, IMU, magnetometer), Haversine distance
-        and elevation-angle calculation, SP2050 gimbal control under PID regulation.
-  \item Multi-threaded serial and socket communication between the two devices over WiFi.
-  \item Python, OpenCV, PySerial, Raspberry Pi 4/5.
+  \item Production operations dashboard: devices, inventory, and personnel tracking, with
+        QR label printing and scan-verified gate-pass workflows for physical stock movement.
+  \item Modular async FastAPI backend behind a per-section permission engine
+        (view / edit / manage per account); AI assistant over live operational data via
+        local Ollama inference.
+  \item \stack{React 18, TypeScript, FastAPI, PostgreSQL + PostGIS + pgvector, Redis,
+        MinIO, Nginx, Docker Compose}
 \end{tight}
 
-\vspace{0.25em}
-% Repo URL removed 2026-08-15 — pmadhurn/OCI is an unrelated capacity script, not this project.
-\entry{Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel}{Docker · Cloudflare Tunnel}
+\vspace{0.3em}
+\entry{GPS-Guided Dual-Device Tracking System}{}
 \begin{tight}
-  \item Self-managed production environment running six containerized services on a
-        4-core / 24\,GB ARM64 Oracle Cloud instance (Open WebUI, n8n, Portainer,
-        code-server, Ollama, Supabase).
+  \item Two Raspberry Pi–controlled gimbals point toward each other by GPS bearing, then
+        hand off to computer vision for fine LED tracking, with automatic switching
+        between coarse GPS and camera modes.
+  \item Real-time 9-axis sensor fusion (GPS, IMU, magnetometer), Haversine distance and
+        elevation-angle calculation, gimbal control under PID regulation.
+  \item \stack{Python, OpenCV, PySerial, Raspberry Pi 4/5}
+\end{tight}
+
+\vspace{0.3em}
+\entry{Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel}{}
+\begin{tight}
+  \item Self-managed production environment: six containerized services on a 4-core /
+        24\,GB ARM64 Oracle Cloud instance (Open WebUI, n8n, Portainer, code-server,
+        Ollama, Supabase).
   \item Zero-trust ingress through Cloudflare Tunnel with no public inbound ports;
-        subdomain routing via tunnel ingress rules with an ordered catch-all fallback.
-  \item Local LLM inference on ARM64 via Ollama; self-hosted Supabase with credential
-        isolation; service monitoring, backup, and TLS certificate management.
-  \item Docker, Docker Compose, Nginx, Linux (Ubuntu), PostgreSQL.
+        subdomain routing via tunnel ingress rules; monitoring, backups, and TLS
+        certificate management.
+  \item \stack{Docker, Docker Compose, Nginx, Linux (Ubuntu), PostgreSQL}
 \end{tight}
 
-\vspace{0.25em}
+\vspace{0.3em}
 \entry{SpeakInsights — Meeting Intelligence Platform}{\href{https://github.com/pmadhurn/SpeakinsightsV6}{github.com/pmadhurn/SpeakinsightsV6}}
 \begin{tight}
-  \item Docker-deployable meeting platform: LiveKit WebRTC conferencing for up to 20
-        participants, WhisperX transcription with speaker attribution, Ollama summarization
-        and task extraction, RAG chat over meeting context with pgvector.
-  \item Runs fully on-premises — no third-party API calls, so meeting audio never leaves
-        the deployment.
-  \item Async FastAPI backend with a Redis-backed job queue; batched GPU inference for
-        long-form audio; rolling container restarts via Docker Compose.
-  \item React 18, TypeScript, FastAPI, Python 3.11, PostgreSQL + pgvector, Redis, Docker.
+  \item Meeting platform that runs fully on-premises — LiveKit WebRTC conferencing for up
+        to 20 participants, WhisperX transcription with speaker attribution, Ollama
+        summarization, and RAG chat over meeting history; no third-party API calls.
+  \item Async FastAPI backend with a Redis-backed job queue and batched GPU inference for
+        long-form audio.
+  \item \stack{React 18, TypeScript, FastAPI, PostgreSQL + pgvector, Redis, Docker}
 \end{tight}
 
 % --- Experience -------------------------------------------------------
@@ -130,40 +151,34 @@ or platform engineering work — ideally somewhere that ships physical products.
 
 \entry{Self-Directed Infrastructure Engineering}{2022 -- Present}
 \begin{tight}
-  \item Implemented robust CI/CD pipelines using GitHub Actions, automating the build,
-        test, and deployment of applications.
-  \item Engineered a secure and scalable network infrastructure using Cloudflare Tunnel,
-        enabling secure access to internal applications and services without exposing them
-        to the public internet.
-  \item Managed Vercel deployments with a non-proxied Cloudflare setup, optimizing for
-        performance and security by leveraging Cloudflare's DNS and security features while
-        directly serving content from Vercel.
+  \item Implemented CI/CD pipelines with GitHub Actions, automating build, test, and
+        deployment of applications.
+  \item Engineered secure network access with Cloudflare Tunnel, exposing internal
+        services without opening inbound ports to the public internet.
   \item Containerized services with Docker and Docker Compose, managing service
-        dependencies, health checks, and persistent volumes across a six-service deployment.
+        dependencies, health checks, and persistent volumes across a six-service
+        deployment.
 \end{tight}
 
 % --- Education --------------------------------------------------------
 \section{Education \& Certifications}
 \entry{B.Tech, Computer Science and Engineering — Indus University, Ahmedabad}{2022 -- 2026}
-GPA 8.5/10\\[0.25em]
-AWS Academy Graduate — Machine Learning Foundations (Aug 2025) \textbullet{}
-AWS Academy Graduate — Cloud Foundations (Jul 2025) \textbullet{}
-MERN Stack Developer, Coding Cloud (Apr 2025)
+GPA 8.5/10\\[0.2em]
+{\small AWS Academy: Machine Learning Foundations (Aug 2025) · Cloud Foundations (Jul 2025)
+· MERN Stack Developer, Coding Cloud (Apr 2025)}
 
 % --- Skills -----------------------------------------------------------
 % Flowing lines, not a tabular: a tabular is one unbreakable box, and if it
 % doesn't fit the remaining space the whole section jumps to page 2.
 \section{Skills}
-\setlength{\parskip}{0.1em}%
-\textbf{Strongest:} Python, JavaScript, Node.js, React.js, Git/GitHub
-
+\setlength{\parskip}{0.08em}%
 \textbf{Infrastructure:} Docker, Docker Compose, Cloudflare Tunnel, Nginx, Oracle Cloud, Vercel, CI/CD, AWS, GCP
 
-\textbf{Embedded/IoT:} Raspberry Pi, ESP32, Arduino, Serial / I2C \quad\textbullet\quad \textbf{Systems:} Linux (Ubuntu), macOS, Windows
+\textbf{Embedded/IoT:} Raspberry Pi, ESP32, Arduino, Serial / I2C \,·\, \textbf{Systems:} Linux (Ubuntu), macOS, Windows
 
 \textbf{Languages:} Python, JavaScript, TypeScript, SQL, C, C++, Java, Bash
 
-\textbf{Backend:} FastAPI, Node.js, Express.js, REST APIs \quad\textbullet\quad \textbf{Databases:} PostgreSQL, MongoDB, MySQL, SQLite, Redis
+\textbf{Backend:} FastAPI, Node.js, Express.js, REST APIs \,·\, \textbf{Databases:} PostgreSQL, MongoDB, MySQL, SQLite, Redis
 
 \textbf{AI/ML:} OpenCV, Ollama (local inference), Pandas, NumPy, TensorFlow, scikit-learn
 

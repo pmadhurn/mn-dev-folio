@@ -61,8 +61,14 @@ résumé that contradicts the site is worse than either alone:
 
 Hard requirement; `build.sh` enforces it. If it overflows, cut in this order:
 
-1. The "Additional" projects line
-2. The oldest certifications
-3. The `Application Development — Personal Projects` material (not currently included)
+1. The 4th bullet of any project (each carries 2 substance bullets + 1 tech line)
+2. The oldest certification
+3. The `Systems` skills line
 
 Never shrink below 10pt or margins below 0.5in.
+
+## Links are claims
+
+Only verified URLs belong on the résumé — a recruiter will click them. Before adding
+any link, confirm it resolves AND its contents match what the résumé says (2026-08-15:
+a 404'd repo and an unrelated repo both had to be pulled from a shipped PDF).
