@@ -5,7 +5,7 @@ Mirrors `src/data/projects.ts`. Flagship projects first — these are the ones t
 ## Flagship
 
 ### GPS-Guided Dual-Device Tracking System
-Repository: https://github.com/pmadhurn/gps-guided-tracking-system
+Repository: available on request
 
 Autonomous tracking system that coordinates two Raspberry Pi-controlled gimbals to point
 toward each other using GPS navigation, then switches to computer vision for precision LED
@@ -26,7 +26,7 @@ Tech: Python, OpenCV, PySerial, socket programming, Raspberry Pi 4/5, IMU650 GPS
 SP2050 gimbal controller, computer vision, PID control systems, sensor fusion, real-time systems.
 
 ### Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel
-Repository: https://github.com/pmadhurn/OCI
+Repository: available on request
 
 A self-managed production environment running six containerized services on a 4-core / 24GB
 ARM64 Oracle Cloud instance. Public access is handled entirely through Cloudflare Tunnel with
@@ -110,6 +110,6 @@ current ability — steer conversations toward the flagship projects.
 
 ## Repository availability
 
-Only three repositories are public: the GPS tracking system, the OCI infrastructure, and
-SpeakInsights. For anything else, say the code is available on request rather than implying
-a public link exists.
+Only one repository is public: SpeakInsights (github.com/pmadhurn/SpeakinsightsV6). For
+every other project, including the GPS tracking system and the self-hosted infrastructure,
+say the code is available on request rather than implying a public link exists.

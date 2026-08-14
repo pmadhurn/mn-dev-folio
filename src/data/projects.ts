@@ -66,10 +66,13 @@ export const projects: Project[] = [
       'Network Communication'
     ],
     category: 'iot',
-    status: 'public',
+    // Repo link removed 2026-08-15: github.com/pmadhurn/gps-guided-tracking-system
+    // returns 404 (deleted or made private). Restore the link only after
+    // verifying the URL resolves.
+    status: 'private',
     tier: 'flagship',
     links: {
-      github: 'https://github.com/pmadhurn/gps-guided-tracking-system'
+      github: null
     }
   },
   {
@@ -100,10 +103,14 @@ export const projects: Project[] = [
       'PostgreSQL'
     ],
     category: 'infrastructure',
-    status: 'public',
+    // Repo link removed 2026-08-15: github.com/pmadhurn/OCI is a PHP
+    // capacity-bypass script, NOT this infrastructure project. Linking it
+    // here sent recruiters to unrelated code. Point this at a repo that
+    // actually contains the compose files / tunnel config before relinking.
+    status: 'private',
     tier: 'flagship',
     links: {
-      github: 'https://github.com/pmadhurn/OCI'
+      github: null
     }
   },
   {
