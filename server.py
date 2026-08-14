@@ -10,13 +10,17 @@ local model and keep re-probing so the cloud model kicks in as soon as
 """
 import os
 import json
+import re
+import subprocess
 import time
 import asyncio
+from collections import deque
 from pathlib import Path
 from typing import Optional, AsyncIterator
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
 import httpx
 
 app = FastAPI(title="Madhur Chat API")
@@ -372,6 +376,101 @@ async def health():
         "model": model,
         "cloud": model == CLOUD_MODEL or (":cloud" in model or model.endswith("-cloud")),
     }
+
+
+# --- Contact form -----------------------------------------------------------
+#
+# The site's contact form posts here (via the /api proxy) in addition to its
+# original Google Sheets Apps Script. This path is the verifiable one: the
+# message is appended to CONTACT_LOG on disk (the source of truth) and pushed
+# to Telegram through /usr/local/bin/server-alert — the same root-owned alert
+# script fail2ban and PulseBoard already use, so no bot token lives in this
+# repo or this process.
+
+CONTACT_LOG = PROJECT_ROOT / "contact-messages.jsonl"  # gitignored — personal data
+ALERT_SCRIPT = "/usr/local/bin/server-alert"
+
+# Simple sliding-window rate limit. The nginx/node proxies in front of this
+# server may not forward client IPs, so the fallback bucket is shared — the
+# cap is deliberately generous enough for legitimate use even then.
+_CONTACT_WINDOW_S = 3600
+_CONTACT_MAX_PER_WINDOW = 20
+_contact_hits: dict[str, deque] = {}
+
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+class ContactMessage(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    email: str = Field(min_length=3, max_length=200)
+    message: str = Field(min_length=1, max_length=4000)
+
+
+def _client_bucket(request: Request) -> str:
+    fwd = request.headers.get("x-forwarded-for", "")
+    if fwd:
+        return fwd.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def _rate_limited(bucket: str) -> bool:
+    now = time.monotonic()
+    hits = _contact_hits.setdefault(bucket, deque())
+    while hits and now - hits[0] > _CONTACT_WINDOW_S:
+        hits.popleft()
+    if len(hits) >= _CONTACT_MAX_PER_WINDOW:
+        return True
+    hits.append(now)
+    return False
+
+
+def _send_contact_alert(text: str) -> bool:
+    """Push to Telegram via the system alert script. Runs in a worker thread."""
+    try:
+        proc = subprocess.run(
+            ["sudo", "-n", ALERT_SCRIPT, text],
+            capture_output=True, timeout=15,
+        )
+        return proc.returncode == 0
+    except Exception as e:
+        print(f"Contact alert failed: {e}")
+        return False
+
+
+@app.post("/contact")
+async def contact(form: ContactMessage, request: Request):
+    if _rate_limited(_client_bucket(request)):
+        raise HTTPException(status_code=429, detail="Too many messages; please email directly.")
+
+    name = form.name.strip()
+    email = form.email.strip()
+    message = form.message.strip()
+    if not name or not message:
+        raise HTTPException(status_code=422, detail="Name and message are required.")
+    if not _EMAIL_RE.match(email):
+        raise HTTPException(status_code=422, detail="Enter a valid email address.")
+
+    record = {
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+        "name": name,
+        "email": email,
+        "message": message,
+    }
+    # Disk first — if the Telegram push ever breaks, nothing is lost.
+    try:
+        with CONTACT_LOG.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except OSError as e:
+        print(f"Could not persist contact message: {e}")
+        raise HTTPException(status_code=500, detail="Could not save your message; please email directly.")
+
+    preview = message if len(message) <= 600 else message[:600] + "…"
+    alert = f"📬 madhur.dev contact form\nFrom: {name} <{email}>\n\n{preview}"
+    delivered = await asyncio.to_thread(_send_contact_alert, alert)
+    if not delivered:
+        print("Contact message saved to disk but the Telegram push failed.")
+
+    return {"ok": True}
 
 
 @app.post("/chat")

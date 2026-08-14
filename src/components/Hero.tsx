@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { ArrowRight, Download, Github, Linkedin } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { RESUME_URL } from '@/lib/resume';
 import heroPortrait from '@/assets/hero-portrait.webp';
 
 // Deferred: the particles engine is decorative and ~50 kB gzipped — it must
@@ -116,7 +117,7 @@ const Hero = () => {
                 size="lg"
                 className="btn-ghost"
                 onClick={() =>
-                  window.open('/Madhur_N_Patel_Resume.pdf', '_blank', 'noopener,noreferrer')
+                  window.open(RESUME_URL, '_blank', 'noopener,noreferrer')
                 }
                 aria-label="Download Madhur N Patel's resume (PDF)"
               >

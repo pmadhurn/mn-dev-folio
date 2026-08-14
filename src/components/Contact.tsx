@@ -103,32 +103,56 @@ const Contact = () => {
     }
 
     try {
+      const name = formData.name.trim();
+      const email = formData.email.trim();
+      const message = formData.message.trim();
+
       // Create URLSearchParams to send to Google Apps Script
       const params = new URLSearchParams();
-      params.append('name', formData.name.trim());
-      params.append('email', formData.email.trim());
-      params.append('message', formData.message.trim());
+      params.append('name', name);
+      params.append('email', email);
+      params.append('message', message);
 
-      // no-cors: the response is opaque, so delivery can't be verified —
-      // only network-level failures reach the catch block.
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        body: params,
-        mode: 'no-cors'
-      });
+      // Two deliveries in parallel:
+      //  1. /api/contact — the backend logs the message and pushes a Telegram
+      //     alert. Its response is readable, so this is the delivery we can
+      //     actually verify and the one the toast reports on.
+      //  2. The original Google Apps Script (kept as-is). no-cors makes its
+      //     response opaque — best-effort only, never trusted for the toast.
+      const [apiResult] = await Promise.allSettled([
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        }),
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: params,
+          mode: 'no-cors'
+        }),
+      ]);
+
+      const delivered = apiResult.status === 'fulfilled' && apiResult.value.ok;
+      if (!delivered) {
+        throw new Error(
+          apiResult.status === 'fulfilled'
+            ? `contact API responded ${apiResult.value.status}`
+            : String(apiResult.reason)
+        );
+      }
 
       toast({
         title: "Message sent!",
         description: "Thank you! I'll get back to you as soon as possible. If you don't hear back, email me directly at pmadhurn@gmail.com.",
       });
-      
+
       setFormData({ name: '', email: '', message: '' });
 
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
         title: "Error sending message",
-        description: "Please try again or contact me directly via email.",
+        description: "Please try again or contact me directly via email at pmadhurn@gmail.com.",
         variant: "destructive",
       });
     } finally {

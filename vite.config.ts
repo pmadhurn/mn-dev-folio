@@ -53,5 +53,10 @@ export default defineConfig(({ mode }) => ({
   // Enable compression and caching
   define: {
     'process.env.NODE_ENV': JSON.stringify(mode),
+    // Stamped per build; used to cache-bust the resume PDF URL. Cloudflare
+    // edge-caches PDFs for hours, so a bare /Madhur_N_Patel_Resume.pdf can
+    // serve a stale copy long after a deploy — a versioned query string
+    // guarantees visitors get the PDF that shipped with this build.
+    __BUILD_ID__: JSON.stringify(Date.now().toString(36)),
   },
 }));
