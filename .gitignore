@@ -29,3 +29,6 @@ __pycache__/
 
 # LaTeX build artifacts
 resume/.build/
+
+# Contact form submissions (personal data — never commit)
+contact-messages.jsonl

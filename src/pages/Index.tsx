@@ -36,7 +36,7 @@ const Index = () => {
         <meta property="og:url" content={siteUrl} />
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} />
-        <meta property="og:image" content={`${siteUrl}/madhur-patel-og-image.jpg`} />
+        <meta property="og:image" content={`${siteUrl}/madhur-patel-og-infra.jpg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Madhur N Patel - Infrastructure & Embedded Systems Engineer" />
@@ -51,7 +51,7 @@ const Index = () => {
         <meta property="twitter:url" content={siteUrl} />
         <meta property="twitter:title" content={siteTitle} />
         <meta property="twitter:description" content={siteDescription} />
-        <meta property="twitter:image" content={`${siteUrl}/madhur-patel-twitter-image.jpg`} />
+        <meta property="twitter:image" content={`${siteUrl}/madhur-patel-og-infra.jpg`} />
         <meta property="twitter:image:alt" content="Madhur N Patel - Infrastructure & Embedded Systems Engineer" />
         <meta property="twitter:creator" content="@pmadhurn" />
 

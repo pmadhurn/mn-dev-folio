@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Moon, Sun, Menu, X, Github, Linkedin, FileText, MessageCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { RESUME_URL } from '@/lib/resume';
 
 const Header = () => {
   const [isDark, setIsDark] = useState(false);
@@ -159,7 +160,7 @@ const Header = () => {
               variant="outline"
               size="sm"
               className="hidden sm:flex items-center space-x-2"
-              onClick={() => window.open('/Madhur_N_Patel_Resume.pdf', '_blank', 'noopener,noreferrer')}
+              onClick={() => window.open(RESUME_URL, '_blank', 'noopener,noreferrer')}
               aria-label="Download Madhur N Patel's resume"
             >
               <FileText size={16} aria-hidden="true" />
@@ -246,7 +247,7 @@ const Header = () => {
                   variant="outline"
                   size="sm"
                   className="flex-1 justify-center"
-                  onClick={() => window.open('/Madhur_N_Patel_Resume.pdf', '_blank', 'noopener,noreferrer')}
+                  onClick={() => window.open(RESUME_URL, '_blank', 'noopener,noreferrer')}
                   aria-label="Download Madhur N Patel's resume"
                 >
                   <FileText size={16} className="mr-2" aria-hidden="true" />

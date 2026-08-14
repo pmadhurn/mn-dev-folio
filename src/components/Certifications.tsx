@@ -83,6 +83,8 @@ const Certifications = () => {
                       src={cert.image}
                       alt={`${cert.title} certificate`}
                       className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 )}
