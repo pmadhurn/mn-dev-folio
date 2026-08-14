@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run check:resume && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "resume": "bash resume/build.sh",
+    "check:resume": "node scripts/check_resume_sync.mjs",
+    "check:context": "python3 scripts/check_public_context.py"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

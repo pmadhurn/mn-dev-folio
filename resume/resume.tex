@@ -1,0 +1,168 @@
+% =====================================================================
+% Madhur N Patel — résumé
+%
+% SINGLE SOURCE OF TRUTH for public/Madhur_N_Patel_Resume.pdf.
+% Build with:  npm run resume     (see resume/build.sh)
+%
+% Content is mirrored from the site's data files:
+%   src/data/profile.ts       header, summary
+%   src/data/projects.ts      the three flagship projects + repo URLs
+%   src/data/experience.ts    experience bullets (verbatim)
+%   src/data/skills.ts        skills
+%   src/data/certifications.ts
+%
+% Where this file and the site disagree, THE SITE WINS — it is the version
+% that was deliberately cleaned. Update the data file, then this, then rebuild.
+%
+% Never reintroduce: "3+ years", "95%", "100+ concurrent users",
+% "zero-downtime", "Kubernetes", "Freelance", "Expert". These were removed
+% from the site for cause (unverifiable or inaccurate) and must not come back
+% through the résumé.
+%
+% Keep this to ONE PAGE. If it overflows, cut the "Additional Projects" line
+% and then the older certifications — never shrink below 10pt or margins
+% below 0.5in.
+% =====================================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=[HTML]{1A5FB4},
+  linkcolor=[HTML]{1A5FB4},
+  pdftitle={Madhur N Patel — Infrastructure \& Embedded Systems Engineer},
+  pdfauthor={Madhur N Patel},
+  pdfsubject={Resume},
+  pdfkeywords={infrastructure, embedded systems, Linux, Docker, Raspberry Pi, ESP32}
+}
+
+% --- Layout -----------------------------------------------------------
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{0pt}
+
+\titleformat{\section}
+  {\large\bfseries\scshape}
+  {}{0pt}{}[\vspace{-0.7em}\rule{\linewidth}{0.6pt}]
+\titlespacing*{\section}{0pt}{0.55em}{0.35em}
+
+\newcommand{\entry}[2]{%
+  \textbf{#1}\hfill{\small #2}\par\vspace{0.15em}}
+
+\newlist{tight}{itemize}{1}
+\setlist[tight]{leftmargin=1.1em, itemsep=0.05em, topsep=0.1em, parsep=0pt, label=\textbullet}
+
+\begin{document}
+
+% --- Header -----------------------------------------------------------
+\begin{center}
+  {\huge\bfseries Madhur N Patel}\\[0.35em]
+  {\large Infrastructure \& Embedded Systems Engineer}\\[0.5em]
+  {\small
+    Ahmedabad, Gujarat, India \quad\textbar\quad
+    \href{mailto:pmadhurn@gmail.com}{pmadhurn@gmail.com} \quad\textbar\quad
+    +91 9016273812\\
+    \href{https://madhur.dev}{madhur.dev} \quad\textbar\quad
+    \href{https://github.com/pmadhurn}{github.com/pmadhurn} \quad\textbar\quad
+    \href{https://linkedin.com/in/madhur-n}{linkedin.com/in/madhur-n}
+  }
+\end{center}
+
+\vspace{-0.4em}
+
+% --- Summary ----------------------------------------------------------
+\section{Summary}
+Builds and operates self-managed Linux infrastructure, containerized services, and
+sensor-fusion systems on Raspberry Pi and ESP32. Looking for infrastructure, embedded,
+or platform engineering work — ideally somewhere that ships physical products.
+
+% --- Projects (above education: these are the strongest evidence) ------
+\section{Projects}
+
+\entry{GPS-Guided Dual-Device Tracking System}{\href{https://github.com/pmadhurn/gps-guided-tracking-system}{github.com/pmadhurn/gps-guided-tracking-system}}
+\begin{tight}
+  \item Two Raspberry Pi--controlled gimbals point toward each other by GPS bearing, then
+        hand off to computer vision for fine LED tracking; automatic mode switching between
+        coarse GPS and camera tracking.
+  \item Real-time 9-axis IMU650 sensor fusion (GPS, IMU, magnetometer), Haversine distance
+        and elevation-angle calculation, SP2050 gimbal control under PID regulation.
+  \item Multi-threaded serial and socket communication between the two devices over WiFi.
+  \item Python, OpenCV, PySerial, Raspberry Pi 4/5.
+\end{tight}
+
+\vspace{0.25em}
+\entry{Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel}{\href{https://github.com/pmadhurn/OCI}{github.com/pmadhurn/OCI}}
+\begin{tight}
+  \item Self-managed production environment running six containerized services on a
+        4-core / 24\,GB ARM64 Oracle Cloud instance (Open WebUI, n8n, Portainer,
+        code-server, Ollama, Supabase).
+  \item Zero-trust ingress through Cloudflare Tunnel with no public inbound ports;
+        subdomain routing via tunnel ingress rules with an ordered catch-all fallback.
+  \item Local LLM inference on ARM64 via Ollama; self-hosted Supabase with credential
+        isolation; service monitoring, backup, and TLS certificate management.
+  \item Docker, Docker Compose, Nginx, Linux (Ubuntu), PostgreSQL.
+\end{tight}
+
+\vspace{0.25em}
+\entry{SpeakInsights — Meeting Intelligence Platform}{\href{https://github.com/pmadhurn/SpeakinsightsV6}{github.com/pmadhurn/SpeakinsightsV6}}
+\begin{tight}
+  \item Docker-deployable meeting platform: LiveKit WebRTC conferencing for up to 20
+        participants, WhisperX transcription with speaker attribution, Ollama summarization
+        and task extraction, RAG chat over meeting context with pgvector.
+  \item Runs fully on-premises — no third-party API calls, so meeting audio never leaves
+        the deployment.
+  \item Async FastAPI backend with a Redis-backed job queue; batched GPU inference for
+        long-form audio; rolling container restarts via Docker Compose.
+  \item React 18, TypeScript, FastAPI, Python 3.11, PostgreSQL + pgvector, Redis, Docker.
+\end{tight}
+
+% --- Experience -------------------------------------------------------
+\section{Experience}
+
+\entry{Self-Directed Infrastructure Engineering}{2022 -- Present}
+\begin{tight}
+  \item Implemented robust CI/CD pipelines using GitHub Actions, automating the build,
+        test, and deployment of applications.
+  \item Engineered a secure and scalable network infrastructure using Cloudflare Tunnel,
+        enabling secure access to internal applications and services without exposing them
+        to the public internet.
+  \item Managed Vercel deployments with a non-proxied Cloudflare setup, optimizing for
+        performance and security by leveraging Cloudflare's DNS and security features while
+        directly serving content from Vercel.
+  \item Containerized services with Docker and Docker Compose, managing service
+        dependencies, health checks, and persistent volumes across a six-service deployment.
+\end{tight}
+
+% --- Education --------------------------------------------------------
+\section{Education \& Certifications}
+\entry{B.Tech, Computer Science and Engineering — Indus University, Ahmedabad}{2022 -- 2026}
+GPA 8.5/10\\[0.25em]
+AWS Academy Graduate — Machine Learning Foundations (Aug 2025) \textbullet{}
+AWS Academy Graduate — Cloud Foundations (Jul 2025) \textbullet{}
+MERN Stack Developer, Coding Cloud (Apr 2025)
+
+% --- Skills -----------------------------------------------------------
+% Flowing lines, not a tabular: a tabular is one unbreakable box, and if it
+% doesn't fit the remaining space the whole section jumps to page 2.
+\section{Skills}
+\setlength{\parskip}{0.1em}%
+\textbf{Strongest:} Python, JavaScript, Node.js, React.js, Git/GitHub
+
+\textbf{Infrastructure:} Docker, Docker Compose, Cloudflare Tunnel, Nginx, Oracle Cloud, Vercel, CI/CD, AWS, GCP
+
+\textbf{Embedded/IoT:} Raspberry Pi, ESP32, Arduino, Serial / I2C \quad\textbullet\quad \textbf{Systems:} Linux (Ubuntu), macOS, Windows
+
+\textbf{Languages:} Python, JavaScript, TypeScript, SQL, C, C++, Java, Bash
+
+\textbf{Backend:} FastAPI, Node.js, Express.js, REST APIs \quad\textbullet\quad \textbf{Databases:} PostgreSQL, MongoDB, MySQL, SQLite, Redis
+
+\textbf{AI/ML:} OpenCV, Ollama (local inference), Pandas, NumPy, TensorFlow, scikit-learn
+
+\end{document}
