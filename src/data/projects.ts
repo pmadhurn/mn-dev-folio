@@ -100,10 +100,10 @@ export const projects: Project[] = [
       'PostgreSQL'
     ],
     category: 'infrastructure',
-    status: 'private',
+    status: 'public',
     tier: 'flagship',
     links: {
-      github: null
+      github: 'https://github.com/pmadhurn/OCI'
     }
   },
   {
@@ -129,10 +129,10 @@ export const projects: Project[] = [
     ],
     tech: ['React 18', 'TypeScript', 'Vite', 'TailwindCSS', 'FastAPI', 'Python 3.11', 'SQLAlchemy', 'LiveKit', 'WebRTC', 'WhisperX', 'Ollama', 'PostgreSQL', 'pgvector', 'Redis', 'Zustand', 'Docker'],
     category: 'ai-ml',
-    status: 'private',
+    status: 'public',
     tier: 'flagship',
     links: {
-      github: null
+      github: 'https://github.com/pmadhurn/SpeakinsightsV6'
     }
   },
   {
