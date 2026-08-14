@@ -98,10 +98,4 @@ const InfraArchitectureDiagram = () => (
   </div>
 );
 
-// Looked up by project id so src/data/projects.ts stays pure data — the
-// prerender script imports that file and must not pull in React components.
-export const projectDiagrams: Record<string, React.ComponentType> = {
-  'self-hosted-infrastructure': InfraArchitectureDiagram,
-};
-
 export default InfraArchitectureDiagram;

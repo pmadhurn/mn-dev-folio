@@ -143,6 +143,35 @@ export const projects: Project[] = [
     }
   },
   {
+    // Architecture diagram: src/components/diagrams/NavDashboardArchitectureDiagram.tsx.
+    // Code link deliberately absent until the repo is scrubbed of internal
+    // notes (see 2026-08-15 session log); the live demo is the link that counts.
+    id: 'navdashboard',
+    title: 'NavDashboard — Asset & Operations Tracking Platform',
+    summary: 'A live, self-hosted operations platform for tracking devices, inventory, and personnel — modular async FastAPI backend, per-section access control, QR-based gate-pass workflows, and an AI assistant grounded on operational data.',
+    description: 'A production operations dashboard running at nav.madhur.dev for tracking devices, assets, inventory, and personnel. The backend is a modular async FastAPI monolith — each feature (devices, inventory, attendance, exports, audit trail, and more) is its own module with router, service, and repository layers — over PostgreSQL with PostGIS and pgvector, Redis, and MinIO object storage. Access control is a per-section permission engine: every account carries a section-to-level map (view / edit / manage) enforced on each route rather than a handful of coarse roles. Physical stock movement is modeled end-to-end: QR label printing, camera scanning, and outward → gate pass → scan-to-tick inward flows. Deployed with Docker Compose behind nginx as the single published port, reached through a zero-trust Cloudflare Tunnel, with an AI assistant answering questions over live operational data via local Ollama inference.',
+    highlights: [
+      'Live deployment at nav.madhur.dev behind Cloudflare Tunnel',
+      'Modular async FastAPI backend — per-feature router/service/repository modules',
+      'Per-section permission engine (view / edit / manage) enforced per route',
+      'QR label printing and camera scanning for stock movement',
+      'Outward → gate pass → scan-to-tick inward workflow for physical assets',
+      'Attendance, exports, notifications, and full audit trail',
+      'AI assistant grounded on operational data via local Ollama inference',
+      'PostgreSQL + PostGIS + pgvector, Redis, MinIO object storage',
+      'Alembic migrations with route-sweep and coverage verification scripts',
+      'nginx as the single published port — all other services internal'
+    ],
+    tech: ['React 18', 'TypeScript', 'Vite', 'Ant Design', 'TanStack Query', 'Zustand', 'FastAPI', 'SQLAlchemy 2 (async)', 'PostgreSQL', 'PostGIS', 'pgvector', 'Redis', 'MinIO', 'Nginx', 'Docker Compose', 'Ollama'],
+    category: 'web',
+    status: 'private',
+    tier: 'flagship',
+    links: {
+      demo: 'https://nav.madhur.dev',
+      github: null
+    }
+  },
+  {
     id: 'esp32-drone-controller',
     title: 'ESP32 WiFi Drone with Android Controller',
     summary: 'Custom-built drone with ESP32 WiFi control system and Python-based Android app for remote operation.',

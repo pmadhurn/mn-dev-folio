@@ -1,7 +1,7 @@
 import { X, ExternalLink, Github, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { projectDiagrams } from '@/components/diagrams/InfraArchitectureDiagram';
+import { projectDiagrams } from '@/components/diagrams';
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
   if (!project) return null;
