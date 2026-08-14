@@ -53,7 +53,6 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Raspberry Pi', level: 'advanced', highlighted: true },
       { name: 'ESP32', level: 'advanced', highlighted: true },
       { name: 'Arduino', level: 'advanced' },
-      { name: 'Sensor Fusion (IMU/GPS)', level: 'intermediate' },
       { name: 'Serial / I2C', level: 'intermediate' },
       { name: 'Tinkercad', level: 'intermediate' },
     ]
