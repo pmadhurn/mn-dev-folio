@@ -1,8 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { ArrowRight, Download, Github, Linkedin } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import ParticlesBackground from '@/components/ParticlesBackground';
-import heroPortrait from '@/assets/hero-portrait.jpg';
+import heroPortrait from '@/assets/hero-portrait.webp';
+
+// Deferred: the particles engine is decorative and ~50 kB gzipped — it must
+// not compete with the hero image and text for first-paint bandwidth.
+const ParticlesBackground = lazy(() => import('@/components/ParticlesBackground'));
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -48,7 +52,9 @@ const Hero = () => {
       aria-label="Hero section"
     >
       <div className="absolute inset-0 aurora" aria-hidden="true" />
-      <ParticlesBackground id="tsparticles" />
+      <Suspense fallback={null}>
+        <ParticlesBackground id="tsparticles" />
+      </Suspense>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
