@@ -1,11 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Send, Bot, User, Loader2, RefreshCw, ArrowLeft, Sparkles, Cloud, Cpu } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Button } from '@/components/ui/button';
-import ParticlesBackground from '@/components/ParticlesBackground';
+
+// Same deferred import as Hero — keeps the particles engine in one shared
+// async chunk instead of being bundled into this page.
+const ParticlesBackground = lazy(() => import('@/components/ParticlesBackground'));
 
 interface Message {
   id: string;
@@ -230,7 +233,9 @@ const Chat = () => {
 
       <div className="relative flex flex-col h-screen bg-background text-foreground overflow-hidden">
         {/* Same interactive network background as the rest of the site */}
-        <ParticlesBackground id="tsparticles-chat" />
+        <Suspense fallback={null}>
+          <ParticlesBackground id="tsparticles-chat" />
+        </Suspense>
 
         {/* Header — mirrors the main site header */}
         <header className="relative z-10 glass-card border-b px-4 py-3">
