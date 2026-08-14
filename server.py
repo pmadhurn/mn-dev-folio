@@ -1,5 +1,6 @@
 """
-Madhur Chatbot Backend - FastAPI server that combines Obsidian context with Ollama LLM
+Madhur Chatbot Backend - FastAPI server that answers from a curated public
+context directory using an Ollama LLM
 
 Model strategy: prefer an Ollama *cloud* model (runs on ollama.com's GPUs through
 the local Ollama daemon, so responses are fast even on a CPU-only host). If the
@@ -33,12 +34,23 @@ app.add_middleware(
 
 # Paths — resolved relative to this file so the server runs from any directory.
 PROJECT_ROOT = Path(__file__).resolve().parent
-OBSIDIAN_VAULT = Path(
-    os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "obsidian-vault")
-)
-RESUME_PATH = Path(
-    os.environ.get("RESUME_PATH", PROJECT_ROOT / "public" / "Madhur_N_Patel_Resume_Improved.txt")
-)
+# Only these files are exposed to the public chatbot.
+# Adding a file here makes its full contents world-readable via the chat endpoint.
+#
+# This is an explicit allowlist, not a glob over a directory, and it is
+# deliberately not configurable by environment variable. The chatbot previously
+# read an entire personal notes directory; a glob is how that happened. If you
+# need the bot to know something new, write it into a file below and add the
+# file name here — nothing else is ever read.
+PUBLIC_CONTEXT_ALLOWLIST = [
+    "about.md",
+    "projects.md",
+    "skills.md",
+    "experience.md",
+    "faq.md",
+]
+PUBLIC_CONTEXT_DIR = PROJECT_ROOT / "public-context"
+
 OLLAMA_URL = "http://localhost:11434/api/chat"
 
 # OLLAMA_MODEL pins a single model and disables the cloud/local fallback dance.
@@ -48,9 +60,9 @@ FORCED_MODEL = os.environ.get("OLLAMA_MODEL")
 # 120b model. Set OLLAMA_CLOUD_MODEL=gpt-oss:120b-cloud for max quality.
 CLOUD_MODEL = os.environ.get("OLLAMA_CLOUD_MODEL", "gpt-oss:20b-cloud")
 LOCAL_MODEL = os.environ.get("OLLAMA_LOCAL_MODEL", "llama3.2:1b")
-# Must fit the system context (persona + vault notes + resume, ~7k tokens as of
-# Aug 2026) plus the conversation. The 1B fallback's KV cache at this size is
-# still cheap on a CPU-only host.
+# Must fit the system context (persona + public-context files) plus the
+# conversation. The 1B fallback's KV cache at this size is still cheap on a
+# CPU-only host.
 NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "12288"))
 # How often to re-check cloud availability while running on the fallback.
 CLOUD_PROBE_INTERVAL = 60.0
@@ -108,7 +120,7 @@ Your projects (highlight these, in this order):
 When someone asks about you, be conversational and natural. Share relevant details from the context provided.
 
 STRICT GROUNDING RULES — never break these:
-- Only state facts that appear in this prompt or in the provided context (resume, notes). Never invent details.
+- Only state facts that appear in this prompt or in the provided context files. Never invent details.
 - Never invent or estimate performance metrics, accuracy figures, user counts, uptime numbers, or
   years of experience. If asked for a number that is not written here, say you don't have that figure.
 - You do NOT know Madhur's hobbies, personal life, tastes, or habits beyond what's written here. If asked about things like hobbies, food, music, movies, books, sports, relationships, family, or daily routine, do not make anything up — say something like "That's not something I can speak to — I only cover Madhur's professional side. Ask me about his projects, skills, or experience!" and offer a relevant professional topic instead.
@@ -119,57 +131,72 @@ Keep responses conversational and not too long - aim for 2-4 paragraphs max unle
 """
 
 
-def load_obsidian_context() -> str:
-    """Load all markdown files from Obsidian vault and convert to context."""
-    context_parts = ["\n\n=== OBSIDIAN VAULT NOTES ===\n"]
+def loaded_context_files() -> list[Path]:
+    """Resolved paths of the allowlisted files that are safe to read.
 
-    if OBSIDIAN_VAULT.exists():
-        for md_file in sorted(OBSIDIAN_VAULT.rglob("*.md")):
-            try:
-                content = md_file.read_text(encoding="utf-8")
-                # Convert markdown to plain text (simple approach)
-                lines = content.split("\n")
-                text_lines = []
-                for line in lines:
-                    # Skip markdown headings for cleaner context
-                    if line.startswith("#"):
-                        text_lines.append(f"\n{line}")
-                    elif line.strip():
-                        text_lines.append(line)
+    Every candidate must survive three checks:
+      1. the allowlist entry is a bare file name (no separators, no "..")
+      2. after resolving symlinks it still sits inside PUBLIC_CONTEXT_DIR
+      3. it exists and is a regular file
 
-                context_parts.append(f"\n--- {md_file.name} ---\n")
-                context_parts.append("\n".join(text_lines))
-            except Exception as e:
-                print(f"Error reading {md_file}: {e}")
+    Anything that fails is skipped with a log line rather than raising — a
+    missing or tampered context file must never take the chat endpoint down.
+    Exposed as a function so the guard test and the startup log report exactly
+    the same list.
+    """
+    root = PUBLIC_CONTEXT_DIR.resolve()
+    files: list[Path] = []
+
+    for name in PUBLIC_CONTEXT_ALLOWLIST:
+        if name != Path(name).name:
+            print(f"Refusing context entry with a path separator: {name!r}")
+            continue
+        try:
+            resolved = (PUBLIC_CONTEXT_DIR / name).resolve()
+        except OSError as e:
+            print(f"Could not resolve context file {name!r}: {e}")
+            continue
+        if not resolved.is_relative_to(root):
+            print(f"Refusing context file outside {root}: {name!r} -> {resolved}")
+            continue
+        if not resolved.is_file():
+            print(f"Context file missing, skipping: {resolved}")
+            continue
+        files.append(resolved)
+
+    return files
+
+
+def load_public_context() -> str:
+    """Concatenate the allowlisted public context files."""
+    context_parts = ["\n\n=== PUBLIC CONTEXT ===\n"]
+
+    for path in loaded_context_files():
+        try:
+            content = path.read_text(encoding="utf-8")
+        except Exception as e:
+            print(f"Error reading {path}: {e}")
+            continue
+        context_parts.append(f"\n--- {path.name} ---\n")
+        context_parts.append(content.strip())
 
     return "\n".join(context_parts)
-
-
-def load_resume_context() -> str:
-    """Load resume content for additional context."""
-    if RESUME_PATH.exists():
-        try:
-            content = RESUME_PATH.read_text(encoding="utf-8")
-            return f"\n\n=== RESUME CONTENT ===\n{content}\n"
-        except Exception as e:
-            print(f"Error reading resume: {e}")
-    return ""
 
 
 _SYSTEM_CONTEXT: Optional[str] = None
 
 
 def get_system_context() -> str:
-    """Full system prompt with vault/resume context, loaded once at startup.
+    """Full system prompt plus public context, loaded once at startup.
 
     Keeping the string byte-identical across requests lets Ollama reuse the
     prompt's KV cache, so only the user's message is processed per request —
     critical when the local fallback model runs on a CPU-only host. Restart
-    the service to pick up vault edits.
+    the service to pick up edits to the public-context files.
     """
     global _SYSTEM_CONTEXT
     if _SYSTEM_CONTEXT is None:
-        _SYSTEM_CONTEXT = SYSTEM_PROMPT + load_obsidian_context() + load_resume_context()
+        _SYSTEM_CONTEXT = SYSTEM_PROMPT + load_public_context()
     return _SYSTEM_CONTEXT
 
 
@@ -323,6 +350,13 @@ async def _warm_up_model():
 
 @app.on_event("startup")
 async def warm_up_model():
+    # Log exactly which files the chatbot can quote from, so the boundary is
+    # auditable from `journalctl -u devfolio-chat` without reading the code.
+    loaded = loaded_context_files()
+    print(f"Public context: {len(loaded)} file(s) from {PUBLIC_CONTEXT_DIR}")
+    for path in loaded:
+        print(f"  - {path.name}")
+
     # Fire-and-forget: must not delay binding the port.
     asyncio.create_task(_warm_up_model())
 
