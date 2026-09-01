@@ -15,3 +15,12 @@ createRoot(container).render(
     <App />
   </HelmetProvider>
 );
+
+// Retire the boot loader bar (index.html). `booted` also disarms the 8s
+// watchdog that would otherwise reveal the crawler snapshot — see index.html.
+document.documentElement.classList.add('booted');
+const bootLoader = document.getElementById('boot-loader');
+if (bootLoader) {
+  // Let the opacity transition play before removing the node.
+  setTimeout(() => bootLoader.remove(), 300);
+}
