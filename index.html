@@ -136,9 +136,57 @@
     -->
     <script>document.documentElement.classList.add('js');</script>
     <style>html.js #static-content{display:none !important}</style>
+
+    <!--
+      Boot loader: a slim indeterminate bar shown from first paint until React
+      mounts (main.tsx adds `booted` to <html>). Gated on `.js` so no-JS
+      clients — who get the readable snapshot instead — never see a dead bar.
+      Colors are hardcoded because the bundle CSS hasn't loaded yet.
+    -->
+    <style>
+      #boot-loader{position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;
+        overflow:hidden;background:rgba(154,106,11,.14);display:none}
+      html.js:not(.booted) #boot-loader{display:block}
+      #boot-loader::before{content:"";position:absolute;top:0;bottom:0;width:38%;
+        border-radius:3px;background:linear-gradient(90deg,#b45309,#f9a81c,#ffd066);
+        box-shadow:0 0 12px rgba(249,168,28,.55);
+        animation:boot-slide 1.1s cubic-bezier(.4,0,.2,1) infinite}
+      @keyframes boot-slide{
+        0%{transform:translateX(-110%)}
+        60%{transform:translateX(160%)}
+        100%{transform:translateX(280%)}
+      }
+      @media (prefers-reduced-motion: reduce){
+        #boot-loader::before{animation:boot-pulse 1.6s ease-in-out infinite;
+          width:100%;transform:none}
+        @keyframes boot-pulse{0%,100%{opacity:.35}50%{opacity:.9}}
+      }
+      html.booted #boot-loader{opacity:0;transition:opacity .25s ease-out}
+    </style>
+
+    <!--
+      Watchdog: if the app hasn't mounted within 8s (script blocked, CDN
+      interference, bundle 404 — all of which have happened on this zone), stop
+      pretending it will. Drop `.js` so the crawler snapshot becomes visible
+      readable content, and mark `booted` so the loader bar goes away. A slow
+      connection that mounts later still wins: React replaces #root regardless.
+    -->
+    <script>
+      setTimeout(function () {
+        var d = document.documentElement;
+        if (!d.classList.contains('booted')) {
+          d.classList.remove('js');
+          d.classList.add('booted');
+        }
+      }, 8000);
+    </script>
   </head>
 
   <body>
+    <!-- Boot progress bar — lives outside #root so React never touches it;
+         main.tsx removes it after mount. Styles/behavior defined in <head>. -->
+    <div id="boot-loader" role="progressbar" aria-label="Loading site" aria-busy="true"></div>
+
     <!-- Apply the saved theme before React mounts to avoid a light-mode flash -->
     <script>
       (function () {

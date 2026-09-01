@@ -1,8 +1,23 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { prerenderPlugin } from "./scripts/prerender";
+
+// Cloudflare Rocket Loader is enabled zone-wide on madhur.dev and rewrites
+// every <script> to execute through its own loader (type="…-module" etc.),
+// which delays the FOUC/theme guards and has broken apps on this zone before.
+// data-cfasync="false" is Cloudflare's documented per-script opt-out; stamp it
+// on every script tag in the built HTML. The zone setting itself can't be
+// changed from this box (the tunnel credential is DNS-scoped).
+const rocketLoaderOptOut = (): Plugin => ({
+  name: "rocket-loader-opt-out",
+  transformIndexHtml: {
+    order: "post",
+    handler: (html) =>
+      html.replace(/<script(?![^>]*\bdata-cfasync)/g, '<script data-cfasync="false"'),
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -25,6 +40,7 @@ export default defineConfig(({ mode }) => ({
     componentTagger(),
     // Ships a readable HTML snapshot + llms.txt for crawlers that don't run JS.
     prerenderPlugin(),
+    rocketLoaderOptOut(),
   ].filter(Boolean),
   resolve: {
     alias: {
