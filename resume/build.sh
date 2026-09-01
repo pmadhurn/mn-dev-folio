@@ -50,5 +50,14 @@ cp "$BUILD_DIR/resume.pdf" "$OUT_PDF"
 # Keep the artifact newer than the source so check:resume passes.
 touch "$OUT_PDF"
 
+# www.madhur.dev is served from dist/ on this box (Cloudflare Tunnel), not
+# from Vercel — public/ only feeds the NEXT `npm run build`. Refresh a stale
+# dist copy directly so a resume rebuild goes live without a full site build.
+DIST_PDF="$REPO_ROOT/dist/$(basename "$OUT_PDF")"
+if [ -f "$DIST_PDF" ]; then
+  cp "$OUT_PDF" "$DIST_PDF"
+  echo "Refreshed $DIST_PDF (live www serves dist/ from this box)"
+fi
+
 echo "Wrote $OUT_PDF"
 echo "Commit the PDF along with resume.tex — deploys use the committed artifact."
