@@ -62,7 +62,7 @@
 \titleformat{\section}
   {\normalsize\bfseries\scshape\color{black}}
   {}{0pt}{}[\vspace{-0.65em}{\color{rulegray}\rule{\linewidth}{0.5pt}}]
-\titlespacing*{\section}{0pt}{0.75em}{0.45em}
+\titlespacing*{\section}{0pt}{0.6em}{0.35em}
 
 % \entry{Title}{right-hand side (a verified link, or empty)}
 \newcommand{\entry}[2]{%
@@ -79,7 +79,7 @@
 % --- Header -----------------------------------------------------------
 \begin{center}
   {\Huge\bfseries Madhur N Patel}\\[0.3em]
-  {\large\color{subtle} Infrastructure \& Embedded Systems Engineer}\\[0.45em]
+  {\large\color{subtle} Infrastructure \& Embedded Systems Engineer}\\[0.3em]
   {\small
     Ahmedabad, India \,·\,
     \href{mailto:pmadhurn@gmail.com}{pmadhurn@gmail.com} \,·\,
@@ -116,11 +116,19 @@ or platform engineering work — ideally somewhere that ships physical products.
 \entry{GPS-Guided Dual-Device Tracking System}{}
 \begin{tight}
   \item Two Raspberry Pi–controlled gimbals point toward each other by GPS bearing, then
-        hand off to computer vision for fine LED tracking, with automatic switching
-        between coarse GPS and camera modes.
-  \item Real-time 9-axis sensor fusion (GPS, IMU, magnetometer), Haversine distance and
-        elevation-angle calculation, gimbal control under PID regulation.
+        hand off to computer vision for fine LED tracking — real-time 9-axis sensor fusion
+        (GPS, IMU, magnetometer) and gimbal control under PID regulation.
   \item \stack{Python, OpenCV, PySerial, Raspberry Pi 4/5}
+\end{tight}
+
+\vspace{0.3em}
+\entry{ESP32 WiFi Drone with Android Controller}{}
+\begin{tight}
+  \item Custom-built ESP32 quadcopter controlled over WiFi from a self-built Android app
+        with real-time telemetry.
+  \item The same self-built app bridges the GPS dual-device tracker and NavDashboard,
+        connecting field hardware to the operations platform.
+  \item \stack{ESP32, Python, Android, WiFi}
 \end{tight}
 
 \vspace{0.3em}
@@ -141,8 +149,6 @@ or platform engineering work — ideally somewhere that ships physical products.
   \item Meeting platform that runs fully on-premises — LiveKit WebRTC conferencing for up
         to 20 participants, WhisperX transcription with speaker attribution, Ollama
         summarization, and RAG chat over meeting history; no third-party API calls.
-  \item Async FastAPI backend with a Redis-backed job queue and batched GPU inference for
-        long-form audio.
   \item \stack{React 18, TypeScript, FastAPI, PostgreSQL + pgvector, Redis, Docker}
 \end{tight}
 
@@ -155,17 +161,13 @@ or platform engineering work — ideally somewhere that ships physical products.
         deployment of applications.
   \item Engineered secure network access with Cloudflare Tunnel, exposing internal
         services without opening inbound ports to the public internet.
-  \item Containerized services with Docker and Docker Compose, managing service
-        dependencies, health checks, and persistent volumes across a six-service
-        deployment.
 \end{tight}
 
 % --- Education --------------------------------------------------------
 \section{Education \& Certifications}
 \entry{B.Tech, Computer Science and Engineering — Indus University, Ahmedabad}{2022 -- 2026}
 GPA 8.5/10\\[0.2em]
-{\small AWS Academy: Machine Learning Foundations (Aug 2025) · Cloud Foundations (Jul 2025)
-· MERN Stack Developer, Coding Cloud (Apr 2025)}
+{\small AWS Academy: Machine Learning Foundations (Aug 2025) · Cloud Foundations (Jul 2025)}
 
 % --- Skills -----------------------------------------------------------
 % Flowing lines, not a tabular: a tabular is one unbreakable box, and if it
@@ -174,7 +176,7 @@ GPA 8.5/10\\[0.2em]
 \setlength{\parskip}{0.08em}%
 \textbf{Infrastructure:} Docker, Docker Compose, Cloudflare Tunnel, Nginx, Oracle Cloud, Vercel, CI/CD, AWS, GCP
 
-\textbf{Embedded/IoT:} Raspberry Pi, ESP32, Arduino, Serial / I2C \,·\, \textbf{Systems:} Linux (Ubuntu), macOS, Windows
+\textbf{Embedded/IoT:} Raspberry Pi, ESP32, Arduino, Serial / I2C \,·\, \textbf{Systems:} Linux (Ubuntu)
 
 \textbf{Languages:} Python, JavaScript, TypeScript, SQL, C, C++, Java, Bash
 
