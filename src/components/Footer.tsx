@@ -72,12 +72,12 @@ const Footer = () => {
           {/* Quick Links */}
           <div>
             <h4 className="font-heading font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
+            <ul className="space-y-0.5">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    className="inline-flex items-center min-h-[32px] py-1 text-muted-foreground hover:text-foreground transition-colors text-sm"
                   >
                     {link.label}
                   </button>
@@ -116,7 +116,7 @@ const Footer = () => {
               href="https://madhur.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 transition-colors font-medium"
+              className="inline-flex items-center min-h-[28px] py-1 text-primary hover:text-primary/80 transition-colors font-medium"
             >
              by Madhur N Patel
             </a>

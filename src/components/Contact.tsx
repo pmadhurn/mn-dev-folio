@@ -249,7 +249,7 @@ const Contact = () => {
                         {info.href ? (
                           <a 
                             href={info.href}
-                            className="text-muted-foreground hover:text-primary transition-colors"
+                            className="inline-flex items-center min-h-[28px] py-1 text-muted-foreground hover:text-primary transition-colors break-all"
                           >
                             {info.value}
                           </a>
