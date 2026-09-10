@@ -84,6 +84,31 @@ leaves the deployment.
 Tech: React 18, TypeScript, Vite, TailwindCSS, FastAPI, Python 3.11, SQLAlchemy, LiveKit,
 WebRTC, WhisperX, Ollama, PostgreSQL, pgvector, Redis, Zustand, Docker.
 
+### Learn — Self-Hosted AI Tutor
+Live at: https://learn.madhur.dev (login required). Repository: https://github.com/pmadhurn/learn
+
+A personal tutoring app running on the same ARM64 server as the rest of the infrastructure.
+Give it a topic and it researches the web, streams a structured lesson with numbered citations
+and KaTeX-rendered math, then quizzes you with adaptive multiple-choice and short-answer
+questions graded by a model against a rubric, ending in an examiner-style letter grade. Every
+topic is a persistent ChatGPT-style session with follow-up chat. Model calls go through a
+per-task routing chain (OmniRoute, then Ollama cloud, then local Ollama) with a first-token
+stall watchdog that abandons a slow model and moves to the next. Multi-user with an admin
+panel, streaks and XP, and HMAC-signed cookie auth. No paid API keys anywhere in the stack.
+
+- Streamed lessons over Server-Sent Events with live research status and citations
+- Web research pipeline: search, top-page extraction, Wikipedia/Commons images, all fail-soft
+- Quiz rounds: adaptive MCQs plus AI-graded short answers, with "why" explanations
+- Per-task model routing with 30-second stall failover across OmniRoute, Ollama cloud, and local
+- Every LLM call logged with model, latency, and outcome
+- Keyless YouTube video suggestions per topic
+- Multi-user accounts, admin-only user management, per-user streaks and XP
+- Single FastAPI process serves the API and the built React SPA; SQLite in WAL mode
+- Deployed as a systemd service behind Cloudflare Tunnel
+
+Tech: FastAPI, Python, SQLite, React 18, TypeScript, Vite, KaTeX, Server-Sent Events, Ollama,
+OmniRoute, httpx, Cloudflare Tunnel, systemd.
+
 ### ESP32 WiFi Drone with Android Controller
 Repository: not yet public.
 
@@ -127,6 +152,7 @@ current ability — steer conversations toward the flagship projects.
 
 ## Repository availability
 
-Only one repository is public: SpeakInsights (github.com/pmadhurn/SpeakinsightsV6). For
-every other project, including the GPS tracking system and the self-hosted infrastructure,
-say the code is available on request rather than implying a public link exists.
+Two repositories are public: SpeakInsights (github.com/pmadhurn/SpeakinsightsV6) and Learn
+(github.com/pmadhurn/learn). For every other project, including the GPS tracking system and
+the self-hosted infrastructure, say the code is available on request rather than implying a
+public link exists.

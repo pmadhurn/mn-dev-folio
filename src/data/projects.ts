@@ -143,6 +143,33 @@ export const projects: Project[] = [
     }
   },
   {
+    id: 'learn-ai-tutor',
+    title: 'Learn — Self-Hosted AI Tutor',
+    summary: 'Give it a topic and it researches the web, streams a cited lesson with rendered math, quizzes you with AI-graded questions, and keeps every topic as its own chat session — routed across multiple models with automatic failover.',
+    description: 'A personal tutoring app running on the same ARM64 box as the rest of the infrastructure. Each topic becomes a persistent session: the backend searches the web, pulls the top pages and Wikipedia images, then streams a structured lesson over Server-Sent Events with numbered citations and KaTeX-rendered math. A quiz round mixes multiple-choice with short-answer questions graded by a model against a rubric, ending in an examiner-style letter grade with feedback on every miss. Model calls go through a per-task routing chain (OmniRoute → Ollama cloud → local Ollama) with a first-token stall watchdog that abandons a slow model and moves to the next. Multi-user with an admin panel, streaks and XP, and password auth with HMAC-signed cookies — no paid API keys anywhere in the stack.',
+    highlights: [
+      'Streamed lessons over SSE with live research status, numbered citations, and KaTeX math',
+      'Web research pipeline: search → top-page extraction → Wikipedia/Commons image strip, all fail-soft',
+      'Quiz rounds: adaptive MCQs plus short answers graded by a model against a rubric',
+      'AI examiner letter grade per round with per-question "why" explanations',
+      'Per-task model routing with 30 s first-token stall failover across OmniRoute, Ollama cloud, and local models',
+      'Every LLM call logged with model, latency, and outcome for routing diagnostics',
+      'Per-topic chat sessions in a sidebar, ChatGPT-style, with full history',
+      'Keyless YouTube video suggestions per topic',
+      'Multi-user accounts (PBKDF2 hashing), admin-only user management, per-user streaks and XP',
+      'Single FastAPI process serves the API and the built React SPA; SQLite in WAL mode',
+      'Deployed as a systemd service behind Cloudflare Tunnel — no public inbound ports'
+    ],
+    tech: ['FastAPI', 'Python', 'SQLite', 'React 18', 'TypeScript', 'Vite', 'KaTeX', 'Server-Sent Events', 'Ollama', 'OmniRoute', 'httpx', 'Cloudflare Tunnel', 'systemd'],
+    category: 'ai-ml',
+    status: 'public',
+    tier: 'flagship',
+    links: {
+      demo: 'https://learn.madhur.dev',
+      github: 'https://github.com/pmadhurn/learn'
+    }
+  },
+  {
     // Architecture diagram: src/components/diagrams/NavDashboardArchitectureDiagram.tsx.
     // Code link deliberately absent until the repo is scrubbed of internal
     // notes (see 2026-08-15 session log); the live demo is the link that counts.
