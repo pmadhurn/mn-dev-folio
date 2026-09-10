@@ -68,6 +68,9 @@ LOCAL_MODEL = os.environ.get("OLLAMA_LOCAL_MODEL", "llama3.2:1b")
 # conversation. The 1B fallback's KV cache at this size is still cheap on a
 # CPU-only host.
 NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "12288"))
+# Local-model warmup: wait for boot load to settle, and allow a long prompt eval.
+WARMUP_DELAY_S = float(os.environ.get("OLLAMA_WARMUP_DELAY", "180"))
+WARMUP_TIMEOUT_S = float(os.environ.get("OLLAMA_WARMUP_TIMEOUT", "1800"))
 # How often to re-check cloud availability while running on the fallback.
 CLOUD_PROBE_INTERVAL = 60.0
 # After the free-tier quota is exhausted, stay on the local model this long
@@ -339,6 +342,11 @@ async def _warm_up_model():
     and an unwarmed local fallback takes minutes on this CPU-only host. Cloud
     models don't need (or benefit from) local warmup."""
     try:
+        # Let the host settle first: at boot this box starts ~40 containers, and
+        # a 12k-token prompt eval on a 1B CPU model under that contention took
+        # >5 min on 2026-08-23 — the 300s client timeout fired, Ollama returned
+        # 500, and the runner kept burning a core for 10 more minutes.
+        await asyncio.sleep(WARMUP_DELAY_S)
         await resolve_model()
         payload = {
             "model": LOCAL_MODEL,
@@ -347,7 +355,7 @@ async def _warm_up_model():
             "keep_alive": -1,
             "options": {"num_predict": 1, "num_ctx": NUM_CTX},
         }
-        async with httpx.AsyncClient(timeout=httpx.Timeout(300.0)) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(WARMUP_TIMEOUT_S)) as client:
             await client.post(OLLAMA_URL, json=payload)
         print(f"Warmed up {LOCAL_MODEL} (system context primed)")
     except Exception as e:
