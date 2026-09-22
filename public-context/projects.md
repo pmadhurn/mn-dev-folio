@@ -28,17 +28,17 @@ SP2050 gimbal controller, computer vision, PID control systems, sensor fusion, r
 ### Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel
 Repository: available on request
 
-A self-managed production environment running six containerized services on a 4-core / 24GB
+A self-managed production environment running twenty-plus self-hosted services on a 4-core / 24GB
 ARM64 Oracle Cloud instance. Public access is handled entirely through Cloudflare Tunnel with
 no inbound ports exposed, with subdomain routing managed via tunnel ingress rules and a
 catch-all fallback.
 
-- Six containerized services in continuous operation (Open WebUI, n8n, Portainer, code-server, Ollama, Supabase)
+- Twenty-plus services in continuous operation on one box: Open WebUI, n8n, Portainer, code-server, Ollama, Supabase, plus self-built apps (NavDashboard, SpeakInsights, Learn, Read, PulseBoard, FileDrop) and self-hosted Firefly III, Actual Budget, SplitPro and Obsidian LiveSync
 - Zero-trust ingress via Cloudflare Tunnel — no public inbound ports
 - Subdomain routing through tunnel ingress configuration with ordered catch-all
 - Local LLM inference on ARM64 via Ollama
 - Self-hosted Supabase with credential isolation
-- Service monitoring, backup, and TLS certificate management
+- PulseBoard monitoring with Telegram alerts, nightly verified backups of every stack, TLS at the Cloudflare edge
 
 Tech: Oracle Cloud (ARM64), Docker, Docker Compose, Cloudflare Tunnel, Nginx, Linux (Ubuntu),
 Ollama, n8n, Portainer, PostgreSQL.
@@ -109,6 +109,31 @@ panel, streaks and XP, and HMAC-signed cookie auth. No paid API keys anywhere in
 Tech: FastAPI, Python, SQLite, React 18, TypeScript, Vite, KaTeX, Server-Sent Events, Ollama,
 OmniRoute, httpx, Cloudflare Tunnel, systemd.
 
+### Read — Family Speed-Reading Library
+Live at: https://read.madhur.dev (family passcode required). Repository: https://github.com/pmadhurn/read
+
+A private shared library for up to a dozen family members. Books are uploaded (EPUB, PDF, TXT,
+DOCX, HTML, Markdown, MOBI/AZW3, pasted text, web articles) or added straight from Project
+Gutenberg and the Internet Archive, parsed into clean chapters by a per-format pipeline with DRM,
+scan and duplicate detection, and read one word at a time (RSVP) with the recognition point
+pinned, punctuation pauses and ramp-up. Hindi, Sanskrit and Gujarati are supported with
+grapheme-cluster splitting, bundled Noto fonts and Indic OCR. Reading earns XP only for words
+actually shown while playing (the server de-duplicates re-reads and caps speed), with streaks on
+IST days, automatic freezes, levels, 15 badges and a weekly league. Installable as an app:
+the shell is precached and any book can be kept offline, with progress synced later.
+
+- Chunked uploads, per-format parsers (EPUB TOC / PDF outline splitting, header and page-number removal, hyphen rejoin, OCR)
+- Free-book search across Project Gutenberg and the Internet Archive, downloaded server-side from allow-listed hosts
+- RSVP reader with absolute-deadline timing, paused context view, bookmarks, dictionary, normal scrolling mode
+- Server-verified reading and XP; streaks reconciled lazily, never by cron
+- One family passcode with generation-stamped cookies, admin PIN, per-IP lockout
+- Service worker: precached shell, "Keep offline" per book, offline heartbeats queued and synced
+- Daily database dumps kept 14 days, streamed full-backup download
+- Docs include a requirement-by-requirement table of what is and is not verified
+
+Tech: FastAPI, Python, PostgreSQL, PyMuPDF, Tesseract, vanilla JavaScript (ES modules), Service
+Worker, Web Push, Docker Compose, Nginx, Cloudflare Tunnel, Playwright tests.
+
 ### ESP32 WiFi Drone with Android Controller
 Repository: not yet public.
 
@@ -118,6 +143,23 @@ connectivity and a Python-powered Android application for wireless control and m
 Tech: ESP32, Python, Android, WiFi, IoT.
 
 ## Supporting
+
+### PulseBoard — Server Health Dashboard
+Live at: https://health.madhur.dev (public status page; full dashboard needs a key). Repository: https://github.com/pmadhurn/pulseboard
+
+Zero-dependency Node.js monitoring: a 30-second sampler with persisted 24-hour history and
+canvas charts for CPU, memory, swap, network and disk; per-container docker stats; HTTP and
+state-file service checks for every hosted app; an alert engine (sustained CPU/load, memory,
+swap, disk, service down or recovered with anti-flap, container stop/start) delivering to
+Telegram with cooldowns. Tech: Node.js, HTML Canvas, systemd, Telegram Bot API.
+
+### FileDrop — Temporary File Sharing
+Live at: https://link.madhur.dev. Repository: https://github.com/pmadhurn/filedrop
+
+Self-hosted file sharing: upload a batch, get a short link, hard-deleted after 24 hours.
+Password protection, download limits, rate limiting, admin page. Short ids also work on the
+apex domain through an nginx path-shim in front of the portfolio. Tech: Node.js, Docker, Nginx,
+Cloudflare Tunnel.
 
 ### IoT Smart Plant Pot
 ESP32-powered plant monitoring with soil moisture sensing, LED level indicators, a buzzer
@@ -152,7 +194,8 @@ current ability — steer conversations toward the flagship projects.
 
 ## Repository availability
 
-Two repositories are public: SpeakInsights (github.com/pmadhurn/SpeakinsightsV6) and Learn
-(github.com/pmadhurn/learn). For every other project, including the GPS tracking system and
-the self-hosted infrastructure, say the code is available on request rather than implying a
-public link exists.
+Five repositories are public: SpeakInsights (github.com/pmadhurn/SpeakinsightsV6), Learn
+(github.com/pmadhurn/learn), Read (github.com/pmadhurn/read), PulseBoard
+(github.com/pmadhurn/pulseboard) and FileDrop (github.com/pmadhurn/filedrop). For every other
+project, including the GPS tracking system and the self-hosted infrastructure, say the code is
+available on request rather than implying a public link exists.

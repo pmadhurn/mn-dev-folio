@@ -80,15 +80,15 @@ export const projects: Project[] = [
     // rendered in the project modal via the projectDiagrams registry.
     id: 'self-hosted-infrastructure',
     title: 'Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel',
-    summary: 'A self-managed production environment running six containerized services on an ARM64 Oracle Cloud instance, reachable only through a zero-trust tunnel.',
-    description: 'A self-managed production environment running six containerized services on a 4-core / 24GB ARM64 Oracle Cloud instance. Public access is handled entirely through Cloudflare Tunnel with no inbound ports exposed, with subdomain routing managed via tunnel ingress rules and a catch-all fallback.',
+    summary: 'A self-managed production environment running twenty-plus self-hosted services on an ARM64 Oracle Cloud instance, reachable only through a zero-trust tunnel.',
+    description: 'A self-managed production environment running twenty-plus self-hosted services on a 4-core / 24GB ARM64 Oracle Cloud instance. Public access is handled entirely through Cloudflare Tunnel with no inbound ports exposed, with subdomain routing managed via tunnel ingress rules and a catch-all fallback.',
     highlights: [
-      'Six containerized services in continuous operation (Open WebUI, n8n, Portainer, code-server, Ollama, Supabase)',
+      'Twenty-plus services in continuous operation on one box: Open WebUI, n8n, Portainer, code-server, Ollama, Supabase, plus self-built apps (NavDashboard, SpeakInsights, Learn, Read, PulseBoard, FileDrop) and self-hosted Firefly III, Actual Budget, SplitPro and Obsidian LiveSync',
       'Zero-trust ingress via Cloudflare Tunnel — no public inbound ports',
       'Subdomain routing through tunnel ingress configuration with ordered catch-all',
       'Local LLM inference on ARM64 via Ollama',
       'Self-hosted Supabase with credential isolation',
-      'Service monitoring, backup, and TLS certificate management'
+      'PulseBoard monitoring with Telegram alerts, nightly verified backups of every stack, TLS at the Cloudflare edge'
     ],
     tech: [
       'Oracle Cloud (ARM64)',
@@ -170,6 +170,33 @@ export const projects: Project[] = [
     }
   },
   {
+    id: 'read-family-library',
+    title: 'Read — Family Speed-Reading Library',
+    summary: 'A private shelf for up to a dozen family members: upload EPUB, PDF, DOCX, MOBI or pull free books from Project Gutenberg and the Internet Archive, then read them one word at a time (RSVP) with streaks, XP, badges and a weekly league. Works offline as an installed app.',
+    description: 'Books are uploaded once (chunked to get under the CDN body limit), parsed into clean chapters by a per-format pipeline — EPUB TOC and PDF outline splitting, running-header and page-number removal, hyphen rejoin, OCR for scans, duplicate detection — and shared by everyone behind one family passcode. The RSVP reader pins the optimal recognition point, splits Hindi, Sanskrit and Gujarati text by grapheme cluster, and keeps word timing on absolute deadlines so the average speed is exact at 1000 WPM. Only words actually flashed while playing count: the server de-duplicates re-reads, caps speed, and is the sole source of XP. Streaks follow IST days with automatic freezes, all reconciled lazily so no cron job can cost anyone a streak. A service worker precaches the shell and keeps any book saved for offline reading, with progress queued locally and synced later. Deployed with Docker Compose behind Cloudflare Tunnel.',
+    highlights: [
+      'Import pipeline per format (EPUB, PDF, TXT, DOCX, HTML, Markdown, MOBI/AZW3, pasted text, web articles) with DRM, scan and corruption detection',
+      'Search and add free books straight from Project Gutenberg and the Internet Archive',
+      'RSVP reader: fixed ORP, punctuation pauses, ramp-up, chunk mode, paused context view, bookmarks, dictionary',
+      'Devanagari and Gujarati support: grapheme-cluster splitting, bundled Noto fonts, Sanskrit chapter detection, Indic OCR',
+      'Server-verified reading: 10-minute re-read window, speed cap, XP, levels, 15 badges, weekly league with tiers',
+      'Streaks on IST days with auto freezes, reconciled lazily instead of by cron',
+      'Installable PWA: shell precached, "Keep offline" per book, offline reading synced on reconnect',
+      'One shared passcode with generation-stamped cookies (changing it signs out every device), admin PIN, per-IP lockout',
+      'Daily database dumps with 14-day retention and a streamed full-backup download',
+      'Stats: per-day charts, year heatmap, per-book, profile compare, year in review',
+      'Requirement-by-requirement traceability doc with what is and is not verified'
+    ],
+    tech: ['FastAPI', 'Python', 'PostgreSQL', 'PyMuPDF', 'Tesseract', 'Vanilla JS (ES modules)', 'Service Worker', 'Web Push', 'Docker Compose', 'Nginx', 'Cloudflare Tunnel', 'Playwright'],
+    category: 'web',
+    status: 'public',
+    tier: 'flagship',
+    links: {
+      demo: 'https://read.madhur.dev',
+      github: 'https://github.com/pmadhurn/read'
+    }
+  },
+  {
     // Architecture diagram: src/components/diagrams/NavDashboardArchitectureDiagram.tsx.
     // Code link deliberately absent until the repo is scrubbed of internal
     // notes (see 2026-08-15 session log); the live demo is the link that counts.
@@ -223,6 +250,47 @@ export const projects: Project[] = [
   // ---------------------------------------------------------------------
   // Supporting
   // ---------------------------------------------------------------------
+  {
+    id: 'pulseboard',
+    title: 'PulseBoard — Server Health Dashboard',
+    summary: 'Zero-dependency Node.js monitoring for the ARM64 server: a public status page, a key-protected full dashboard with 24-hour history, and a Telegram alert engine.',
+    description: 'One server file and one HTML file, no npm packages. A background sampler ticks every 30 seconds into a persisted ring buffer and renders canvas charts for CPU, memory, swap, network and disk IO. Service checks cover every hosted app (HTTP probes plus a state-file probe for a process with no port). Alerts for sustained CPU or load, memory, swap, disk, service down or recovered with two-strike anti-flap, and container stop/start go to an in-dashboard feed and to Telegram with per-rule cooldowns. The public status page hides internal services unless unlocked with the access key.',
+    highlights: [
+      'Public status page with latency and 24-hour uptime per service',
+      'Per-core CPU, memory, swap, load, network, disk, docker per-container stats, top processes',
+      '30-second sampler with persisted 24-hour history and canvas charts',
+      'Alert engine with anti-flap and cooldowns, delivered to Telegram',
+      'No dependencies: Node.js standard library only'
+    ],
+    tech: ['Node.js', 'HTML Canvas', 'systemd', 'Telegram Bot API', 'Cloudflare Tunnel'],
+    category: 'infrastructure',
+    status: 'public',
+    tier: 'supporting',
+    links: {
+      demo: 'https://health.madhur.dev',
+      github: 'https://github.com/pmadhurn/pulseboard'
+    }
+  },
+  {
+    id: 'filedrop',
+    title: 'FileDrop — Temporary File Sharing',
+    summary: 'Self-hosted file sharing: upload a batch, get a short link, everything is hard-deleted after 24 hours. Optional password and download limits.',
+    description: 'A small Docker service behind Cloudflare Tunnel with no inbound ports. Shares get a four-to-six letter id that also works on the apex domain through an nginx shim which forwards share-shaped paths to FileDrop and lets everything else fall through to the portfolio. Rate-limited, password-protectable shares with per-share download caps, an admin page, and a scheduled sweeper that removes expired files.',
+    highlights: [
+      'Short links on two hostnames via an nginx path-shim in front of the main site',
+      'Password protection, download limits and hard expiry per share',
+      'Rate limiting and a 20 GB cap; admin page for live shares',
+      'Loopback-only containers, public only through Cloudflare Tunnel'
+    ],
+    tech: ['Node.js', 'Docker', 'Nginx', 'Cloudflare Tunnel'],
+    category: 'infrastructure',
+    status: 'public',
+    tier: 'supporting',
+    links: {
+      demo: 'https://link.madhur.dev',
+      github: 'https://github.com/pmadhurn/filedrop'
+    }
+  },
   {
     id: 'iot-smart-plant-pot',
     title: 'IoT Smart Plant Pot',
