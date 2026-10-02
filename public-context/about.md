@@ -9,8 +9,9 @@ sensor-fusion systems on Raspberry Pi and ESP32.
 
 I build and operate the layer where software meets hardware.
 
-That means a production environment I run myself — twenty-plus self-hosted services on an ARM64
-cloud instance, reachable only through a zero-trust tunnel, with no inbound ports open. It
+That means a production environment I run myself — 40+ containers and around 25 public services on
+a 2-core ARM64 cloud instance, reachable only through a zero-trust tunnel, with no inbound ports
+open. It
 also means systems that talk to physical devices: a pair of Raspberry Pi gimbals that find
 each other by GPS bearing, then hand off to computer vision for fine tracking, fusing IMU
 and magnetometer data along the way.

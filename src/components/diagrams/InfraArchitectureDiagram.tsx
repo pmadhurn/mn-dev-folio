@@ -40,7 +40,7 @@ const InfraArchitectureDiagram = () => (
       {/* ---- OCI instance ------------------------------------------------ */}
       <rect x="410" y="20" width="434" height="360" rx="12" className="fill-card stroke-border" strokeWidth="1.5" />
       <text x="428" y="48" className="fill-foreground" fontSize="13.5" fontWeight="600">Oracle Cloud instance</text>
-      <text x="428" y="66" className="fill-muted-foreground" fontSize="11">ARM64 · 4 vCPU / 24 GB · Ubuntu · no open inbound ports</text>
+      <text x="428" y="66" className="fill-muted-foreground" fontSize="11">ARM64 · 2 vCPU / 12 GB · Ubuntu · no open inbound ports</text>
 
       {/* cloudflared connector */}
       <rect x="446" y="150" width="120" height="46" rx="8" className="fill-primary/10 stroke-primary/40" strokeWidth="1" />

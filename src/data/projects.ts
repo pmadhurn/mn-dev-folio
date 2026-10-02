@@ -80,10 +80,10 @@ export const projects: Project[] = [
     // rendered in the project modal via the projectDiagrams registry.
     id: 'self-hosted-infrastructure',
     title: 'Self-Hosted Infrastructure — OCI ARM64 + Cloudflare Tunnel',
-    summary: 'A self-managed production environment running twenty-plus self-hosted services on an ARM64 Oracle Cloud instance, reachable only through a zero-trust tunnel.',
-    description: 'A self-managed production environment running twenty-plus self-hosted services on a 4-core / 24GB ARM64 Oracle Cloud instance. Public access is handled entirely through Cloudflare Tunnel with no inbound ports exposed, with subdomain routing managed via tunnel ingress rules and a catch-all fallback.',
+    summary: 'A self-managed production environment running 40+ containers and around 25 public services on a 2-core / 12 GB ARM64 Oracle Cloud instance, reachable only through a zero-trust tunnel.',
+    description: 'A self-managed production environment running 40+ containers and around 25 public services on a 2-core / 12 GB ARM64 Oracle Cloud instance. Public access is handled entirely through Cloudflare Tunnel with no inbound ports exposed, with subdomain routing managed via tunnel ingress rules and a catch-all fallback.',
     highlights: [
-      'Twenty-plus services in continuous operation on one box: Open WebUI, n8n, Portainer, code-server, Ollama, Supabase, plus self-built apps (NavDashboard, SpeakInsights, Learn, Read, PulseBoard, FileDrop) and self-hosted Firefly III, Actual Budget, SplitPro and Obsidian LiveSync',
+      'Around 25 public services in continuous operation on one 2-core box: Open WebUI, n8n, Portainer, code-server, Ollama, Supabase, plus self-built apps (NavDashboard, SpeakInsights, Learn, Read, PulseBoard, FileDrop) and self-hosted Firefly III, Actual Budget, SplitPro and Obsidian LiveSync',
       'Zero-trust ingress via Cloudflare Tunnel — no public inbound ports',
       'Subdomain routing through tunnel ingress configuration with ordered catch-all',
       'Local LLM inference on ARM64 via Ollama',
