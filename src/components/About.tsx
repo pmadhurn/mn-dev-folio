@@ -5,7 +5,7 @@ import { profile } from '@/data/profile';
 const About = () => {
   const stats = [
     { icon: GraduationCap, label: 'B.Tech CSE', value: 'Graduate' },
-    { icon: Award, label: 'GPA', value: '8.5/10' },
+    { icon: Award, label: 'GPA', value: '8.4/10' },
     { icon: MapPin, label: 'Location', value: 'Ahmedabad, India' },
     { icon: Server, label: 'Focus', value: 'Infrastructure & Embedded' },
   ];

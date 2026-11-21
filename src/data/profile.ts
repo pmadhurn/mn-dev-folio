@@ -27,7 +27,7 @@ export const profile = {
     degree: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
     institution: 'Indus University, Ahmedabad',
     duration: '2022 — 2026',
-    gpa: '8.5/10',
+    gpa: '8.4/10',
   },
   links: {
     github: 'https://github.com/pmadhurn',

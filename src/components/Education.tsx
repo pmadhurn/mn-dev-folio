@@ -61,7 +61,7 @@ const Education = () => {
                           <span className="font-medium text-primary">Academic Performance</span>
                         </div>
                         <p className="text-2xl font-heading font-bold text-foreground">
-                          8.5/10 GPA
+                          8.4/10 GPA
                           <span className="text-sm font-normal text-muted-foreground ml-2">
                             (Average for completed semesters)
                           </span>
@@ -116,7 +116,7 @@ const Education = () => {
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Consistent academic performance with 8.5/10 GPA</span>
+                  <span>Consistent academic performance with 8.4/10 GPA</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>

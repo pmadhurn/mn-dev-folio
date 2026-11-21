@@ -30,7 +30,7 @@ Tools: Git, GitHub, Vercel, Postman
 /* EDUCATION */
 University: Indus University, Ahmedabad
 Degree: B.Tech Computer Science & Engineering (2022-2026)
-GPA: 8.5/10
+GPA: 8.4/10
 
 /* CERTIFICATIONS */
 - AWS Academy Graduate - Machine Learning Foundations

@@ -36,4 +36,4 @@ that ships physical products.
 ## Education
 
 Bachelor of Technology (B.Tech), Computer Science and Engineering
-Indus University, Ahmedabad — 2022 to 2026 — GPA 8.5/10
+Indus University, Ahmedabad — 2022 to 2026 — GPA 8.4/10
