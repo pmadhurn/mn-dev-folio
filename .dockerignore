@@ -1,0 +1,9 @@
+node_modules
+.git
+src
+resume
+scripts
+__pycache__
+*.log
+.env*
+contact-messages.jsonl

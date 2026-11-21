@@ -78,6 +78,7 @@ const server = http.createServer((req, res) => {
   serveFile(res, join(DIST, 'index.html'));
 });
 
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`devfolio serving ${DIST} on http://127.0.0.1:${PORT}, /api -> ${API_TARGET}`);
+const HOST = process.env.HOST || '127.0.0.1';
+server.listen(PORT, HOST, () => {
+  console.log(`devfolio serving ${DIST} on http://${HOST}:${PORT}, /api -> ${API_TARGET}`);
 });
