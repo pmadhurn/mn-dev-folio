@@ -55,7 +55,7 @@ PUBLIC_CONTEXT_ALLOWLIST = [
 ]
 PUBLIC_CONTEXT_DIR = PROJECT_ROOT / "public-context"
 
-OLLAMA_URL = "http://localhost:11434/api/chat"
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 
 # OLLAMA_MODEL pins a single model and disables the cloud/local fallback dance.
 FORCED_MODEL = os.environ.get("OLLAMA_MODEL")
@@ -435,6 +435,15 @@ def _rate_limited(bucket: str) -> bool:
 def _send_contact_alert(text: str) -> bool:
     """Push to Telegram via the system alert script. Runs in a worker thread."""
     try:
+        token = os.environ.get("TELEGRAM_BOT_TOKEN")
+        chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+        if token and chat_id:
+            resp = httpx.post(
+                f"https://api.telegram.org/bot{token}/sendMessage",
+                data={"chat_id": chat_id, "text": text},
+                timeout=15,
+            )
+            return resp.status_code == 200
         proc = subprocess.run(
             ["sudo", "-n", ALERT_SCRIPT, text],
             capture_output=True, timeout=15,
@@ -570,4 +579,9 @@ async def chat(message: dict) -> StreamingResponse:
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=5000, log_level="info")
+    uvicorn.run(
+        app,
+        host=os.environ.get("HOST", "127.0.0.1"),
+        port=int(os.environ.get("PORT", "5000")),
+        log_level="info",
+    )

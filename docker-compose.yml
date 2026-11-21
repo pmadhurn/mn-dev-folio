@@ -1,0 +1,96 @@
+# madhur.dev portfolio stack.
+#   web     -> new site (madhur.dev via filedrop-shim :8141, new.madhur.dev) on 127.0.0.1:8210
+#   web-old -> previous site (old.madhur.dev) on 127.0.0.1:8090
+#   chat    -> shared /api chat backend, internal only
+name: devfolio
+
+x-hardening: &hardening
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=16m,mode=1777
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+services:
+  web:
+    <<: *hardening
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    image: devfolio-web:local
+    container_name: devfolio-web
+    environment:
+      CHAT_API_TARGET: http://chat:5000
+    ports:
+      - "127.0.0.1:8210:8080"
+    depends_on: [chat]
+    deploy:
+      resources:
+        limits: { memory: 256m, cpus: "1.0" }
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web-old:
+    <<: *hardening
+    build:
+      context: ../mn-dev-folio
+      dockerfile: Dockerfile.web
+    image: devfolio-web-old:local
+    container_name: devfolio-web-old
+    environment:
+      CHAT_API_TARGET: http://chat:5000
+    ports:
+      - "127.0.0.1:8090:8080"
+    depends_on: [chat]
+    deploy:
+      resources:
+        limits: { memory: 256m, cpus: "1.0" }
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  chat:
+    <<: *hardening
+    build:
+      context: .
+      dockerfile: Dockerfile.chat
+    image: devfolio-chat:local
+    container_name: devfolio-chat
+    env_file:
+      # TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID for contact-form alerts
+      - path: /home/ubuntu/.config/devfolio/chat.env
+        required: false
+    environment:
+      OLLAMA_URL: http://host.docker.internal:11434/api/chat
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - /home/ubuntu/projects/sites/mn-dev-folio/contact-messages.jsonl:/app/contact-messages.jsonl
+    deploy:
+      resources:
+        limits: { memory: 512m, cpus: "1.0" }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/health',timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+networks:
+  default:
+    driver_opts:
+      # Named bridge so the host firewall can allow chat -> host Ollama (:11434) only from here.
+      com.docker.network.bridge.name: br-devfolio
