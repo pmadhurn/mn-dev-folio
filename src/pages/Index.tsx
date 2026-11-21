@@ -1,15 +1,17 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Skills from '@/components/Skills';
-import Projects from '@/components/Projects';
-import Experience from '@/components/Experience';
-import Certifications from '@/components/Certifications';
-import Education from '@/components/Education';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/react';
+import Navbar from '@/components/site/Navbar';
+import HeroSection from '@/components/site/HeroSection';
+import Overview from '@/components/site/Overview';
+import Divisions from '@/components/site/Divisions';
+import Products from '@/components/site/Products';
+import ProjectIndex from '@/components/site/ProjectIndex';
+import TechnologySection from '@/components/site/TechnologySection';
+import Operations from '@/components/site/Operations';
+import Record from '@/components/site/Record';
+import CTASection from '@/components/site/CTASection';
+import Footer from '@/components/site/Footer';
+import { SiteProvider } from '@/components/site/SiteContext';
 
 const Index = () => {
   const siteTitle = "Madhur N Patel | Infrastructure & Embedded Systems Engineer";
@@ -36,7 +38,7 @@ const Index = () => {
         <meta property="og:url" content={siteUrl} />
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} />
-        <meta property="og:image" content={`${siteUrl}/madhur-patel-og-infra.jpg`} />
+        <meta property="og:image" content={`${siteUrl}/madhur-patel-og-dark.jpg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Madhur N Patel - Infrastructure & Embedded Systems Engineer" />
@@ -51,12 +53,12 @@ const Index = () => {
         <meta property="twitter:url" content={siteUrl} />
         <meta property="twitter:title" content={siteTitle} />
         <meta property="twitter:description" content={siteDescription} />
-        <meta property="twitter:image" content={`${siteUrl}/madhur-patel-og-infra.jpg`} />
+        <meta property="twitter:image" content={`${siteUrl}/madhur-patel-og-dark.jpg`} />
         <meta property="twitter:image:alt" content="Madhur N Patel - Infrastructure & Embedded Systems Engineer" />
         <meta property="twitter:creator" content="@pmadhurn" />
 
         {/* Enhanced SEO Meta Tags */}
-        <meta name="theme-color" content="#f9a91f" />
+        <meta name="theme-color" content="#080909" />
         <meta name="language" content="en" />
         <meta name="revisit-after" content="3 days" />
         <meta name="distribution" content="global" />
@@ -69,7 +71,7 @@ const Index = () => {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Madhur Patel" />
-        <meta name="msapplication-TileColor" content="#f9a91f" />
+        <meta name="msapplication-TileColor" content="#080909" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -205,21 +207,26 @@ const Index = () => {
         </script>
       </Helmet>
       
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Certifications />
-          <Education />
-          <Contact />
-        </main>
-        <Footer />
-        <Analytics />
-      </div>
+      <SiteProvider>
+        <div className="min-h-screen bg-background">
+          <Navbar />
+          <main id="main">
+            <HeroSection />
+            <Overview />
+            <Divisions />
+            <Products />
+            <ProjectIndex />
+            <TechnologySection />
+            <Operations />
+            <Record />
+            <CTASection />
+          </main>
+          <Footer />
+          {/* Vercel Analytics only exists on Vercel; on the self-hosted origin
+              its script path 404s into the SPA fallback. */}
+          {typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app') && <Analytics />}
+        </div>
+      </SiteProvider>
     </>
   );
 };

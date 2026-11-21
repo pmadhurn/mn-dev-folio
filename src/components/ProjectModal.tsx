@@ -1,124 +1,91 @@
-import { X, ExternalLink, Github, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { ArrowUpRight } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { projectDiagrams } from '@/components/diagrams';
+import Media from '@/components/site/Media';
+import { CATEGORY_LABEL, STATUS_LABEL, shortTitle, subTitle } from '@/components/site/labels';
+import { projectMedia } from '@/data/media';
+import type { Project } from '@/data/projects';
 
-const ProjectModal = ({ project, isOpen, onClose }) => {
-  if (!project) return null;
+interface ProjectModalProps {
+  project: Project;
+  isOpen: boolean;
+  onClose: () => void;
+}
 
+/** Full project write-up: image, overview, architecture, highlights, stack. */
+const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   const Diagram = projectDiagrams[project.id];
-
-  const getStatusBadge = (status) => {
-    const badges = {
-      public: { label: 'Public Repository', className: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' },
-      private: { label: 'Available on Request', className: 'bg-accent/10 text-accent' },
-      'coming-soon': { label: 'Coming Soon', className: 'bg-muted text-muted-foreground' }
-    };
-    const badge = badges[status] || badges.public;
-    return (
-      <span className={`px-3 py-1 text-sm font-medium rounded-full ${badge.className}`}>
-        {badge.label}
-      </span>
-    );
-  };
+  const image = projectMedia[project.id];
+  const repo = project.links.code || project.links.github;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="space-y-4">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <DialogTitle className="text-2xl font-heading font-bold pr-8 flex items-center gap-2">
-                {project.title}
-                {project.tier === 'flagship' && (
-                  <Star size={20} className="text-yellow-500 fill-current" />
-                )}
-              </DialogTitle>
-            </div>
-          </div>
-        </DialogHeader>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="block max-h-[92vh] max-w-5xl gap-0 overflow-y-auto rounded-none border-white/10 bg-ink p-0 sm:rounded-none">
+        {image && <Media name={image} sizes="(min-width: 1024px) 64rem, 100vw" className="grade aspect-[21/9] w-full" />}
 
-        <div className="space-y-6">
-          {/* Status and Links */}
-          <div className="flex flex-wrap items-center gap-4 pb-4 border-b">
-            {getStatusBadge(project.status)}
-            <div className="flex items-center gap-2 ml-auto">
-              {project.links.demo && (
-                <Button
-                  variant="default"
-                  onClick={() => window.open(project.links.demo, '_blank')}
-                  className="flex items-center gap-2"
-                >
-                  <ExternalLink size={16} />
-                  Live Demo
-                </Button>
-              )}
-              {(project.links.code || project.links.github) && (
-                <Button
-                  variant="outline"
-                  onClick={() => window.open(project.links.code || project.links.github, '_blank')}
-                  className="flex items-center gap-2"
-                >
-                  <Github size={16} />
-                  {project.status === 'private' ? 'Request Access' : 'View Code'}
-                </Button>
-              )}
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-heading font-semibold">Project Overview</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              {project.description}
+        <div className="p-6 md:p-10">
+          <DialogHeader className="space-y-0 text-left">
+            <p className="t-label mb-5 flex flex-wrap gap-x-4 gap-y-1 text-steel">
+              <span>{CATEGORY_LABEL[project.category]}</span>
+              <span>{STATUS_LABEL[project.status]}</span>
+              {project.tier === 'flagship' && <span>Flagship</span>}
             </p>
-          </div>
+            <DialogTitle className="t-title pr-8 text-[clamp(1.5rem,2.6vw,2.5rem)] font-semibold leading-none tracking-[-0.03em] text-white">{shortTitle(project)}</DialogTitle>
+            {subTitle(project) && <p className="t-subtitle mt-3 text-bone/80">{subTitle(project)}</p>}
+            <DialogDescription className="mt-6 text-base leading-relaxed text-steel md:text-lg">{project.summary}</DialogDescription>
+          </DialogHeader>
 
-          {/* Architecture */}
-          {Diagram && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-heading font-semibold">Architecture</h3>
-              <Diagram />
+          {(project.links.demo || repo) && (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {project.links.demo && (
+                <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="btn btn-solid">
+                  Open live <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+              )}
+              {repo && (
+                <a href={repo} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                  {project.status === 'private' ? 'Request access' : 'View code'} <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+              )}
             </div>
           )}
 
-          {/* Highlights */}
-          {project.highlights && project.highlights.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-heading font-semibold">Key Features & Highlights</h3>
-              <ul className="grid gap-2">
-                {project.highlights.map((highlight, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">{highlight}</span>
+          <section className="mt-12 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-[12rem_1fr]">
+            <h3 className="t-label text-steel">Overview</h3>
+            <p className="t-body text-bone/90">{project.description}</p>
+          </section>
+
+          {Diagram && (
+            <section className="mt-12 border-t border-white/10 pt-8">
+              <h3 className="t-label mb-6 text-steel">Architecture</h3>
+              <Diagram />
+            </section>
+          )}
+
+          {project.highlights.length > 0 && (
+            <section className="mt-12 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-[12rem_1fr]">
+              <h3 className="t-label text-steel">Highlights</h3>
+              <ul className="space-y-3">
+                {project.highlights.map((h) => (
+                  <li key={h} className="t-body flex gap-4 text-bone/90">
+                    <span aria-hidden="true" className="mt-[0.75em] h-px w-4 shrink-0 bg-steel" />
+                    <span>{h}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           )}
 
-          {/* Technology Stack */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-heading font-semibold">Technology Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((tech, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-2 bg-primary/10 text-primary rounded-lg font-medium text-sm border border-primary/20"
-                >
-                  {tech}
-                </span>
+          <section className="mt-12 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-[12rem_1fr]">
+            <h3 className="t-label text-steel">Stack</h3>
+            <ul className="flex flex-wrap gap-2">
+              {project.tech.map((t) => (
+                <li key={t} className="t-label border border-white/15 px-3 py-2 text-bone">
+                  {t}
+                </li>
               ))}
-            </div>
-          </div>
-
-          {/* Additional Info */}
-          <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-            <h4 className="font-medium">Project Category</h4>
-            <p className="text-sm text-muted-foreground capitalize">
-              {project.category.replace('-', '/')}
-            </p>
-          </div>
+            </ul>
+          </section>
         </div>
       </DialogContent>
     </Dialog>

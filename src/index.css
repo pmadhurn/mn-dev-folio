@@ -2,133 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/*
+  Design system — dark industrial.
+
+  Six raw colours, nothing else:
+    ink       #080909   deep black, the page ground
+    charcoal  #171A1B   raised sections
+    surface   #202425   cards, inputs, dividers on dark
+    bone      #E9E9E5   off-white text, and the ground of light sections
+    steel     #A4AAA7   secondary text on dark
+    white     #FFFFFF   primary actions and display type
+
+  Tokens are HSL triplets so Tailwind's `/opacity` modifiers work. The shadcn
+  token names are kept (background, card, muted…) so every existing UI
+  primitive — dialog, toast, input — picks up the palette without edits.
+
+  The site is dark-first. A light section is opted into with `.surface-light`,
+  which re-declares the same tokens on a bone ground: components inside it
+  re-theme through the cascade, no per-component light variants needed.
 */
-
 @layer base {
-  :root {
-    /* Portfolio Color System — Amber & Deep Teal.
-       Warm paper ground rather than pure white, so the amber reads as intentional
-       rather than as a warning colour sitting on a clinical background. */
-    --background: 40 40% 99%;
-    --foreground: 25 25% 9%;
+  :root,
+  .dark {
+    --ink: 180 6% 3%;
+    --charcoal: 195 8% 10%;
+    --surface: 192 7% 14%;
+    --bone: 60 8% 90%;
+    --steel: 150 3% 65%;
+    --white: 0 0% 100%;
 
-    --card: 40 40% 100%;
-    --card-foreground: 25 25% 9%;
+    --background: var(--ink);
+    --foreground: var(--bone);
 
-    --popover: 40 40% 100%;
-    --popover-foreground: 25 25% 9%;
+    --card: var(--charcoal);
+    --card-foreground: var(--bone);
 
-    /* Primary: amber. `--primary` doubles as a text colour (skill badges, links,
-       nav underline), and vivid gold on paper is ~1.9:1 — nowhere near legible.
-       So the token is a deep bronze-amber that clears WCAG AA (4.7:1), and the
-       vivid gold lives in `--primary-glow` for gradients, glows and borders,
-       where contrast rules don't apply. Same split the teal accent already used. */
-    --primary: 32 95% 35%;
-    --primary-foreground: 40 40% 99%;
-    --primary-glow: 38 96% 56%;
+    --popover: var(--charcoal);
+    --popover-foreground: var(--bone);
 
-    /* Secondary: warm neutrals, tinted to match the paper ground */
-    --secondary: 36 30% 94%;
-    --secondary-foreground: 25 30% 14%;
+    /* Primary is white: the brief allows no accent hue, so emphasis comes
+       from contrast and scale, not colour. */
+    --primary: var(--white);
+    --primary-foreground: var(--ink);
+    --primary-glow: var(--white);
 
-    --muted: 36 25% 94%;
-    --muted-foreground: 28 12% 40%;
+    --secondary: var(--surface);
+    --secondary-foreground: var(--bone);
 
-    /* Accent: deep teal — the cool counterweight to the amber, held dark
-       enough that accent-coloured text also clears AA (5.5:1). */
-    --accent: 187 85% 27%;
-    --accent-foreground: 40 40% 99%;
-    --accent-glow: 186 72% 45%;
+    --muted: var(--surface);
+    --muted-foreground: var(--steel);
 
-    --destructive: 0 72% 45%;
-    --destructive-foreground: 0 0% 98%;
+    --accent: var(--bone);
+    --accent-foreground: var(--ink);
+    --accent-glow: var(--steel);
 
-    --border: 36 20% 88%;
-    --input: 36 20% 88%;
-    --ring: 32 95% 35%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: var(--white);
 
-    --radius: 0.5rem;
+    --border: 180 4% 18%;
+    --input: 180 4% 22%;
+    --ring: var(--white);
 
-    /* Headline gradient stops, kept separate from the brand tokens because a
-       gradient that ends in `--primary-glow` washes out to near-invisible on
-       the light ground. Here every stop stays dark enough to read as text. */
-    --gradient-from: 32 95% 35%;
-    --gradient-mid: 20 88% 44%;
-    --gradient-to: 187 85% 27%;
+    --radius: 2px;
 
-    /* Motion tokens. The stock CSS easings are too weak to read as intentional;
-       these are the stronger variants used across the site's transitions. */
-    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --gradient-from: var(--white);
+    --gradient-mid: var(--bone);
+    --gradient-to: var(--steel);
 
-    --sidebar-background: 0 0% 98%;
+    /* Motion. One curve for entrances, one for state changes. */
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-fast: 200ms;
+    --dur-base: 450ms;
+    --dur-slow: 900ms;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Layout rhythm */
+    --gutter: clamp(1rem, 4vw, 3rem);
+    --section-y: clamp(5rem, 11vw, 10rem);
+    --header-h: 4.5rem;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    color-scheme: dark;
   }
 
-  .dark {
-    /* Dark theme: warm near-black rather than the usual blue-black, so the
-       ground shares a temperature with the amber instead of fighting it. */
-    --background: 24 18% 6%;
-    --foreground: 40 25% 96%;
-
-    --card: 24 16% 9%;
-    --card-foreground: 40 25% 96%;
-
-    --popover: 24 16% 9%;
-    --popover-foreground: 40 25% 96%;
-
-    /* On a near-black ground the vivid gold is legible (9.8:1), so dark mode
-       gets the full-strength colour the light theme has to hold back on.
-       This is where the palette is meant to look its best. */
-    --primary: 38 95% 55%;
-    --primary-foreground: 24 30% 8%;
-    --primary-glow: 42 100% 66%;
-
-    --secondary: 24 14% 15%;
-    --secondary-foreground: 40 25% 96%;
-
-    --muted: 24 14% 15%;
-    --muted-foreground: 36 12% 66%;
-
-    /* Accent: bright teal (9.4:1 on the dark ground) */
-    --accent: 186 78% 48%;
-    --accent-foreground: 24 30% 8%;
-    --accent-glow: 184 85% 62%;
-
-    /* On the dark ground the gradient can run at full brightness. */
-    --gradient-from: 38 95% 55%;
-    --gradient-mid: 42 100% 66%;
-    --gradient-to: 184 85% 62%;
-
-    --destructive: 0 63% 46%;
-    --destructive-foreground: 40 25% 96%;
-
-    --border: 24 12% 17%;
-    --input: 24 12% 17%;
-    --ring: 38 95% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  .surface-light {
+    --background: var(--bone);
+    --foreground: var(--ink);
+    --card: 60 6% 94%;
+    --card-foreground: var(--ink);
+    --popover: 60 6% 96%;
+    --popover-foreground: var(--ink);
+    --primary: var(--ink);
+    --primary-foreground: var(--bone);
+    --secondary: 60 5% 84%;
+    --secondary-foreground: var(--ink);
+    --muted: 60 5% 84%;
+    /* Darkened steel: #A4AAA7 on bone is only 2:1, this clears AA. */
+    --muted-foreground: 150 3% 31%;
+    --border: 60 3% 78%;
+    --input: 60 3% 72%;
+    --ring: var(--ink);
+    color-scheme: light;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
@@ -137,95 +112,284 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+    text-rendering: optimizeLegibility;
   }
 
-  /* Keep in-page scroll targets clear of the ~72px fixed header. */
+  ::selection {
+    background: hsl(var(--white));
+    color: hsl(var(--ink));
+  }
+
   section[id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: var(--header-h);
   }
 
-  /* Typography System */
+  :focus-visible {
+    outline: 1px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
   .font-heading {
-    font-family: 'Space Grotesk', 'Poppins', system-ui, sans-serif;
+    font-family: 'Geist', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   }
 
   .font-body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   }
 
   .font-mono {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-family: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
   }
 }
 
 @layer components {
-  /* Portfolio-specific components */
-  .hero-gradient {
+  /* ---- Layout --------------------------------------------------------- */
+  .shell {
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section-pad {
+    padding-block: var(--section-y);
+  }
+
+  /* ---- Type scale ------------------------------------------------------ */
+  /* Display: hero only. Fluid from phone to ultrawide without breakpoints. */
+  .t-display {
+    @apply font-heading uppercase;
+    font-size: clamp(2.6rem, 8.4vw, 8.75rem);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+  }
+
+  .t-headline {
+    @apply font-heading uppercase;
+    font-size: clamp(2.1rem, 5.2vw, 5.25rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .t-title {
+    @apply font-heading uppercase;
+    font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .t-subtitle {
+    @apply font-heading;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .t-lede {
+    font-size: clamp(1.0625rem, 1.35vw, 1.3125rem);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+  }
+
+  .t-body {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  /* Small uppercase label above headings, in indexes, on cards. */
+  .t-label {
+    @apply font-mono uppercase;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+  }
+
+  /* ---- Actions --------------------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-3 font-mono uppercase select-none;
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    border: 1px solid transparent;
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .btn-solid {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .btn-outline {
+    border-color: hsl(var(--foreground) / 0.4);
+    color: hsl(var(--foreground));
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-solid:hover {
+      background: hsl(var(--primary) / 0.84);
+    }
+    .btn-outline:hover {
+      border-color: hsl(var(--foreground));
+      background: hsl(var(--foreground) / 0.06);
+    }
+  }
+
+  /* Text link with a trailing arrow that slides on hover. */
+  .link-arrow {
+    @apply inline-flex items-center gap-2 font-mono uppercase;
+    min-height: 2.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: hsl(var(--foreground));
+  }
+  .link-arrow svg {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .link-arrow .link-arrow-text {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-base) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .link-arrow:hover svg,
+    .group:hover .link-arrow svg {
+      transform: translateX(4px);
+    }
+    .link-arrow:hover .link-arrow-text,
+    .group:hover .link-arrow .link-arrow-text {
+      background-size: 100% 1px;
+    }
+  }
+
+  /* Nav link: underline grows from the left. */
+  .nav-link {
+    @apply relative font-mono uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: hsl(var(--foreground) / 0.72);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .nav-link:hover,
+  .nav-link[aria-expanded='true'] {
+    color: hsl(var(--foreground));
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-expanded='true']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ---- Media ----------------------------------------------------------- */
+  /* Image frame with the slow hover zoom. Gated on a fine pointer so a tap on
+     touch doesn't leave the image stuck zoomed. */
+  .media-frame {
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--charcoal));
+  }
+  .media-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease-out), filter 1.2s var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover .media-frame img,
+    .media-frame:hover img {
+      transform: scale(1.045);
+    }
+  }
+
+  /* Colour grade: pulls stock photography toward the palette. */
+  .grade img {
+    filter: grayscale(0.55) contrast(1.06) brightness(0.86);
+  }
+  .grade-strong img {
+    filter: grayscale(0.85) contrast(1.1) brightness(0.62);
+  }
+
+  .scrim-bottom {
     background: linear-gradient(
-      135deg,
-      hsl(var(--primary-glow)) 0%,
-      hsl(var(--primary)) 45%,
-      hsl(var(--accent)) 100%
+      to top,
+      hsl(var(--ink) / 0.92) 0%,
+      hsl(var(--ink) / 0.55) 38%,
+      hsl(var(--ink) / 0) 72%
     );
   }
 
+  .hairline {
+    border-color: hsl(var(--foreground) / 0.14);
+  }
+
+  /* Index / spec rows */
+  .spec-row {
+    @apply grid gap-2 border-t py-3 sm:grid-cols-[10rem_1fr];
+    border-color: hsl(var(--foreground) / 0.14);
+  }
+
+  /* Form fields: square, underlined, no fill. */
+  .field {
+    @apply block w-full bg-transparent px-0 py-3 text-base;
+    border: 0;
+    border-bottom: 1px solid hsl(var(--input));
+    border-radius: 0;
+    color: hsl(var(--foreground));
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .field::placeholder {
+    color: hsl(var(--muted-foreground) / 0.7);
+  }
+  .field:focus {
+    outline: none;
+    border-bottom-color: hsl(var(--foreground));
+  }
+  .field:disabled {
+    @apply opacity-60;
+  }
+
+  /* Legacy names still used by the chat page. */
   .glass-card {
-    @apply backdrop-blur-sm bg-card/90 border border-border/50;
+    @apply backdrop-blur-md border-border;
+    background: hsl(var(--charcoal) / 0.86);
   }
-
-  /* Small uppercase label that sits above a section heading, giving each
-     section a consistent entry point instead of a bare <h2>. */
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(var(--white)) 0%, hsl(var(--steel)) 100%);
+  }
   .section-eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-primary/25
-           bg-primary/10 px-3 py-1 font-mono text-xs uppercase tracking-[0.16em]
-           text-primary;
-  }
-
-  .skill-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-           bg-primary/10 text-primary border border-primary/20 hover:bg-primary/15
-           hover:border-primary/40 transition-[background-color,border-color,transform]
-           duration-200 ease-out;
-  }
-
-  /* Hover lift is gated behind a real pointer: on touch, :hover sticks after a
-     tap and the card stays raised until something else is tapped. */
-  .project-card {
-    @apply relative overflow-hidden rounded-xl border bg-card p-6
-           transition-[box-shadow,border-color,transform] duration-300;
-    transition-timing-function: var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .project-card:hover {
-      @apply border-primary/50 shadow-xl;
-      transform: translateY(-4px);
-    }
-  }
-
-  .nav-link {
-    @apply relative text-muted-foreground hover:text-foreground transition-colors duration-200 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
-  }
-
-  /* The lift is a shadow change only. The previous hover:scale-105 resized the
-     text inside the button along with it, which reads as a wobble at this size —
-     scale is reserved for the press state, where it's the point. */
-  .btn-hero {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90
-           shadow-lg transition-[background-color,box-shadow] duration-200 ease-out;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .btn-hero:hover {
-      box-shadow: 0 12px 32px -10px hsl(var(--primary) / 0.55);
-    }
-  }
-
-  .btn-ghost {
-    @apply border border-border hover:bg-accent/10 hover:text-accent hover:border-accent/40
-           transition-[background-color,color,border-color] duration-200 ease-out;
+    @apply t-label inline-flex items-center gap-2 text-muted-foreground;
   }
 
   /* Markdown rendered inside chat bubbles (react-markdown output) */
@@ -263,7 +427,6 @@ All colors MUST be HSL.
     @apply border-l-2 border-border pl-3 text-muted-foreground;
   }
   .chat-markdown table {
-    /* block + overflow keeps wide tables scrollable inside the bubble */
     @apply block max-w-full overflow-x-auto border-collapse text-sm;
   }
   .chat-markdown th,
@@ -276,35 +439,15 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  /* Brand gradient applied to text. The fallback colour matters: if the clip
-     fails (or the gradient can't paint) the text stays readable rather than
-     rendering as a transparent hole. */
   .text-gradient-brand {
-    color: hsl(var(--primary));
-    background-image: linear-gradient(
-      115deg,
-      hsl(var(--gradient-from)) 0%,
-      hsl(var(--gradient-mid)) 45%,
-      hsl(var(--gradient-to)) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: hsl(var(--foreground));
   }
 
-  /* Soft off-axis colour wash behind the hero. Two wide radial gradients read
-     as depth without the banding a single linear gradient shows on large areas. */
-  .aurora {
-    background-image:
-      radial-gradient(58% 48% at 12% 18%, hsl(var(--primary-glow) / 0.20), transparent 72%),
-      radial-gradient(48% 42% at 88% 28%, hsl(var(--accent-glow) / 0.16), transparent 72%),
-      radial-gradient(46% 46% at 62% 88%, hsl(var(--primary) / 0.10), transparent 72%);
+  .text-balance {
+    text-wrap: balance;
   }
-
-  .glow-primary {
-    box-shadow:
-      0 0 0 1px hsl(var(--primary) / 0.22),
-      0 24px 60px -18px hsl(var(--primary) / 0.42);
+  .text-pretty {
+    text-wrap: pretty;
   }
 
   .scrollbar-hide {
@@ -316,28 +459,18 @@ All colors MUST be HSL.
   }
 }
 
-/* Reduced motion: drop movement (transform/position), keep the color and
-   opacity feedback that aids comprehension — never animate to nothing. */
+/* Reduced motion: drop movement, keep colour and opacity feedback. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-property: color, background-color, border-color, box-shadow, opacity !important;
     transition-duration: 150ms !important;
   }
-}
-
-/* View Transition API styles */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-::view-transition-new(root) {
-  z-index: 9999;
 }

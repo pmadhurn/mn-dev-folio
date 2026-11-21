@@ -7,7 +7,7 @@ export const experiences = [
       'Implemented robust CI/CD pipelines using GitHub Actions, automating the build, test, and deployment of applications.',
       'Engineered a secure and scalable network infrastructure using Cloudflare Tunnel, enabling secure access to internal applications and services without exposing them to the public internet.',
       'Managed Vercel deployments with a non-proxied Cloudflare setup, optimizing for performance and security by leveraging Cloudflare\'s DNS and security features while directly serving content from Vercel.',
-      'Containerized services with Docker and Docker Compose, managing service dependencies, health checks, and persistent volumes across a six-service deployment.',
+      'Containerized services with Docker and Docker Compose, managing service dependencies, health checks, and persistent volumes across multi-service deployments.',
     ],
     technologies: ['Cloudflare', 'Cloudflare Tunnel', 'Vercel', 'AWS', 'Docker', 'Docker Compose', 'Nginx', 'Linux', 'GitHub Actions'],
   },

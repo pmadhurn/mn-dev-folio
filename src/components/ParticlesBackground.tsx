@@ -84,8 +84,8 @@ const makeOptions = (color: string) => ({
   detectRetina: true,
 });
 
-const OPTIONS_DARK = makeOptions('#f9a91f');
-const OPTIONS_LIGHT = makeOptions('#a8690c');
+const OPTIONS_DARK = makeOptions('#A4AAA7');
+const OPTIONS_LIGHT = makeOptions('#A4AAA7');
 
 // Stable style object: an inline literal would be a new identity every render
 // and can make the Particles component rebuild its canvas.

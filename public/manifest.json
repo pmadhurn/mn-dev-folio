@@ -4,8 +4,8 @@
   "description": "Madhur N Patel — Infrastructure and embedded systems engineer in Ahmedabad, India. Builds and operates self-managed Linux infrastructure, containerized services, and sensor-fusion systems on Raspberry Pi and ESP32.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#120f0d",
-  "theme_color": "#f9a91f",
+  "background_color": "#080909",
+  "theme_color": "#080909",
   "orientation": "portrait-primary",
   "icons": [
     {

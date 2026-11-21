@@ -14,16 +14,21 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1600px'
 			}
 		},
 		extend: {
 			fontFamily: {
-				heading: ['Space Grotesk', 'Poppins', 'system-ui', 'sans-serif'],
-				body: ['Inter', 'system-ui', 'sans-serif'],
-				mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+				heading: ['Geist', 'Inter', 'Helvetica Neue', 'system-ui', 'sans-serif'],
+				body: ['Inter', 'Helvetica Neue', 'system-ui', 'sans-serif'],
+				mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
 			},
 			colors: {
+				ink: 'hsl(var(--ink))',
+				charcoal: 'hsl(var(--charcoal))',
+				surface: 'hsl(var(--surface))',
+				bone: 'hsl(var(--bone))',
+				steel: 'hsl(var(--steel))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -74,6 +79,9 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			transitionTimingFunction: {
+				'out-expo': 'cubic-bezier(0.22, 1, 0.36, 1)',
 			},
 			keyframes: {
 				'accordion-down': {

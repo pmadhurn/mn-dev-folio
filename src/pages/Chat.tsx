@@ -52,13 +52,10 @@ const Chat = () => {
     scrollToBottom();
   }, [messages]);
 
-  // The theme class is normally applied by the Header on the home page; apply
-  // it here too so landing directly on /chat still honors the saved theme.
+  // The site is dark-only; keep `dark:` variants consistent when /chat is the
+  // landing page.
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    document.documentElement.classList.toggle('dark', shouldBeDark);
+    document.documentElement.classList.add('dark');
   }, []);
 
   // In dev the Vite server proxies /api -> the local FastAPI backend, which avoids
